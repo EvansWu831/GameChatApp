@@ -1,0 +1,21 @@
+PODS:
+  - QuickBlox (2.16)
+  - Quickblox-WebRTC (2.6.3):
+    - QuickBlox (>= 2.7)
+
+DEPENDENCIES:
+  - QuickBlox
+  - Quickblox-WebRTC
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - QuickBlox
+    - Quickblox-WebRTC
+
+SPEC CHECKSUMS:
+  QuickBlox: fc3ab36e290d703573fdfa8e3066eade722460f0
+  Quickblox-WebRTC: 1838368795c479dd61796a3423ce9e74a90fe939
+
+PODFILE CHECKSUM: 4aafcf8a020be444a9626d5e9a0497dd3724179a
+
+COCOAPODS: 1.5.0
