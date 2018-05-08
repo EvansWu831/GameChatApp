@@ -2,20 +2,24 @@ PODS:
   - QuickBlox (2.16)
   - Quickblox-WebRTC (2.6.3):
     - QuickBlox (>= 2.7)
+  - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
   - QuickBlox
   - Quickblox-WebRTC
+  - SVProgressHUD
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - QuickBlox
     - Quickblox-WebRTC
+    - SVProgressHUD
 
 SPEC CHECKSUMS:
   QuickBlox: fc3ab36e290d703573fdfa8e3066eade722460f0
   Quickblox-WebRTC: 1838368795c479dd61796a3423ce9e74a90fe939
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 4aafcf8a020be444a9626d5e9a0497dd3724179a
+PODFILE CHECKSUM: a35a0943d42be20d10b5b0b71785a6911f46e240
 
 COCOAPODS: 1.5.0

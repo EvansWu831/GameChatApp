@@ -145,10 +145,12 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${PODS_ROOT}/QuickBlox/Quickblox.framework"
   install_framework "${PODS_ROOT}/Quickblox-WebRTC/QuickbloxWebRTC.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${PODS_ROOT}/QuickBlox/Quickblox.framework"
   install_framework "${PODS_ROOT}/Quickblox-WebRTC/QuickbloxWebRTC.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait
