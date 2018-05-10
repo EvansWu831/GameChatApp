@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Quickblox
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,7 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
+        QBSettings.applicationID = 70678
+        QBSettings.authKey = "uFw33nGkcf2vNma"
+        QBSettings.authSecret = "44NDcGp2mMZCTOw"
+        QBSettings.accountKey = "Ksi1_E7QzA5Hrkc5rsB6"
+        QBSettings.autoReconnectEnabled = true
         return true
     }
 
