@@ -13,7 +13,6 @@
 		28A25A7520A149C2001B95F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28A25A7320A149C2001B95F9 /* Main.storyboard */; };
 		28A25A7720A149C3001B95F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28A25A7620A149C3001B95F9 /* Assets.xcassets */; };
 		28A25A7A20A149C3001B95F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28A25A7820A149C3001B95F9 /* LaunchScreen.storyboard */; };
-		28A25A8A20A2A2CE001B95F9 /* Users.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28A25A8920A2A2CD001B95F9 /* Users.plist */; };
 		28A25A8C20A2A462001B95F9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A25A8B20A2A462001B95F9 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -26,7 +25,6 @@
 		28A25A7620A149C3001B95F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		28A25A7920A149C3001B95F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		28A25A7B20A149C3001B95F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		28A25A8920A2A2CD001B95F9 /* Users.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Users.plist; sourceTree = "<group>"; };
 		28A25A8B20A2A462001B95F9 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		43059003BE8F4A1710CFE428 /* Pods-home.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-home.debug.xcconfig"; path = "Pods/Target Support Files/Pods-home/Pods-home.debug.xcconfig"; sourceTree = "<group>"; };
 		82548B9F45966C18B4F7005B /* Pods_home.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_home.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,7 +63,6 @@
 		28A25A6E20A149C2001B95F9 /* home */ = {
 			isa = PBXGroup;
 			children = (
-				28A25A8920A2A2CD001B95F9 /* Users.plist */,
 				28A25A6F20A149C2001B95F9 /* AppDelegate.swift */,
 				28A25A8B20A2A462001B95F9 /* LoginViewController.swift */,
 				28A25A7120A149C2001B95F9 /* HomeViewController.swift */,
@@ -159,7 +156,6 @@
 				28A25A7A20A149C3001B95F9 /* LaunchScreen.storyboard in Resources */,
 				28A25A7720A149C3001B95F9 /* Assets.xcassets in Resources */,
 				28A25A7520A149C2001B95F9 /* Main.storyboard in Resources */,
-				28A25A8A20A2A2CE001B95F9 /* Users.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

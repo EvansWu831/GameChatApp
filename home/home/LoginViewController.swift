@@ -14,75 +14,92 @@ import SVProgressHUD
 
 class LoginViewController: UIViewController {
     
+    @IBOutlet weak var idTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     
-var currentUser: QBUUser?
-var users: [String : String]?
-
-override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    // fetching users from Users.plist
-    if let path = Bundle.main.path(forResource: "Users", ofType: "plist"){
-        users = NSDictionary(contentsOfFile: path) as? [String : String]
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
-    
-    precondition(users!.count > 1, "The Users.plist file should contain at least 2 and max 4 users with format [login:password]. Please go to https://admin.quickblox.com and create users in 'Users' module.")
-    
-    precondition(users!.count <= 4, "Maximum of 4 sample users are recommended. Please remove other ones.")
-}
 
-override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-    self.loginButton.isHidden = false
-}
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
 
     //MARK: - Actions
 
     @IBAction func didLogin(_ sender: UIButton) {
-        presentUsersList()
-    }
-    func presentUsersList() {
-        
-        let alert = UIAlertController(title: "Login as:", message: nil, preferredStyle: .actionSheet)
-        
-        for (_, user) in users!.enumerated() {
-            let user = UIAlertAction(title: user.key, style: .default) { action in
-                self.login(userLogin: user.key, password: user.value)
+
+        if let id = idTextField.text {
+            if let password = passwordTextField.text {
+                if !id.isEmpty {
+                    if password != "" {
+                        login(userLogin: id, password: password)
+                    }
+                    else {
+                        let alert = UIAlertController(title: "錯誤", message: "密碼空白", preferredStyle: .alert)
+                        let action = UIAlertAction(title: "確認", style: .default)
+                        alert.addAction(action)
+                        present(alert, animated: true, completion: nil)
+                    }
+                }
+                else {
+                    let alert = UIAlertController(title: "錯誤", message: "帳號空白", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "確認", style: .default)
+                    alert.addAction(action)
+                    present(alert, animated: true, completion: nil)
+                }
             }
-            alert.addAction(user)
+            else {
+                let alert = UIAlertController(title: "錯誤", message: "請重新輸入帳號密碼", preferredStyle: .alert)
+                let action = UIAlertAction(title: "確認", style: .default) { (UIAlertAction) in
+                    self.textClearance()
+                }
+                alert.addAction(action)
+                present(alert, animated: true, completion: nil)
+            }
         }
-        
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { action in
-            self.loginButton.isHidden = false
+        else {
+            let alert = UIAlertController(title: "錯誤", message: "請重新輸入帳號密碼", preferredStyle: .alert)
+            let action = UIAlertAction(title: "確認", style: .default) { (UIAlertAction) in
+                self.textClearance()
+            }
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
         }
-        alert.addAction(cancel)
-        
-        self.present(alert, animated: true)
-        self.loginButton.isHidden = true
+    }
+    
+    func textClearance() {
+        idTextField.text = ""
+        passwordTextField.text = ""
     }
     
     func login(userLogin: String, password: String) {
         SVProgressHUD.show(withStatus: "Logining to rest")
-        QBRequest.logIn(withUserLogin: userLogin, password: password, successBlock:{ r, user in
-            self.currentUser = user
+        QBRequest.logIn(withUserLogin: userLogin,password: password,successBlock:{ r, user in
             SVProgressHUD.show(withStatus: "Connecting to chat")
             QBChat.instance.connect(with: user) { err in
-                let logins = self.users?.keys.filter {$0 != user.login}
-                SVProgressHUD.show(withStatus: "Geting users Info")
-                QBRequest.users(withLogins: logins!, page:nil, successBlock: { r, p, users in
-                    self.performSegue(withIdentifier: "GOHOME", sender:users)
-                    SVProgressHUD.dismiss()
-                })
+                self.performSegue(withIdentifier: "GOHOME", sender:user)
+                SVProgressHUD.dismiss()
             }
-        })
+            
+            },
+            errorBlock: { error in
+                SVProgressHUD.dismiss()
+                let alert = UIAlertController(title: "錯誤", message: "帳號密碼錯誤", preferredStyle: .alert)
+                let action = UIAlertAction(title: "確認", style: .default) { (UIAlertAction) in
+                    self.textClearance()
+                }
+                alert.addAction(action)
+                self.present(alert, animated: true, completion: nil)
+        }
+        )
     }
-    //這邊再傳資料
+    //傳資料
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let homeVC  = segue.destination as! HomeViewController
-        homeVC.opponets = sender as? [QBUUser]
-        homeVC.currentUser = self.currentUser
+        homeVC.currentUser = sender as? QBUUser
     }
     
 }

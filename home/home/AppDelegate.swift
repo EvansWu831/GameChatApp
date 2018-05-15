@@ -8,12 +8,14 @@
 
 import UIKit
 import Quickblox
+import QuickbloxWebRTC
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    var session: QBRTCSession?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -22,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QBSettings.authSecret = "44NDcGp2mMZCTOw"
         QBSettings.accountKey = "Ksi1_E7QzA5Hrkc5rsB6"
         QBSettings.autoReconnectEnabled = true
+        
         return true
     }
 
