@@ -10,16 +10,16 @@ import Foundation
 import UIKit
 
 protocol InviteFriendDelegate:class {
-    func manager(_ manager: InviteFriendViewController, didFetch ids: [String])
+    func manager(_ manager: InviteFriendViewController, didFetch ids: [NSNumber])
 }
 
 class InviteFriendViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var inviteFriendTableview: UITableView!
     
-    let ids = ["49401588", "49401608", "49401615", "49401640"]
+    let ids:[NSNumber] = [49401588, 49401608, 49401615, 49401640]
     
-    var inviteIds: [String] = []
+    var inviteIds: [NSNumber] = []
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ids.count
@@ -28,7 +28,7 @@ class InviteFriendViewController: UIViewController, UITableViewDataSource, UITab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = inviteFriendTableview.dequeueReusableCell(withIdentifier: "INVITE_CELL", for: indexPath) as! InviteFriendTableViewCell
         let id = ids[indexPath.row]
-        cell.textLabel?.text = id
+        cell.textLabel?.text = "\(id)"
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
