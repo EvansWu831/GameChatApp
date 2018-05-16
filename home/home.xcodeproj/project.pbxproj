@@ -111,6 +111,7 @@
 				4F2EBCED6D15D25444651C3E /* [CP] Embed Pods Frameworks */,
 				28A25A8120A14A38001B95F9 /* ShellScript */,
 				28A25A8220A29C06001B95F9 /* ShellScript */,
+				2817555B20ABFCB200D03192 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -168,6 +169,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2817555B20ABFCB200D03192 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"";
+		};
 		28A25A8120A14A38001B95F9 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -179,7 +193,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/QuickbloxWebRTC.framework/strip-framework.sh\"";
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 		28A25A8220A29C06001B95F9 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

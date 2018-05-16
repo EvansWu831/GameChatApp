@@ -9,55 +9,59 @@
 import Foundation
 import UIKit
 
-protocol InviteFriendDelegate:class {
+protocol InviteFriendDelegate: class {
     func manager(_ manager: InviteFriendViewController, didFetch ids: [NSNumber])
 }
 
 class InviteFriendViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
+
     @IBOutlet weak var inviteFriendTableview: UITableView!
-    
-    let ids:[NSNumber] = [49401588, 49401608, 49401615, 49401640]
-    
+
+    let ids: [NSNumber] = [49401588, 49401608, 49401615, 49401640]
+
     var inviteIds: [NSNumber] = []
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ids.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = inviteFriendTableview.dequeueReusableCell(withIdentifier: "INVITE_CELL", for: indexPath) as! InviteFriendTableViewCell
-        let id = ids[indexPath.row]
-        cell.textLabel?.text = "\(id)"
-        return cell
+
+        var userCell = UITableViewCell()
+        if let cell = inviteFriendTableview.dequeueReusableCell(withIdentifier: "INVITE_CELL", for: indexPath)
+            as? InviteFriendTableViewCell {
+            let userId = ids[indexPath.row]
+            cell.textLabel?.text = "\(userId)"
+            userCell = cell
+        } else {  } //handle error
+
+        return userCell
     }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCellAccessoryType.checkmark {
             tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.none
-            if let id = inviteIds.index(of: ids[indexPath.row]) {
-            inviteIds.remove(at: id)
-            }
-            else
-            {
+            if let userId = inviteIds.index(of: ids[indexPath.row]) {
+            inviteIds.remove(at: userId)
+            } else {
                 print("取消時發生錯誤")
                 return
             }
-        }
-        else {
+        } else {
             tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCellAccessoryType.checkmark
             inviteIds.append(ids[indexPath.row])
         }
     }
-    
+
     weak var delegate: InviteFriendDelegate?
-    
+
     @IBAction func backToHome(_ sender: UIButton) {
-        
+
         self.delegate?.manager(self, didFetch: inviteIds)
-        
+
         print(inviteIds)
-        
+
         self.navigationController?.popViewController(animated: true)
-        
+
     }
 }

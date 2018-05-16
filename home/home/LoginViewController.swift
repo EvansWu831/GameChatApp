@@ -13,11 +13,11 @@ import Quickblox
 import SVProgressHUD
 
 class LoginViewController: UIViewController {
-    
+
     @IBOutlet weak var idTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -26,68 +26,62 @@ class LoginViewController: UIViewController {
         super.viewDidAppear(animated)
     }
 
-    //MARK: - Actions
-
     @IBAction func didLogin(_ sender: UIButton) {
 
-        if let id = idTextField.text {
+        if let userId = idTextField.text {
             if let password = passwordTextField.text {
-                if !id.isEmpty {
+                if !userId.isEmpty {
                     if password != "" {
-                        login(userLogin: id, password: password)
-                    }
-                    else {
+                        login(userLogin: userId, password: password)
+                    } else {
                         let alert = UIAlertController(title: "錯誤", message: "密碼空白", preferredStyle: .alert)
                         let action = UIAlertAction(title: "確認", style: .default)
                         alert.addAction(action)
                         present(alert, animated: true, completion: nil)
                     }
-                }
-                else {
+                } else {
                     let alert = UIAlertController(title: "錯誤", message: "帳號空白", preferredStyle: .alert)
                     let action = UIAlertAction(title: "確認", style: .default)
                     alert.addAction(action)
                     present(alert, animated: true, completion: nil)
                 }
-            }
-            else {
+            } else {
                 let alert = UIAlertController(title: "錯誤", message: "請重新輸入帳號密碼", preferredStyle: .alert)
-                let action = UIAlertAction(title: "確認", style: .default) { (UIAlertAction) in
+                let action = UIAlertAction(title: "確認", style: .default) { (_) in
                     self.textClearance()
                 }
                 alert.addAction(action)
                 present(alert, animated: true, completion: nil)
             }
-        }
-        else {
+        } else {
             let alert = UIAlertController(title: "錯誤", message: "請重新輸入帳號密碼", preferredStyle: .alert)
-            let action = UIAlertAction(title: "確認", style: .default) { (UIAlertAction) in
+            let action = UIAlertAction(title: "確認", style: .default) { (_) in
                 self.textClearance()
             }
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
         }
     }
-    
+
     func textClearance() {
         idTextField.text = ""
         passwordTextField.text = ""
     }
-    
+
     func login(userLogin: String, password: String) {
         SVProgressHUD.show(withStatus: "Logining to rest")
-        QBRequest.logIn(withUserLogin: userLogin,password: password,successBlock:{ r, user in
+        QBRequest.logIn(withUserLogin: userLogin, password: password, successBlock: { _, user in
             SVProgressHUD.show(withStatus: "Connecting to chat")
-            QBChat.instance.connect(with: user) { err in
-                self.performSegue(withIdentifier: "GOHOME", sender:user)
+            QBChat.instance.connect(with: user) { _ in
+                self.performSegue(withIdentifier: "GOHOME", sender: user)
                 SVProgressHUD.dismiss()
             }
-            
+
             },
-            errorBlock: { error in
+            errorBlock: { _ in
                 SVProgressHUD.dismiss()
                 let alert = UIAlertController(title: "錯誤", message: "帳號密碼錯誤", preferredStyle: .alert)
-                let action = UIAlertAction(title: "確認", style: .default) { (UIAlertAction) in
+                let action = UIAlertAction(title: "確認", style: .default) { (_) in
                     self.textClearance()
                 }
                 alert.addAction(action)
@@ -97,9 +91,7 @@ class LoginViewController: UIViewController {
     }
     //傳資料
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        let homeVC  = segue.destination as! HomeViewController
+        guard let homeVC  = segue.destination as? HomeViewController else { return } //handle error
         homeVC.currentUser = sender as? QBUUser
     }
-    
 }

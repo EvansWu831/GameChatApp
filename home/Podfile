@@ -8,5 +8,6 @@ target 'home' do
   pod 'Quickblox-WebRTC'
   pod 'QuickBlox'
   pod 'SVProgressHUD'
+  pod 'SwiftLint'
 
 end

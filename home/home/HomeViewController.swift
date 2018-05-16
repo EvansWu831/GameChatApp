@@ -15,11 +15,11 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
     open var currentUser: QBUUser?
     var session: QBRTCSession?
     var inviteFriends: [NSNumber]?
-    
+
     func manager(_ manager: InviteFriendViewController, didFetch ids: [NSNumber]) {
         inviteFriends = ids
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         QBRTCClient.initializeRTC()
@@ -27,7 +27,7 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
         configureAudio()
         setHouse()
     }
-    
+
     @IBOutlet weak var peoplesView: UIView!
     @IBOutlet weak var usersImage: UIImageView!
     @IBOutlet weak var goHomeButton: UIButton!
@@ -36,24 +36,24 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
         peoplesView.isHidden = false
         setSelfHome()
     }
-    
+
     @IBOutlet weak var inviteFriendButton: UIButton!
-    
+
     @IBAction func inviteFriends(_ sender: UIButton) {
-        
+
         self.performSegue(withIdentifier: "GO_INVITE", sender: nil)
-        
+
     }
     //成為代理人
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let inviteVC  = segue.destination as! InviteFriendViewController
+        guard let inviteVC = segue.destination as? InviteFriendViewController else { return } //handle error
         inviteVC.delegate = self
     }
-    
+
     //audio
     func configureAudio() {
         QBRTCConfig.mediaStreamConfiguration().audioCodec = .codecOpus
-        QBRTCAudioSession.instance().initialize { (configuration: QBRTCAudioSessionConfiguration) -> () in
+        QBRTCAudioSession.instance().initialize { (configuration: QBRTCAudioSessionConfiguration) in
 
             var options = configuration.categoryOptions
             if #available(iOS 10.0, *) {
@@ -120,7 +120,7 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
         peoplesView.isHidden = false
         inviteFriendButton.isHidden = true
         setUsersImage()
-        
+
     }
     //使用者小頭像
     func setUsersImage() {
@@ -128,7 +128,7 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
         usersImage.layer.masksToBounds = true
         usersImage.layer.cornerRadius = usersImage.frame.width/2
     }
-    
+
     //登出
     @objc func logout() {
         SVProgressHUD.show(withStatus: "Logout")
@@ -136,34 +136,38 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
             QBRequest.logOut(successBlock: { _ in
                 SVProgressHUD.dismiss()
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let navigationController = storyboard.instantiateViewController(withIdentifier: "FIRST") as! UINavigationController
+
+                guard let navigationController = storyboard.instantiateViewController(withIdentifier: "FIRST")
+                    as? UINavigationController
+                    else { return } //handle error
+
                 self.present(navigationController, animated: true, completion: nil)
             })
         }
     }
     //掛電話
     @objc func didEnd() {
-        
+
         if self.session != nil {
             self.session?.hangUp(nil)
             print("掛電話")
-        }
-        else {
+            inviteFriends = nil
+        } else {
             setHouse()
             goHomeButton.isHidden = false
             print("沒電話可以掛")
+            inviteFriends = nil
         }
     }
     //打電話
     @objc func didCall() {
 
         if let ids = inviteFriends {
-            QBChat.instance.connect(with: currentUser!) { err in
+            QBChat.instance.connect(with: currentUser!) { _ in
                 self.session = QBRTCClient.instance().createNewSession(withOpponents: ids, with: .audio)
                 self.session?.startCall(nil)
                 }
-        }
-        else {
+        } else {
             let alert = UIAlertController(title: nil, message: "還沒邀請朋友", preferredStyle: .alert)
             let action = UIAlertAction(title: "確認", style: .default)
             alert.addAction(action)
@@ -171,8 +175,8 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
         }
     }
     //電話掛斷時觸發
-    func session(_ session: QBRTCSession, hungUpByUser userID: NSNumber, userInfo: [String : String]? = nil) {
-        
+    func session(_ session: QBRTCSession, hungUpByUser userID: NSNumber, userInfo: [String: String]? = nil) {
+
         if session.id == self.session?.id {
             if userID == session.initiatorID {
                 self.session?.hangUp(nil)
@@ -186,21 +190,19 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
             goHomeButton.isHidden = false
         } else {print("33333") }
     }
-    
+
     //接電話
     var initiatorID: NSNumber?
-    func didReceiveNewSession(_ session: QBRTCSession, userInfo: [String : String]? = nil) {
+    func didReceiveNewSession(_ session: QBRTCSession, userInfo: [String: String]? = nil) {
         if self.session == nil {
             self.session = session
             handleIncomingCall()
             initiatorID = session.initiatorID
-        }
-        else {
+        } else {
             if initiatorID == session.initiatorID {
                 self.session = session
                 self.session?.acceptCall(nil)
-            }
-            else {
+            } else {
                 let alert = UIAlertController(title: nil, message: "有人插播", preferredStyle: .alert)
                 let action = UIAlertAction(title: "確認", style: .default)
                 alert.addAction(action)
@@ -208,22 +210,21 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
             }
         }
     }
-    
+
     func handleIncomingCall() {
         let alert = UIAlertController(title: "Incoming call", message: "Accept ?", preferredStyle: .actionSheet)
-        let accept = UIAlertAction(title: "Accept", style: .default) { action in
+        let accept = UIAlertAction(title: "Accept", style: .default) { _ in
             self.goHomeButton.isHidden = true
             self.setFriendHome()
             self.session?.acceptCall(nil)
         }
-        let reject = UIAlertAction(title: "Reject", style: .default) { action in
+        let reject = UIAlertAction(title: "Reject", style: .default) { _ in
             self.session?.rejectCall(nil)
         }
         alert.addAction(accept)
         alert.addAction(reject)
         self.present(alert, animated: true)
-        
-        
+
     }
     //當接通其他用戶時動作
 //    func session(_ session: QBRTCBaseSession, connectedToUser userID: NSNumber) {
@@ -232,4 +233,3 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
 //        }
 //    }
 }
-
