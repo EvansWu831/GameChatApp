@@ -14,13 +14,10 @@ import SVProgressHUD
 class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDelegate {
     open var currentUser: QBUUser?
     var session: QBRTCSession?
-    var inviteFriends: [String]?
+    var inviteFriends: [NSNumber]?
     
-    func manager(_ manager: InviteFriendViewController, didFetch ids: [String]) {
+    func manager(_ manager: InviteFriendViewController, didFetch ids: [NSNumber]) {
         inviteFriends = ids
-        
-        print("here", ids)
-        
     }
     
     override func viewDidLoad() {
@@ -159,11 +156,19 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
     }
     //打電話
     @objc func didCall() {
-//            QBChat.instance.connect(with: currentUser!) { err in
-//                self.session = QBRTCClient.instance().createNewSession(withOpponents: [49401608, 49401615, 49401640], with: .audio)
-//                self.session?.startCall(nil)
-//            }
-        print(inviteFriends)
+
+        if let ids = inviteFriends {
+            QBChat.instance.connect(with: currentUser!) { err in
+                self.session = QBRTCClient.instance().createNewSession(withOpponents: ids, with: .audio)
+                self.session?.startCall(nil)
+                }
+        }
+        else {
+            let alert = UIAlertController(title: nil, message: "還沒邀請朋友", preferredStyle: .alert)
+            let action = UIAlertAction(title: "確認", style: .default)
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+        }
     }
     //電話掛斷時觸發
     func session(_ session: QBRTCSession, hungUpByUser userID: NSNumber, userInfo: [String : String]? = nil) {
@@ -196,8 +201,10 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
                 self.session?.acceptCall(nil)
             }
             else {
-                //別人插播
-                print("有人插播")
+                let alert = UIAlertController(title: nil, message: "有人插播", preferredStyle: .alert)
+                let action = UIAlertAction(title: "確認", style: .default)
+                alert.addAction(action)
+                present(alert, animated: true, completion: nil)
             }
         }
     }
