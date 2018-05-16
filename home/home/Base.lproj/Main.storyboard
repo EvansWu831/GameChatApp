@@ -128,11 +128,66 @@
                         <outlet property="inviteFriendButton" destination="IoZ-tz-kte" id="umR-xo-ylW"/>
                         <outlet property="peoplesView" destination="6xn-uX-4Bq" id="bUo-qa-Dfm"/>
                         <outlet property="usersImage" destination="1OT-Kg-pK0" id="z27-Fn-Fpk"/>
+                        <segue destination="vK1-mV-Lgs" kind="show" identifier="GO_INVITE" id="btW-wb-vLn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="8.8000000000000007" y="16.641679160419791"/>
+        </scene>
+        <!--Invite Friend View Controller-->
+        <scene sceneID="bgQ-rI-4PW">
+            <objects>
+                <viewController storyboardIdentifier="INVITE_FRIEND" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vK1-mV-Lgs" customClass="InviteFriendViewController" customModule="home" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0nX-7h-ujI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zXn-yf-Ded">
+                                <rect key="frame" x="0.0" y="64" width="375" height="573"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="INVITE_CELL" id="y9t-ox-JcN" customClass="InviteFriendTableViewCell" customModule="home" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="y9t-ox-JcN" id="5r9-FD-wT6">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="vK1-mV-Lgs" id="HjN-01-jQM"/>
+                                    <outlet property="delegate" destination="vK1-mV-Lgs" id="p92-Fy-Rgd"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EuH-ol-yql">
+                                <rect key="frame" x="0.0" y="637" width="375" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="backToHome:" destination="vK1-mV-Lgs" eventType="touchUpInside" id="7L0-ZL-ji1"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="zXn-yf-Ded" firstAttribute="top" secondItem="ldm-x0-PN9" secondAttribute="top" id="0CB-EG-OiU"/>
+                            <constraint firstItem="zXn-yf-Ded" firstAttribute="leading" secondItem="ldm-x0-PN9" secondAttribute="leading" id="8AV-Ug-qSI"/>
+                            <constraint firstItem="ldm-x0-PN9" firstAttribute="trailing" secondItem="zXn-yf-Ded" secondAttribute="trailing" id="8cZ-6B-CB1"/>
+                            <constraint firstItem="EuH-ol-yql" firstAttribute="top" secondItem="zXn-yf-Ded" secondAttribute="bottom" id="St1-Po-Cdi"/>
+                            <constraint firstItem="ldm-x0-PN9" firstAttribute="trailing" secondItem="EuH-ol-yql" secondAttribute="trailing" id="lfd-0k-WgC"/>
+                            <constraint firstItem="ldm-x0-PN9" firstAttribute="bottom" secondItem="EuH-ol-yql" secondAttribute="bottom" id="qCG-FI-Heo"/>
+                            <constraint firstItem="EuH-ol-yql" firstAttribute="leading" secondItem="ldm-x0-PN9" secondAttribute="leading" id="xId-Ct-Oy7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ldm-x0-PN9"/>
+                    </view>
+                    <connections>
+                        <outlet property="inviteFriendTableview" destination="zXn-yf-Ded" id="pUn-oJ-F7w"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6hy-Rn-uoL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="783" y="17"/>
         </scene>
     </scenes>
 </document>

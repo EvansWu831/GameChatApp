@@ -11,10 +11,17 @@ import Quickblox
 import QuickbloxWebRTC
 import SVProgressHUD
 
-class HomeViewController: UIViewController,QBRTCClientDelegate {
-    
+class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDelegate {
     open var currentUser: QBUUser?
     var session: QBRTCSession?
+    var inviteFriends: [String]?
+    
+    func manager(_ manager: InviteFriendViewController, didFetch ids: [String]) {
+        inviteFriends = ids
+        
+        print("here", ids)
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,13 +41,17 @@ class HomeViewController: UIViewController,QBRTCClientDelegate {
     }
     
     @IBOutlet weak var inviteFriendButton: UIButton!
-    @IBAction func inviteFriends(_ sender: UIButton) {
-//        let alert = UIAlertController(title: "Friend", message: nil, preferredStyle: .actionSheet)
-//        alert.addChildViewController(<#T##childController: UIViewController##UIViewController#>)
-//        alert.show(<#T##vc: UIViewController##UIViewController#>, sender: <#T##Any?#>)
-        print("invite")
-    }
     
+    @IBAction func inviteFriends(_ sender: UIButton) {
+        
+        self.performSegue(withIdentifier: "GO_INVITE", sender: nil)
+        
+    }
+    //成為代理人
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let inviteVC  = segue.destination as! InviteFriendViewController
+        inviteVC.delegate = self
+    }
     
     //audio
     func configureAudio() {
@@ -148,10 +159,11 @@ class HomeViewController: UIViewController,QBRTCClientDelegate {
     }
     //打電話
     @objc func didCall() {
-            QBChat.instance.connect(with: currentUser!) { err in
-                self.session = QBRTCClient.instance().createNewSession(withOpponents: [49401608, 49401615, 49401640], with: .audio)
-                self.session?.startCall(nil)
-            }
+//            QBChat.instance.connect(with: currentUser!) { err in
+//                self.session = QBRTCClient.instance().createNewSession(withOpponents: [49401608, 49401615, 49401640], with: .audio)
+//                self.session?.startCall(nil)
+//            }
+        print(inviteFriends)
     }
     //電話掛斷時觸發
     func session(_ session: QBRTCSession, hungUpByUser userID: NSNumber, userInfo: [String : String]? = nil) {
