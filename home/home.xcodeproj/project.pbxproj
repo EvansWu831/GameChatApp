@@ -10,6 +10,7 @@
 		0A96EAE7698636D0C65B9305 /* Pods_home.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82548B9F45966C18B4F7005B /* Pods_home.framework */; };
 		2817555820AAE64900D03192 /* InviteFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2817555720AAE64900D03192 /* InviteFriendViewController.swift */; };
 		2817555A20AAE73600D03192 /* InviteFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2817555920AAE73600D03192 /* InviteFriendTableViewCell.swift */; };
+		2817555D20AD1ECB00D03192 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2817555C20AD1ECB00D03192 /* SignUpViewController.swift */; };
 		28A25A7020A149C2001B95F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A25A6F20A149C2001B95F9 /* AppDelegate.swift */; };
 		28A25A7220A149C2001B95F9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A25A7120A149C2001B95F9 /* HomeViewController.swift */; };
 		28A25A7520A149C2001B95F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28A25A7320A149C2001B95F9 /* Main.storyboard */; };
@@ -22,6 +23,7 @@
 		0E43C22C690C14F0D6633A48 /* Pods-home.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-home.release.xcconfig"; path = "Pods/Target Support Files/Pods-home/Pods-home.release.xcconfig"; sourceTree = "<group>"; };
 		2817555720AAE64900D03192 /* InviteFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteFriendViewController.swift; sourceTree = "<group>"; };
 		2817555920AAE73600D03192 /* InviteFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteFriendTableViewCell.swift; sourceTree = "<group>"; };
+		2817555C20AD1ECB00D03192 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		28A25A6C20A149C2001B95F9 /* home.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = home.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28A25A6F20A149C2001B95F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		28A25A7120A149C2001B95F9 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				28A25A6F20A149C2001B95F9 /* AppDelegate.swift */,
+				2817555C20AD1ECB00D03192 /* SignUpViewController.swift */,
 				28A25A8B20A2A462001B95F9 /* LoginViewController.swift */,
 				28A25A7120A149C2001B95F9 /* HomeViewController.swift */,
 				28A25A7320A149C2001B95F9 /* Main.storyboard */,
@@ -215,15 +218,23 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-home/Pods-home-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${PODS_ROOT}/QuickBlox/Quickblox.framework",
 				"${PODS_ROOT}/Quickblox-WebRTC/QuickbloxWebRTC.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quickblox.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QuickbloxWebRTC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -255,6 +266,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2817555D20AD1ECB00D03192 /* SignUpViewController.swift in Sources */,
 				28A25A8C20A2A462001B95F9 /* LoginViewController.swift in Sources */,
 				28A25A7220A149C2001B95F9 /* HomeViewController.swift in Sources */,
 				2817555A20AAE73600D03192 /* InviteFriendTableViewCell.swift in Sources */,
@@ -407,10 +419,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S2N6FFA6T7;
 				INFOPLIST_FILE = home/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = EW.home;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -426,10 +435,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S2N6FFA6T7;
 				INFOPLIST_FILE = home/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = EW.home;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

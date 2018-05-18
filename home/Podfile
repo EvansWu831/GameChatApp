@@ -9,5 +9,8 @@ target 'home' do
   pod 'QuickBlox'
   pod 'SVProgressHUD'
   pod 'SwiftLint'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
+  pod 'Firebase/Auth'
 
 end

@@ -31,7 +31,7 @@ class LoginViewController: UIViewController {
         if let userId = idTextField.text {
             if let password = passwordTextField.text {
                 if !userId.isEmpty {
-                    if password != "" {
+                    if !password.isEmpty {
                         login(userLogin: userId, password: password)
                     } else {
                         let alert = UIAlertController(title: "錯誤", message: "密碼空白", preferredStyle: .alert)
