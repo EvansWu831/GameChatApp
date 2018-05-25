@@ -211,7 +211,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="665.625" y="15.845070422535212"/>
+            <point key="canvasLocation" x="86" y="17"/>
         </scene>
         <!--Invite Friend View Controller-->
         <scene sceneID="bgQ-rI-4PW">
@@ -306,7 +306,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6hy-Rn-uoL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1402.5" y="15.845070422535212"/>
+            <point key="canvasLocation" x="878" y="16"/>
         </scene>
         <!--Friend View Controller-->
         <scene sceneID="1gt-SD-EzD">
@@ -421,11 +421,112 @@
                         <outlet property="userImageView" destination="r7T-Ek-z8l" id="4gS-iV-91g"/>
                         <outlet property="userName" destination="7Ij-Cv-MBC" id="get-mC-97Q"/>
                         <outlet property="userView" destination="Grb-cU-nCa" id="u9N-XG-hJv"/>
+                        <segue destination="Zr3-3j-FlN" kind="show" identifier="MAKE_FRIEND" id="kug-lX-rff"/>
+                        <segue destination="975-zA-KWC" kind="show" identifier="GO_CHECK_INVITE" id="VvC-1n-mid"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DTC-2n-XDo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="666" y="-686"/>
+            <point key="canvasLocation" x="878" y="-688"/>
+        </scene>
+        <!--Add Friend View Controller-->
+        <scene sceneID="1N1-Y3-v3A">
+            <objects>
+                <viewController id="Zr3-3j-FlN" customClass="AddFriendViewController" customModule="GameChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gKy-GM-vHc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hjJ-LY-56g">
+                                <rect key="frame" x="67" y="230" width="240" height="238"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wZW-yA-34c">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R9r-Gb-OlA">
+                                        <rect key="frame" x="105" y="200" width="31" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="加入"/>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VkG-V4-t7l">
+                                        <rect key="frame" x="99" y="150" width="42" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </view>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pfK-x8-Veg">
+                                <rect key="frame" x="66" y="100" width="187" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zwn-vU-C3c">
+                                <rect key="frame" x="269" y="100" width="31" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="搜尋"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="EuK-hp-l24"/>
+                    </view>
+                    <connections>
+                        <outlet property="addButton" destination="R9r-Gb-OlA" id="vD2-w2-aAY"/>
+                        <outlet property="infoView" destination="hjJ-LY-56g" id="Glj-4a-21n"/>
+                        <outlet property="searchTextField" destination="pfK-x8-Veg" id="QIC-ee-HMp"/>
+                        <outlet property="sendButton" destination="zwn-vU-C3c" id="9rF-6a-Kk6"/>
+                        <outlet property="userImageView" destination="wZW-yA-34c" id="6ul-AJ-sHB"/>
+                        <outlet property="userNameLabel" destination="VkG-V4-t7l" id="5Zb-Yg-NEz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mj0-cu-xLL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1654" y="-689"/>
+        </scene>
+        <!--Check Invite View Controller-->
+        <scene sceneID="pmj-Ln-DoK">
+            <objects>
+                <viewController id="975-zA-KWC" customClass="CheckInviteViewController" customModule="GameChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vW2-1g-Ser">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="nMR-5h-82B">
+                                <rect key="frame" x="38" y="98" width="305" height="520"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CHECK_INVITE_CELL" id="oTm-QL-fVS" customClass="CheckInviteTableViewCell" customModule="GameChat" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="305" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oTm-QL-fVS" id="DpZ-jd-dXb">
+                                            <rect key="frame" x="0.0" y="0.0" width="305" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="975-zA-KWC" id="xPQ-Vz-NbG"/>
+                                    <outlet property="delegate" destination="975-zA-KWC" id="8IL-RC-QKr"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="TtO-gb-5Xu"/>
+                    </view>
+                    <connections>
+                        <outlet property="checkInviteTableView" destination="nMR-5h-82B" id="TqJ-AD-Cg7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R07-rE-83g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1653.5999999999999" y="-1381.2593703148427"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

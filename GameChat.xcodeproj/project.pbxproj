@@ -13,8 +13,8 @@
 		2851437020B516B9000796E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2851436F20B516B9000796E9 /* Assets.xcassets */; };
 		2851437220B516BF000796E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2851437120B516BF000796E9 /* LaunchScreen.storyboard */; };
 		2851437720B519AD000796E9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2851437620B519AD000796E9 /* GoogleService-Info.plist */; };
-		2851439320B52237000796E9 /* GetFrinedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2851439020B52237000796E9 /* GetFrinedDelegate.swift */; };
-		2851439420B52237000796E9 /* GetFriendManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2851439120B52237000796E9 /* GetFriendManager.swift */; };
+		2851439320B52237000796E9 /* GetUserInfoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2851439020B52237000796E9 /* GetUserInfoDelegate.swift */; };
+		2851439420B52237000796E9 /* GetUserInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2851439120B52237000796E9 /* GetUserInfoManager.swift */; };
 		2851439520B52237000796E9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2851439220B52237000796E9 /* User.swift */; };
 		2851439920B52241000796E9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2851439720B52241000796E9 /* SignUpViewController.swift */; };
 		2851439A20B52241000796E9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2851439820B52241000796E9 /* LoginViewController.swift */; };
@@ -24,6 +24,9 @@
 		285143A420B52251000796E9 /* InviteFriendDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285143A120B52251000796E9 /* InviteFriendDelegate.swift */; };
 		285143AD20B52D87000796E9 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285143AB20B52D87000796E9 /* FriendTableViewCell.swift */; };
 		285143AE20B52D87000796E9 /* FriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285143AC20B52D87000796E9 /* FriendViewController.swift */; };
+		285143B020B555BC000796E9 /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285143AF20B555BB000796E9 /* AddFriendViewController.swift */; };
+		287A1DB120B6A1DC00DFF05E /* CheckInviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287A1DB020B6A1DC00DFF05E /* CheckInviteViewController.swift */; };
+		287A1DB320B6A51900DFF05E /* CheckInviteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287A1DB220B6A51900DFF05E /* CheckInviteTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,8 +37,8 @@
 		2851436F20B516B9000796E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2851437120B516BF000796E9 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2851437620B519AD000796E9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		2851439020B52237000796E9 /* GetFrinedDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetFrinedDelegate.swift; sourceTree = "<group>"; };
-		2851439120B52237000796E9 /* GetFriendManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetFriendManager.swift; sourceTree = "<group>"; };
+		2851439020B52237000796E9 /* GetUserInfoDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserInfoDelegate.swift; sourceTree = "<group>"; };
+		2851439120B52237000796E9 /* GetUserInfoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserInfoManager.swift; sourceTree = "<group>"; };
 		2851439220B52237000796E9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2851439720B52241000796E9 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		2851439820B52241000796E9 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -45,6 +48,9 @@
 		285143A120B52251000796E9 /* InviteFriendDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteFriendDelegate.swift; sourceTree = "<group>"; };
 		285143AB20B52D87000796E9 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
 		285143AC20B52D87000796E9 /* FriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendViewController.swift; sourceTree = "<group>"; };
+		285143AF20B555BB000796E9 /* AddFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
+		287A1DB020B6A1DC00DFF05E /* CheckInviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInviteViewController.swift; sourceTree = "<group>"; };
+		287A1DB220B6A51900DFF05E /* CheckInviteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInviteTableViewCell.swift; sourceTree = "<group>"; };
 		38EAF2C5D5B781EFB425FE07 /* Pods_GameChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A8CEF63359BEE4610EBB493 /* Pods-GameChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-GameChat/Pods-GameChat.release.xcconfig"; sourceTree = "<group>"; };
 		B977CA9FF62850514AA8C364 /* Pods-GameChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GameChat/Pods-GameChat.debug.xcconfig"; sourceTree = "<group>"; };
@@ -92,8 +98,8 @@
 			isa = PBXGroup;
 			children = (
 				2851434D20B51536000796E9 /* AppDelegate.swift */,
-				2851439120B52237000796E9 /* GetFriendManager.swift */,
-				2851439020B52237000796E9 /* GetFrinedDelegate.swift */,
+				2851439120B52237000796E9 /* GetUserInfoManager.swift */,
+				2851439020B52237000796E9 /* GetUserInfoDelegate.swift */,
 				2851439220B52237000796E9 /* User.swift */,
 				2851439620B52241000796E9 /* LoginAndSignUp */,
 				2851439B20B5224A000796E9 /* House */,
@@ -138,8 +144,11 @@
 		285143AA20B52D87000796E9 /* Friend */ = {
 			isa = PBXGroup;
 			children = (
-				285143AB20B52D87000796E9 /* FriendTableViewCell.swift */,
 				285143AC20B52D87000796E9 /* FriendViewController.swift */,
+				285143AB20B52D87000796E9 /* FriendTableViewCell.swift */,
+				285143AF20B555BB000796E9 /* AddFriendViewController.swift */,
+				287A1DB020B6A1DC00DFF05E /* CheckInviteViewController.swift */,
+				287A1DB220B6A51900DFF05E /* CheckInviteTableViewCell.swift */,
 			);
 			name = Friend;
 			path = GameChat/Friend;
@@ -330,12 +339,15 @@
 				285143A320B52251000796E9 /* InviteFriendTableViewCell.swift in Sources */,
 				285143A220B52251000796E9 /* InviteFriendViewController.swift in Sources */,
 				285143AD20B52D87000796E9 /* FriendTableViewCell.swift in Sources */,
+				287A1DB120B6A1DC00DFF05E /* CheckInviteViewController.swift in Sources */,
 				2851434E20B51536000796E9 /* AppDelegate.swift in Sources */,
-				2851439320B52237000796E9 /* GetFrinedDelegate.swift in Sources */,
+				2851439320B52237000796E9 /* GetUserInfoDelegate.swift in Sources */,
+				287A1DB320B6A51900DFF05E /* CheckInviteTableViewCell.swift in Sources */,
 				285143AE20B52D87000796E9 /* FriendViewController.swift in Sources */,
-				2851439420B52237000796E9 /* GetFriendManager.swift in Sources */,
+				2851439420B52237000796E9 /* GetUserInfoManager.swift in Sources */,
 				2851439D20B5224A000796E9 /* HomeViewController.swift in Sources */,
 				2851439920B52241000796E9 /* SignUpViewController.swift in Sources */,
+				285143B020B555BC000796E9 /* AddFriendViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,7 +405,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -447,7 +459,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;

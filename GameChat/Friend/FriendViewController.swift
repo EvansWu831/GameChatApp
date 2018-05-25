@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Quickblox
 
-class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GetFriendDelegate {
+class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GetUserInfoDelegate {
 
     @IBOutlet weak var userView: UIView!
     @IBOutlet weak var userImageView: UIImageView!
@@ -19,19 +19,32 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     var myFriend: [User] = []
     var currentUser: QBUUser?
-    let getFriendManager = GetFriendManager()
+    let getUserInfoManager = GetUserInfoManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setAddFriendButton()
         getInfo()
     }
 
-    func manager(_ manager: GetFriendManager, didFetch friend: [User]) {
-        myFriend = friend
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let addFriendVC = segue.destination as? AddFriendViewController {
+            addFriendVC.currentUser = self.currentUser
+        } else { } //handle error
+
+        if let checkInviteVC = segue.destination as? CheckInviteViewController {
+            checkInviteVC.currentUser = self.currentUser
+        } else { } //handle error
+    }
+
+    func manager(_ manager: GetUserInfoManager, sender users: [User]) {}
+    func manager(_ manager: GetUserInfoManager, recipient users: [User]) {}
+    func manager(_ manager: GetUserInfoManager, didFetch users: [User]) {
+        myFriend = users
         friendsTableView.reloadData()
     }
 
-    func manager(_ manager: GetFriendManager, didFetch user: User) {
+    func manager(_ manager: GetUserInfoManager, didFetch user: User) {
 
         if user.nickname.isEmpty {
             userName.text = user.login
@@ -42,7 +55,7 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
         friendsTableView.reloadData()
     }
 
-    func manager(_ manager: GetFriendManager, error: Error) {
+    func manager(_ manager: GetUserInfoManager, error: Error) {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -75,9 +88,32 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     func getInfo() {
         if let userInfo = currentUser {
-            getFriendManager.delegate = self
-            getFriendManager.getFriend(userID: userInfo.id)
-            getFriendManager.getUserInfo(userId: userInfo.id)
+            getUserInfoManager.delegate = self
+            getUserInfoManager.getFriend(userID: userInfo.id)
+            getUserInfoManager.getUserInfo(userId: userInfo.id)
         } else { return } //handle error
     }
+
+    @objc func goAddFriend() {
+        self.performSegue(withIdentifier: "MAKE_FRIEND", sender: nil)
+    }
+
+    @objc func goCheckInvite() {
+        self.performSegue(withIdentifier: "GO_CHECK_INVITE", sender: nil)
+    }
+
+    func setAddFriendButton() {
+        self.navigationItem.title = "朋友"
+        let addFriendButton = UIBarButtonItem()
+        addFriendButton.image = #imageLiteral(resourceName: "RING")
+        addFriendButton.target = self
+        addFriendButton.action = #selector(goAddFriend)
+
+        let checkInviteButton = UIBarButtonItem()
+        checkInviteButton.image = #imageLiteral(resourceName: "SET")
+        checkInviteButton.target = self
+        checkInviteButton.action = #selector(goCheckInvite)
+        self.navigationItem.rightBarButtonItems = [addFriendButton, checkInviteButton]
+    }
+
 }

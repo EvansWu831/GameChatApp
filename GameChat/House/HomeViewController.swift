@@ -175,7 +175,8 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
     //打電話
     @objc func didCall() {
         if let ids = inviteFriends {
-            QBChat.instance.connect(with: currentUser!) { _ in
+            guard let user = currentUser else { return } //handle error
+            QBChat.instance.connect(with: user) { _ in
                 self.session = QBRTCClient.instance().createNewSession(withOpponents: ids, with: .audio)
                 self.session?.startCall(nil)
                 }
