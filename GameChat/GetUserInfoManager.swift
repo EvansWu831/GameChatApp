@@ -10,13 +10,15 @@ import Foundation
 import UIKit
 import Firebase
 
+enum GetUserInfoManagerError: Error {
+    case canNotFindThisID
+}
+
 class GetUserInfoManager {
 
     var ref: DatabaseReference?
     weak var delegate: GetUserInfoDelegate?
     var users: [User] = []
-    var recipient: [User] = []
-    var sender: [User] = []
 
     func getFriend(userID: UInt) {
         ref = Database.database().reference()
@@ -77,7 +79,10 @@ class GetUserInfoManager {
     func addFriendInfo(userLogin: String) {
         ref = Database.database().reference()
         ref?.child("user").queryOrdered(byChild: "login").queryEqual(toValue: userLogin).observeSingleEvent(of: .value, with: { (snapshoot) in
-            guard let userInfos = snapshoot.value as? [String: Any] else { return } /* error handle */
+            guard let userInfos = snapshoot.value as? [String: Any] else {
+                self.delegate?.manager(self, error: GetUserInfoManagerError.canNotFindThisID)
+                return
+            } /* error handle */
             for key in userInfos.keys {
                 if let userInfo = userInfos["\(key)"] as? [String: Any] {
                     if let email = userInfo["email"] as? String {
@@ -94,74 +99,34 @@ class GetUserInfoManager {
             }
         })
     }
-
+    var senderIDs:[NSNumber] = []
     func checkFriendInvite(userID: UInt) {
         ref = Database.database().reference()
         ref?.child("wait").queryOrdered(byChild: "recipient").queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (snapshoot) in
             guard let data = snapshoot.value as? [String: Any] else { return } /* error handle */
             for key in data.keys {
                 if let wait = data["\(key)"] as? [String: Any] {
-                    if let sender = wait["sender"] as? NSNumber {
-                        self.getSenderInfo(userId: sender)
+                    if let senderID = wait["sender"] as? NSNumber {
+                        self.senderIDs.append(senderID)
                     } else { /* error handle */ }
                 } else { /* error handle */ }
             }
+            self.delegate?.manager(self, sender: self.senderIDs)
         })
     }
-
+    var recipientIDs: [NSNumber] = []
     func checkRecipient(userID: UInt) {
         ref = Database.database().reference()
         ref?.child("wait").queryOrdered(byChild: "sender").queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (snapshoot) in
             guard let data = snapshoot.value as? [String: Any] else { return } /* error handle */
             for key in data.keys {
                 if let wait = data["\(key)"] as? [String: Any] {
-                    if let recipient = wait["recipient"] as? NSNumber {
-                        self.getRecipientInfo(userId: recipient)
+                    if let recipientID = wait["recipient"] as? NSNumber {
+                        self.recipientIDs.append(recipientID)
                     } else { /* error handle */ }
                 } else { /* error handle */ }
             }
-        })
-    }
-
-    func getSenderInfo(userId: NSNumber) {
-        ref = Database.database().reference()
-        ref?.child("user").queryOrdered(byChild: "id").queryEqual(toValue: userId).observeSingleEvent(of: .value, with: { (snapshoot) in
-            guard let userInfos = snapshoot.value as? [String: Any] else { return } /* error handle */
-            for key in userInfos.keys {
-                if let userInfo = userInfos["\(key)"] as? [String: Any] {
-                    if let email = userInfo["email"] as? String {
-                        if let userId = userInfo["id"] as? NSNumber {
-                            if let login = userInfo["login"] as? String {
-                                if let nickname = userInfo["nickname"] as? String {
-                                    self.sender.append(User.init(email: email, userID: userId, nickname: nickname, login: login))
-                                    self.delegate?.manager(self, sender: self.sender)
-                                } else { /* error handle */ }
-                            } else { /* error handle */ }
-                        } else { /* error handle */ }
-                    } else { /* error handle */ }
-                } else { /* error handle */ }
-            }
-        })
-    }
-
-    func getRecipientInfo(userId: NSNumber) {
-        ref = Database.database().reference()
-        ref?.child("user").queryOrdered(byChild: "id").queryEqual(toValue: userId).observeSingleEvent(of: .value, with: { (snapshoot) in
-            guard let userInfos = snapshoot.value as? [String: Any] else { return } /* error handle */
-            for key in userInfos.keys {
-                if let userInfo = userInfos["\(key)"] as? [String: Any] {
-                    if let email = userInfo["email"] as? String {
-                        if let userId = userInfo["id"] as? NSNumber {
-                            if let login = userInfo["login"] as? String {
-                                if let nickname = userInfo["nickname"] as? String {
-                                    self.recipient.append(User.init(email: email, userID: userId, nickname: nickname, login: login))
-                                    self.delegate?.manager(self, recipient: self.recipient)
-                                } else { /* error handle */ }
-                            } else { /* error handle */ }
-                        } else { /* error handle */ }
-                    } else { /* error handle */ }
-                } else { /* error handle */ }
-            }
+            self.delegate?.manager(self, recipient: self.recipientIDs)
         })
     }
 }

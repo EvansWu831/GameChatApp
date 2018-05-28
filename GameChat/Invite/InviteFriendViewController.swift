@@ -28,14 +28,15 @@ class InviteFriendViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         getFriend()
+        setGoBackButton()
     }
 
-    func manager(_ manager: GetUserInfoManager, sender users: [User]) {
-
+    func manager(_ manager: GetUserInfoManager, sender userIDs: [NSNumber]) {
     }
-    func manager(_ manager: GetUserInfoManager, recipient users: [User]) {
 
+    func manager(_ manager: GetUserInfoManager, recipient userIDs: [NSNumber]) {
     }
+
     func manager(_ manager: GetUserInfoManager, didFetch users: [User]) {
         myFriend = users
         self.inviteFriendTableview.reloadData()
@@ -90,6 +91,18 @@ class InviteFriendViewController: UIViewController, UITableViewDataSource, UITab
             getUserInfoManager.delegate = self
             getUserInfoManager.getFriend(userID: userInfo.id)
         } else { return } //handle error
+    }
+
+    @objc func goBack() {
+        self.navigationController?.popViewController(animated: true)
+    }
+
+    func setGoBackButton() {
+        let backButton = UIBarButtonItem()
+        backButton.image = #imageLiteral(resourceName: "GOOUT")
+        backButton.target = self
+        backButton.action = #selector(goBack)
+        self.navigationItem.leftBarButtonItem = backButton
     }
 
 }

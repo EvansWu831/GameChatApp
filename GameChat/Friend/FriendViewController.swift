@@ -37,8 +37,12 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
         } else { } //handle error
     }
 
-    func manager(_ manager: GetUserInfoManager, sender users: [User]) {}
-    func manager(_ manager: GetUserInfoManager, recipient users: [User]) {}
+    func manager(_ manager: GetUserInfoManager, sender userIDs: [NSNumber]) {
+    }
+
+    func manager(_ manager: GetUserInfoManager, recipient userIDs: [NSNumber]) {
+    }
+
     func manager(_ manager: GetUserInfoManager, didFetch users: [User]) {
         myFriend = users
         friendsTableView.reloadData()
@@ -102,18 +106,28 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.performSegue(withIdentifier: "GO_CHECK_INVITE", sender: nil)
     }
 
+    @objc func goBack() {
+        self.navigationController?.popViewController(animated: true)
+    }
+
     func setAddFriendButton() {
         self.navigationItem.title = "朋友"
         let addFriendButton = UIBarButtonItem()
-        addFriendButton.image = #imageLiteral(resourceName: "RING")
+        addFriendButton.image = #imageLiteral(resourceName: "INVITEFRIEND")
         addFriendButton.target = self
         addFriendButton.action = #selector(goAddFriend)
 
         let checkInviteButton = UIBarButtonItem()
-        checkInviteButton.image = #imageLiteral(resourceName: "SET")
+        checkInviteButton.image = #imageLiteral(resourceName: "CHECKINVITE")
         checkInviteButton.target = self
         checkInviteButton.action = #selector(goCheckInvite)
         self.navigationItem.rightBarButtonItems = [addFriendButton, checkInviteButton]
+
+        let backButton = UIBarButtonItem()
+        backButton.image = #imageLiteral(resourceName: "GOOUT")
+        backButton.target = self
+        backButton.action = #selector(goBack)
+        self.navigationItem.leftBarButtonItem = backButton
     }
 
 }

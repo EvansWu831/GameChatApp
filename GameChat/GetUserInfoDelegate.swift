@@ -9,8 +9,8 @@
 import Foundation
 
 protocol GetUserInfoDelegate: class {
-    func manager(_ manager: GetUserInfoManager, sender users: [User])
-    func manager(_ manager: GetUserInfoManager, recipient users: [User])
+    func manager(_ manager: GetUserInfoManager, sender userIDs: [NSNumber])
+    func manager(_ manager: GetUserInfoManager, recipient userIDs: [NSNumber])
     func manager(_ manager: GetUserInfoManager, didFetch users: [User])
     func manager(_ manager: GetUserInfoManager, didFetch user: User)
     func manager(_ manager: GetUserInfoManager, error: Error)

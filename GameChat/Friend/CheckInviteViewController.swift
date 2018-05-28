@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Quickblox
+import Firebase
 
 class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GetUserInfoDelegate {
 
@@ -17,26 +18,67 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
     var sender: [User] = []
     let getUserInfoManager = GetUserInfoManager()
     var currentUser: QBUUser?
+    var ref: DatabaseReference?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.getUserInfoManager.delegate = self
-
         guard let userID = currentUser?.id else { return } //handle error
         self.getUserInfoManager.checkFriendInvite(userID: userID)
-
+        setGoBackButton()
     }
 
-    func manager(_ manager: GetUserInfoManager, sender users: [User]) {
-        sender = users
-        guard let userID = currentUser?.id else { return } //handle error
+    func manager(_ manager: GetUserInfoManager, sender userIDs: [NSNumber]) {
+
+        ref = Database.database().reference()
+        for userID in userIDs {
+            ref?.child("user").queryOrdered(byChild: "id").queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (snapshoot) in
+                guard let userInfos = snapshoot.value as? [String: Any] else { return } /* error handle */
+                for key in userInfos.keys {
+                    if let userInfo = userInfos["\(key)"] as? [String: Any] {
+                        if let email = userInfo["email"] as? String {
+                            if let userId = userInfo["id"] as? NSNumber {
+                                if let login = userInfo["login"] as? String {
+                                    if let nickname = userInfo["nickname"] as? String {
+                                        self.sender.append(User.init(email: email, userID: userId, nickname: nickname, login: login))
+                                    } else { /* error handle */ }
+                                } else { /* error handle */ }
+                            } else { /* error handle */ }
+                        } else { /* error handle */ }
+                    } else { /* error handle */ }
+                }
+            })
+        }
         self.getUserInfoManager.delegate = self
+        guard let userID = currentUser?.id else { return } //handle error
         self.getUserInfoManager.checkRecipient(userID: userID)
     }
-    func manager(_ manager: GetUserInfoManager, recipient users: [User]) {
-        recipient = users
-        self.checkInviteTableView.reloadData()
+
+    func manager(_ manager: GetUserInfoManager, recipient userIDs: [NSNumber]) {
+
+        ref = Database.database().reference()
+        for userID in userIDs {
+            ref?.child("user").queryOrdered(byChild: "id").queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (snapshoot) in
+                guard let userInfos = snapshoot.value as? [String: Any] else { return } /* error handle */
+                for key in userInfos.keys {
+                    if let userInfo = userInfos["\(key)"] as? [String: Any] {
+                        if let email = userInfo["email"] as? String {
+                            if let userId = userInfo["id"] as? NSNumber {
+                                if let login = userInfo["login"] as? String {
+                                    if let nickname = userInfo["nickname"] as? String {
+                                        self.recipient.append(User.init(email: email, userID: userId, nickname: nickname, login: login))
+                                        self.checkInviteTableView.reloadData()
+                                    } else { /* error handle */ }
+                                } else { /* error handle */ }
+                            } else { /* error handle */ }
+                        } else { /* error handle */ }
+                    } else { /* error handle */ }
+                }
+            })
+        }
+
     }
+
     func manager(_ manager: GetUserInfoManager, didFetch users: [User]) {
     }
 
@@ -52,9 +94,9 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return recipient.count
-        } else {
             return sender.count
+        } else {
+            return recipient.count
         }
     }
 
@@ -64,14 +106,32 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
 
             if indexPath.section == 0 {
                 let checkSender = sender[indexPath.row]
-                cell.textLabel?.text = "\(checkSender.login)希望與你成為朋友"
+                cell.userName.text = checkSender.login
+                cell.yesButton.addTarget(self, action: #selector(addRelationship), for: .touchUpInside)
             } else {
                 let checkRecipient = recipient[indexPath.row]
-                cell.textLabel?.text = checkRecipient.login
+                cell.userName.text = checkRecipient.login
+                cell.yesButton.isHidden = true
             }
 
             checkInviteCell = cell
         }
         return checkInviteCell
+    }
+
+    @objc func goBack() {
+        self.navigationController?.popViewController(animated: true)
+    }
+
+    @objc func addRelationship() {
+        ref = Database.database().reference()
+    }
+
+    func setGoBackButton() {
+        let backButton = UIBarButtonItem()
+        backButton.image = #imageLiteral(resourceName: "GOOUT")
+        backButton.target = self
+        backButton.action = #selector(goBack)
+        self.navigationItem.leftBarButtonItem = backButton
     }
 }

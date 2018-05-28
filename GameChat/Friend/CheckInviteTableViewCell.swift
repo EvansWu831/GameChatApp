@@ -9,4 +9,8 @@
 import Foundation
 import UIKit
 class CheckInviteTableViewCell: UITableViewCell {
+    @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var yesButton: UIButton!
+    @IBOutlet weak var noButton: UIButton!
 }
