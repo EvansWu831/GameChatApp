@@ -14,10 +14,12 @@ class User {
     let userID: NSNumber
     let nickname: String
     let login: String
-    init(email: String, userID: NSNumber, nickname: String, login: String) {
+    let autoID: String
+    init(email: String, userID: NSNumber, nickname: String, login: String, autoID: String) {
         self.email = email
         self.login = login
         self.userID = userID
         self.nickname = nickname
+        self.autoID = autoID
     }
 }

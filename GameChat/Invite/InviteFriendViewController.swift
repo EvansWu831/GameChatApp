@@ -12,13 +12,13 @@ import Firebase
 import Quickblox
 import QuickbloxWebRTC
 
-class InviteFriendViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GetFriendDelegate {
+class InviteFriendViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GetUserInfoDelegate {
 
     var myFriend: [User] = []
     var inviteIds: [NSNumber] = []
     var currentUser: QBUUser?
     weak var delegate: InviteFriendDelegate?
-    let getFriendManager = GetFriendManager()
+    let getUserInfoManager = GetUserInfoManager()
     @IBOutlet weak var inviteFriendTableview: UITableView!
     @IBAction func backToHome(_ sender: UIButton) {
         self.delegate?.manager(self, didFetch: inviteIds)
@@ -28,17 +28,24 @@ class InviteFriendViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         getFriend()
+        setGoBackButton()
     }
 
-    func manager(_ manager: GetFriendManager, didFetch friend: [User]) {
-        myFriend = friend
+    func manager(_ manager: GetUserInfoManager, sender userIDs: [String: NSNumber]) {
+    }
+
+    func manager(_ manager: GetUserInfoManager, recipient userIDs: [String: NSNumber]) {
+    }
+
+    func manager(_ manager: GetUserInfoManager, didFetch users: [User]) {
+        myFriend = users
         self.inviteFriendTableview.reloadData()
     }
 
-    func manager(_ manager: GetFriendManager, didFetch user: User) {
+    func manager(_ manager: GetUserInfoManager, didFetch user: User) {
     }
 
-    func manager(_ manager: GetFriendManager, error: Error) {
+    func manager(_ manager: GetUserInfoManager, error: Error) {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -81,9 +88,21 @@ class InviteFriendViewController: UIViewController, UITableViewDataSource, UITab
 
     func getFriend() {
         if let  userInfo = currentUser {
-            getFriendManager.delegate = self
-            getFriendManager.getFriend(userID: userInfo.id)
+            getUserInfoManager.delegate = self
+            getUserInfoManager.getFriend(userID: userInfo.id)
         } else { return } //handle error
+    }
+
+    @objc func goBack() {
+        self.navigationController?.popViewController(animated: true)
+    }
+
+    func setGoBackButton() {
+        let backButton = UIBarButtonItem()
+        backButton.image = #imageLiteral(resourceName: "GOOUT")
+        backButton.target = self
+        backButton.action = #selector(goBack)
+        self.navigationItem.leftBarButtonItem = backButton
     }
 
 }

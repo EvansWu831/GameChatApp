@@ -111,7 +111,7 @@ class SignUpViewController: UIViewController {
         newUser.password = password
         newUser.email = email
         QBRequest.signUp(newUser, successBlock: { (response, user) in
-            self.getUser(user: ["id": user.id, "email": "\(user.email!)", "login": "\(user.login!)", "nickname": "\(nickname)"])
+            self.addUser(user: ["id": user.id, "email": "\(user.email!)", "login": "\(user.login!)", "nickname": "\(nickname)"])
             self.login(userLogin: userName, password: password)
         })
         { ( response ) in
@@ -154,7 +154,7 @@ class SignUpViewController: UIViewController {
     }
     //新增新用戶資料 in firebase
     var ref: DatabaseReference?
-    func getUser(user: [String: Any]) {
+    func addUser(user: [String: Any]) {
         ref = Database.database().reference()
         ref?.child("user").childByAutoId().setValue(user)
     }
