@@ -27,16 +27,17 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         infoView.isHidden = true
+        addButton.isHidden = true
         sendButton.addTarget(self, action: #selector(searchUser), for: UIControlEvents.touchUpInside)
         addButton.addTarget(self, action: #selector(addNewFriend), for: UIControlEvents.touchUpInside)
         userImageView.image = #imageLiteral(resourceName: "USERIMAGE")
         setGoBackButton()
     }
 
-    func manager(_ manager: GetUserInfoManager, sender userIDs: [NSNumber]) {
+    func manager(_ manager: GetUserInfoManager, sender userIDs: [String: NSNumber]) {
     }
 
-    func manager(_ manager: GetUserInfoManager, recipient userIDs: [NSNumber]) {
+    func manager(_ manager: GetUserInfoManager, recipient userIDs: [String: NSNumber]) {
     }
 
     func manager(_ manager: GetUserInfoManager, didFetch users: [User]) {
@@ -99,6 +100,7 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate {
         guard let new = newFriend else {return} //handle error
         ref = Database.database().reference()
         ref?.child("wait").childByAutoId().setValue(["sender": user.id, "recipient": new.userID])
+        
     }
 
     @objc func goBack() {
@@ -116,9 +118,8 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate {
     func checkRelationship() {
         guard let user = currentUser else {return} //handle error
         guard let new = newFriend else {return} //handle error
-        print("確認")
         ref = Database.database().reference()
-        ref?.child("friend").queryOrdered(byChild: "self").queryEqual(toValue: user.id).observeSingleEvent(of: .value, with: { (snapshot) in
+        ref?.child("relationship").queryOrdered(byChild: "self").queryEqual(toValue: user.id).observeSingleEvent(of: .value, with: { (snapshot) in
             if let friends = snapshot.value as? [String: Any] {
                 for key in friends.keys {
                     if let relationship = friends["\(key)"] as? [String: Any] {
@@ -129,7 +130,6 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate {
                                 let action = UIAlertAction(title: "確定", style: .default)
                                 alert.addAction(action)
                                 self.present(alert, animated: true, completion: nil)
-                                print("yes")
                             } else {} //handle error
                         } else {} //handle error
                     } else {} //handle error

@@ -22,7 +22,7 @@ class GetUserInfoManager {
 
     func getFriend(userID: UInt) {
         ref = Database.database().reference()
-        ref?.child("friend").queryOrdered(byChild: "self").queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (snapshoot) in
+        ref?.child("relationship").queryOrdered(byChild: "self").queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (snapshoot) in
             guard let data = snapshoot.value as? [String: Any] else { return } //error handle
             for key in data.keys {
                 if let friends = data["\(key)"] as? [String: Any] {
@@ -44,7 +44,7 @@ class GetUserInfoManager {
                         if let userId = userInfo["id"] as? NSNumber {
                             if let login = userInfo["login"] as? String {
                                 if let nickname = userInfo["nickname"] as? String {
-                                    self.users.append(User.init(email: email, userID: userId, nickname: nickname, login: login))
+                                    self.users.append(User.init(email: email, userID: userId, nickname: nickname, login: login, autoID: key))
                                     self.delegate?.manager(self, didFetch: self.users)
                                 } else { /* error handle */ }
                             } else { /* error handle */ }
@@ -65,7 +65,7 @@ class GetUserInfoManager {
                         if let userId = userInfo["id"] as? NSNumber {
                             if let login = userInfo["login"] as? String {
                                 if let nickname = userInfo["nickname"] as? String {
-                                    let user = User.init(email: email, userID: userId, nickname: nickname, login: login)
+                                    let user = User.init(email: email, userID: userId, nickname: nickname, login: login, autoID: key)
                                     self.delegate?.manager(self, didFetch: user)
                                 } else { /* error handle */ }
                             } else { /* error handle */ }
@@ -89,7 +89,7 @@ class GetUserInfoManager {
                         if let userId = userInfo["id"] as? NSNumber {
                             if let login = userInfo["login"] as? String {
                                 if let nickname = userInfo["nickname"] as? String {
-                                    let user = User.init(email: email, userID: userId, nickname: nickname, login: login)
+                                    let user = User.init(email: email, userID: userId, nickname: nickname, login: login, autoID: key)
                                     self.delegate?.manager(self, didFetch: user)
                                 } else { /* error handle */ }
                             } else { /* error handle */ }
@@ -99,7 +99,8 @@ class GetUserInfoManager {
             }
         })
     }
-    var senderIDs:[NSNumber] = []
+
+    var senderIDs: [String: NSNumber] = [String: NSNumber]()
     func checkFriendInvite(userID: UInt) {
         ref = Database.database().reference()
         ref?.child("wait").queryOrdered(byChild: "recipient").queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (snapshoot) in
@@ -107,14 +108,15 @@ class GetUserInfoManager {
             for key in data.keys {
                 if let wait = data["\(key)"] as? [String: Any] {
                     if let senderID = wait["sender"] as? NSNumber {
-                        self.senderIDs.append(senderID)
+                        self.senderIDs["\(key)"] = senderID
                     } else { /* error handle */ }
                 } else { /* error handle */ }
             }
             self.delegate?.manager(self, sender: self.senderIDs)
+
         })
     }
-    var recipientIDs: [NSNumber] = []
+    var recipientIDs: [String: NSNumber] = [String: NSNumber]()
     func checkRecipient(userID: UInt) {
         ref = Database.database().reference()
         ref?.child("wait").queryOrdered(byChild: "sender").queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (snapshoot) in
@@ -122,7 +124,7 @@ class GetUserInfoManager {
             for key in data.keys {
                 if let wait = data["\(key)"] as? [String: Any] {
                     if let recipientID = wait["recipient"] as? NSNumber {
-                        self.recipientIDs.append(recipientID)
+                        self.recipientIDs["\(key)"] = recipientID
                     } else { /* error handle */ }
                 } else { /* error handle */ }
             }

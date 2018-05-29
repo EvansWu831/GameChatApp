@@ -515,10 +515,18 @@
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2e-kB-9pi">
                                                     <rect key="frame" x="222" y="23" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="KMA-MS-Pka"/>
+                                                        <constraint firstAttribute="width" constant="30" id="dqu-vQ-VJy"/>
+                                                    </constraints>
                                                     <state key="normal" title="Yes"/>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bW-GI-Mic">
                                                     <rect key="frame" x="260" y="22" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="KFT-Vb-Jzx"/>
+                                                        <constraint firstAttribute="height" constant="30" id="dDv-Vq-FUc"/>
+                                                    </constraints>
                                                     <state key="normal" title="No"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qbt-Zq-J51">

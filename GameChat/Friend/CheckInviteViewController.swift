@@ -28,11 +28,11 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
         setGoBackButton()
     }
 
-    func manager(_ manager: GetUserInfoManager, sender userIDs: [NSNumber]) {
+    func manager(_ manager: GetUserInfoManager, sender userIDs: [String: NSNumber]) {
 
         ref = Database.database().reference()
-        for userID in userIDs {
-            ref?.child("user").queryOrdered(byChild: "id").queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (snapshoot) in
+        for (autoKey, senderID) in userIDs {
+            ref?.child("user").queryOrdered(byChild: "id").queryEqual(toValue: senderID).observeSingleEvent(of: .value, with: { (snapshoot) in
                 guard let userInfos = snapshoot.value as? [String: Any] else { return } /* error handle */
                 for key in userInfos.keys {
                     if let userInfo = userInfos["\(key)"] as? [String: Any] {
@@ -40,7 +40,7 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
                             if let userId = userInfo["id"] as? NSNumber {
                                 if let login = userInfo["login"] as? String {
                                     if let nickname = userInfo["nickname"] as? String {
-                                        self.sender.append(User.init(email: email, userID: userId, nickname: nickname, login: login))
+                                        self.sender.append(User.init(email: email, userID: userId, nickname: nickname, login: login, autoID: autoKey))
                                     } else { /* error handle */ }
                                 } else { /* error handle */ }
                             } else { /* error handle */ }
@@ -54,11 +54,11 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
         self.getUserInfoManager.checkRecipient(userID: userID)
     }
 
-    func manager(_ manager: GetUserInfoManager, recipient userIDs: [NSNumber]) {
+    func manager(_ manager: GetUserInfoManager, recipient userIDs: [String: NSNumber]) {
 
         ref = Database.database().reference()
-        for userID in userIDs {
-            ref?.child("user").queryOrdered(byChild: "id").queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (snapshoot) in
+        for (autoKey, recipientID) in userIDs {
+            ref?.child("user").queryOrdered(byChild: "id").queryEqual(toValue: recipientID).observeSingleEvent(of: .value, with: { (snapshoot) in
                 guard let userInfos = snapshoot.value as? [String: Any] else { return } /* error handle */
                 for key in userInfos.keys {
                     if let userInfo = userInfos["\(key)"] as? [String: Any] {
@@ -66,7 +66,7 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
                             if let userId = userInfo["id"] as? NSNumber {
                                 if let login = userInfo["login"] as? String {
                                     if let nickname = userInfo["nickname"] as? String {
-                                        self.recipient.append(User.init(email: email, userID: userId, nickname: nickname, login: login))
+                                        self.recipient.append(User.init(email: email, userID: userId, nickname: nickname, login: login, autoID: autoKey))
                                         self.checkInviteTableView.reloadData()
                                     } else { /* error handle */ }
                                 } else { /* error handle */ }
@@ -102,18 +102,27 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var checkInviteCell = UITableViewCell()
+        print(indexPath)
         if let cell = checkInviteTableView.dequeueReusableCell(withIdentifier: "CHECK_INVITE_CELL", for: indexPath) as? CheckInviteTableViewCell {
+
+            cell.noButton.removeTarget(self, action: #selector(refuse(send:)), for: .touchUpInside)
+            cell.noButton.removeTarget(self, action: #selector(cancel(send:)), for: .touchUpInside)
 
             if indexPath.section == 0 {
                 let checkSender = sender[indexPath.row]
                 cell.userName.text = checkSender.login
-                cell.yesButton.addTarget(self, action: #selector(addRelationship), for: .touchUpInside)
+                cell.yesButton.setImage(#imageLiteral(resourceName: "ACCEPT"), for: .normal)
+                cell.yesButton.isHidden = false
+                cell.yesButton.addTarget(self, action: #selector(addRelationship(send:)), for: .touchUpInside)
+                cell.noButton.setImage(#imageLiteral(resourceName: "REFUSE"), for: .normal)
+                cell.noButton.addTarget(self, action: #selector(refuse(send:)), for: .touchUpInside)
             } else {
                 let checkRecipient = recipient[indexPath.row]
                 cell.userName.text = checkRecipient.login
                 cell.yesButton.isHidden = true
+                cell.noButton.setImage(#imageLiteral(resourceName: "REFUSE"), for: .normal)
+                cell.noButton.addTarget(self, action: #selector(cancel(send:)), for: .touchUpInside)
             }
-
             checkInviteCell = cell
         }
         return checkInviteCell
@@ -123,10 +132,45 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
         self.navigationController?.popViewController(animated: true)
     }
 
-    @objc func addRelationship() {
+    @objc func addRelationship(send: Any) {
+        guard let button = send as? UIButton else { return } //handle error
+        guard let contentView = button.superview else { return } //handle error
+        guard let cell = contentView.superview as? UITableViewCell else { return } //handle error
+        guard let indexPath = checkInviteTableView.indexPath(for: cell) else { return } //handle error
+        guard let currentUserID = currentUser?.id else { return } //handle error
+        let senderID = sender[indexPath.row].userID
+        let autoID = sender[indexPath.row].autoID
         ref = Database.database().reference()
+        ref?.child("relationship").childByAutoId().setValue(["friend": senderID, "self": currentUserID])
+        ref?.child("relationship").childByAutoId().setValue(["friend": currentUserID, "self": senderID])
+        ref?.child("wait").child("\(autoID)").removeValue()
+        sender.remove(at: indexPath.row)
+        self.checkInviteTableView.reloadData()
     }
 
+    @objc func refuse(send: Any) {
+        guard let button = send as? UIButton else { return }
+        guard let contentView = button.superview else { return }
+        guard let cell = contentView.superview as? UITableViewCell else { return }
+        guard let indexPath = checkInviteTableView.indexPath(for: cell) else { return }
+        let autoID = sender[indexPath.row].autoID
+        ref = Database.database().reference()
+        ref?.child("wait").child("\(autoID)").removeValue()
+        sender.remove(at: indexPath.row)
+        self.checkInviteTableView.reloadData()
+    }
+
+    @objc func cancel(send: Any) {
+        guard let button = send as? UIButton else { return }
+        guard let contentView = button.superview else { return }
+        guard let cell = contentView.superview as? UITableViewCell else { return }
+        guard let indexPath = checkInviteTableView.indexPath(for: cell) else { return }
+        let autoID = recipient[indexPath.row].autoID
+        ref = Database.database().reference()
+        ref?.child("wait").child("\(autoID)").removeValue()
+        recipient.remove(at: indexPath.row)
+        self.checkInviteTableView.reloadData()
+    }
     func setGoBackButton() {
         let backButton = UIBarButtonItem()
         backButton.image = #imageLiteral(resourceName: "GOOUT")
