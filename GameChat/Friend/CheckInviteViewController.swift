@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Quickblox
 import Firebase
+import FirebaseStorage
 
 class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GetUserInfoDelegate {
 
@@ -25,6 +26,7 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
         self.getUserInfoManager.delegate = self
         guard let userID = currentUser?.id else { return } //handle error
         self.getUserInfoManager.checkFriendInvite(userID: userID)
+        self.getUserInfoManager.checkRecipient(userID: userID)
         setGoBackButton()
     }
 
@@ -47,11 +49,9 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
                         } else { /* error handle */ }
                     } else { /* error handle */ }
                 }
+                self.checkInviteTableView.reloadData()
             })
         }
-        self.getUserInfoManager.delegate = self
-        guard let userID = currentUser?.id else { return } //handle error
-        self.getUserInfoManager.checkRecipient(userID: userID)
     }
 
     func manager(_ manager: GetUserInfoManager, recipient userIDs: [String: NSNumber]) {
@@ -67,13 +67,13 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
                                 if let login = userInfo["login"] as? String {
                                     if let nickname = userInfo["nickname"] as? String {
                                         self.recipient.append(User.init(email: email, userID: userId, nickname: nickname, login: login, autoID: autoKey))
-                                        self.checkInviteTableView.reloadData()
                                     } else { /* error handle */ }
                                 } else { /* error handle */ }
                             } else { /* error handle */ }
                         } else { /* error handle */ }
                     } else { /* error handle */ }
                 }
+                self.checkInviteTableView.reloadData()
             })
         }
 
@@ -108,20 +108,54 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
             cell.noButton.removeTarget(self, action: #selector(refuse(send:)), for: .touchUpInside)
             cell.noButton.removeTarget(self, action: #selector(cancel(send:)), for: .touchUpInside)
 
+            cell.userImageView.layer.masksToBounds = true
+            cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
+
             if indexPath.section == 0 {
                 let checkSender = sender[indexPath.row]
-                cell.userName.text = checkSender.login
+
+                if checkSender.nickname.isEmpty {
+                    cell.userName.text = checkSender.login
+                } else {
+                    cell.userName.text = checkSender.nickname
+                }
+
                 cell.yesButton.setImage(#imageLiteral(resourceName: "ACCEPT"), for: .normal)
                 cell.yesButton.isHidden = false
                 cell.yesButton.addTarget(self, action: #selector(addRelationship(send:)), for: .touchUpInside)
                 cell.noButton.setImage(#imageLiteral(resourceName: "REFUSE"), for: .normal)
                 cell.noButton.addTarget(self, action: #selector(refuse(send:)), for: .touchUpInside)
+
+                let storageRef = Storage.storage().reference(withPath: "\(checkSender.userID)/userImage.jpg")
+                storageRef.getData(maxSize: 1*1000*1000) { (data, _) in
+                    if let image = data {
+                        cell.userImageView.image = UIImage(data: image)
+                    } else {
+                        cell.userImageView.image = #imageLiteral(resourceName: "USERIMAGE")
+                    }
+                }
+
             } else {
                 let checkRecipient = recipient[indexPath.row]
-                cell.userName.text = checkRecipient.login
+
+                if checkRecipient.nickname.isEmpty {
+                    cell.userName.text = checkRecipient.login
+                } else {
+                    cell.userName.text = checkRecipient.nickname
+                }
+
                 cell.yesButton.isHidden = true
                 cell.noButton.setImage(#imageLiteral(resourceName: "REFUSE"), for: .normal)
                 cell.noButton.addTarget(self, action: #selector(cancel(send:)), for: .touchUpInside)
+
+                let storageRef = Storage.storage().reference(withPath: "\(checkRecipient.userID)/userImage.jpg")
+                storageRef.getData(maxSize: 1*1000*1000) { (data, _) in
+                    if let image = data {
+                        cell.userImageView.image = UIImage(data: image)
+                    } else {
+                        cell.userImageView.image = #imageLiteral(resourceName: "USERIMAGE")
+                    }
+                }
             }
             checkInviteCell = cell
         }

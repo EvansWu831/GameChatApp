@@ -10,8 +10,9 @@ import Foundation
 import UIKit
 import Firebase
 import Quickblox
+import FirebaseStorage
 
-class AddFriendViewController: UIViewController, GetUserInfoDelegate {
+class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
@@ -52,6 +53,7 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate {
         setUserInfo()
         checkRelationship()
         checkInvitees()
+        checkInvited()
     }
 
     func manager(_ manager: GetUserInfoManager, error: Error) {
@@ -104,6 +106,7 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate {
         guard let inviteesID = invitees?.userID else {return} //handle error
         ref = Database.database().reference()
         ref?.child("wait").childByAutoId().setValue(["sender": userID, "recipient": inviteesID])
+        addButton.isHidden = true
     }
 
     @objc func goBack() {
@@ -160,5 +163,36 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate {
                 } else {} //handle error
             }
         })
+    }
+
+    func checkInvited() {
+        guard let userID = currentUser?.id else {return} //handle error
+        guard let inviteesID = invitees?.userID else {return} //handle error
+        ref = Database.database().reference()
+                ref?.child("wait").queryOrdered(byChild: "recipient").queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                    guard let wait = snapshot.value as? [String: Any] else { return } //handle error
+                    for key in wait.keys {
+                        if let relationship = wait["\(key)"] as? [String: Any] {
+                            if let recipient = relationship["sender"] as? NSNumber {
+                                if inviteesID == recipient {
+                                    self.addButton.isHidden = true
+                                    let alert = UIAlertController(title: "等待你確認好友中", message: nil, preferredStyle: .actionSheet)
+                                    let action = UIAlertAction(title: "確定", style: .default)
+                                    alert.addAction(action)
+                                    self.present(alert, animated: true, completion: nil)
+                                }
+                            } else {} //handle error
+                        } else {} //handle error
+                    }
+                })
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }

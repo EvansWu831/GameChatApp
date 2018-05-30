@@ -41,6 +41,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="abn-g7-cNr" id="pYY-Qc-E3i"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="使用者名稱" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uWj-EJ-Bz0">
                                 <rect key="frame" x="141" y="261" width="92.5" height="30"/>
@@ -48,6 +51,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="abn-g7-cNr" id="yV4-US-6Za"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PK1-LI-t9U">
                                 <rect key="frame" x="170" y="337" width="34" height="30"/>
@@ -95,6 +101,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="username"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Y6c-XD-2jn" id="6bO-H7-TRH"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="輸入密碼" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cJW-e6-9xx">
                                 <rect key="frame" x="85" y="288" width="150" height="30"/>
@@ -102,6 +111,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="password"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Y6c-XD-2jn" id="InL-BK-z0N"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Hf-hQ-kIW">
                                 <rect key="frame" x="175" y="364" width="60" height="30"/>
@@ -117,6 +129,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Y6c-XD-2jn" id="Vjj-YR-Bro"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="暱稱" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bpb-0K-Qr8">
                                 <rect key="frame" x="85" y="174" width="150" height="30"/>
@@ -124,6 +139,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="nickname"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Y6c-XD-2jn" id="jZT-db-shn"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="確認密碼" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iOq-Az-hGg">
                                 <rect key="frame" x="85" y="326" width="150" height="30"/>
@@ -131,6 +149,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="password"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Y6c-XD-2jn" id="86E-ec-maO"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOw-W2-1DJ">
                                 <rect key="frame" x="85" y="364" width="60" height="30"/>
@@ -309,34 +330,6 @@
             </objects>
             <point key="canvasLocation" x="878" y="16"/>
         </scene>
-        <!--Name Button-->
-        <scene sceneID="Lf1-29-30i">
-            <objects>
-                <viewController id="695-Ra-oAe" customClass="NameButton" customModule="GameChat" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="C8e-nc-z1J">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1qz-9D-Rx8">
-                                <rect key="frame" x="112" y="305" width="151" height="56"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="action:" destination="695-Ra-oAe" eventType="touchUpInside" id="984-Nj-UmY"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="8XO-iE-RA3"/>
-                    </view>
-                    <connections>
-                        <outlet property="nameButton" destination="1qz-9D-Rx8" id="L5S-wA-WP1"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Rsp-E4-iUI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1725.5999999999999" y="-50.824587706146929"/>
-        </scene>
         <!--Friend View Controller-->
         <scene sceneID="1gt-SD-EzD">
             <objects>
@@ -506,6 +499,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Zr3-3j-FlN" id="faD-mb-4eP"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zwn-vU-C3c">
                                 <rect key="frame" x="269" y="100" width="31" height="30"/>
@@ -551,6 +547,10 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="beT-iE-IXZ">
                                                     <rect key="frame" x="15" y="13" width="50" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="Fyw-9s-D12"/>
+                                                        <constraint firstAttribute="height" constant="50" id="UNW-N3-CHd"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2e-kB-9pi">
                                                     <rect key="frame" x="222" y="23" width="30" height="30"/>
@@ -579,8 +579,7 @@
                                                 <constraint firstItem="beT-iE-IXZ" firstAttribute="top" secondItem="DpZ-jd-dXb" secondAttribute="topMargin" constant="2" id="0kR-Vy-nZm"/>
                                                 <constraint firstItem="d2e-kB-9pi" firstAttribute="top" secondItem="DpZ-jd-dXb" secondAttribute="topMargin" constant="12" id="1kL-sh-zYJ"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="5bW-GI-Mic" secondAttribute="bottom" constant="12" id="24Q-bo-zjE"/>
-                                                <constraint firstItem="d2e-kB-9pi" firstAttribute="leading" secondItem="qbt-Zq-J51" secondAttribute="trailing" constant="107" id="5CM-DL-q9w"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="qbt-Zq-J51" secondAttribute="bottom" constant="16" id="7S4-b5-68j"/>
+                                                <constraint firstAttribute="bottomMargin" relation="lessThanOrEqual" secondItem="qbt-Zq-J51" secondAttribute="bottom" constant="16" id="7S4-b5-68j"/>
                                                 <constraint firstItem="d2e-kB-9pi" firstAttribute="leading" relation="lessThanOrEqual" secondItem="qbt-Zq-J51" secondAttribute="trailing" constant="107" id="9ep-qG-TmT"/>
                                                 <constraint firstItem="5bW-GI-Mic" firstAttribute="trailing" secondItem="DpZ-jd-dXb" secondAttribute="trailingMargin" id="S1m-qS-8EL"/>
                                                 <constraint firstItem="5bW-GI-Mic" firstAttribute="leading" secondItem="d2e-kB-9pi" secondAttribute="trailing" constant="8" id="dSu-NS-5wK"/>
@@ -619,6 +618,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="g1Q-i6-M3l"/>
+        <segue reference="HjS-yS-bfv"/>
     </inferredMetricsTieBreakers>
 </document>

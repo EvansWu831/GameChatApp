@@ -85,6 +85,14 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
             } else {
                 cell.friendNameLabel.text = "\(friend.nickname)"
             }
+            let storageRef = Storage.storage().reference(withPath: "\(friend.userID)/userImage.jpg")
+            storageRef.getData(maxSize: 1*1000*1000) { (data, _) in
+                if let image = data {
+                    cell.friendImageView.image = UIImage(data: image)
+                } else {
+                    cell.friendImageView.image = #imageLiteral(resourceName: "USERIMAGE")
+                }
+            }
             userCell = cell
         } else {  } //handle error
         return userCell
