@@ -9,8 +9,10 @@
 import Foundation
 import UIKit
 import Quickblox
+import Firebase
+import FirebaseStorage
 
-class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GetUserInfoDelegate {
+class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GetUserInfoDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var userView: UIView!
     @IBOutlet weak var userImageView: UIImageView!
@@ -25,6 +27,7 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         setAddFriendButton()
         getInfo()
+        setUserImage()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -55,7 +58,7 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
         } else {
             userName.text = user.nickname
         }
-        userImageView.image = #imageLiteral(resourceName: "USERIMAGE")
+        downloadImage()
         friendsTableView.reloadData()
     }
 
@@ -128,6 +131,64 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
         backButton.target = self
         backButton.action = #selector(goBack)
         self.navigationItem.leftBarButtonItem = backButton
+    }
+
+    //set image action
+    func setUserImage() {
+        userImageView.layer.masksToBounds = true
+        userImageView.layer.cornerRadius = userImageView.frame.width/2
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        userImageView.isUserInteractionEnabled = true
+        userImageView.addGestureRecognizer(tapGestureRecognizer)
+    }
+
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        let picker: UIImagePickerController = UIImagePickerController()
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
+            picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            picker.allowsEditing = true
+            picker.delegate = self
+            self.present(picker, animated: true, completion: nil)
+        }
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        uploadImage(image: image!) //處理驚嘆號
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+
+    //上傳圖片
+    func uploadImage(image: UIImage) {
+        guard let userID = currentUser?.login else { return } //handle error
+        let userImage = UIImageJPEGRepresentation(image, 0.0)
+        let storageRef = Storage.storage().reference(withPath: "\(userID)/userImage.jpg")
+        let uploadMetadata = StorageMetadata()
+        uploadMetadata.contentType = "image/jpeg"
+        storageRef.putData(userImage!, metadata: uploadMetadata) { (_, error) in
+            if error == nil {
+                self.downloadImage()
+            } else {
+                print("error") //handle error
+            }
+        }
+    }
+    //下載圖片
+    func downloadImage() {
+        guard let userID = currentUser?.login else { return } //handle error
+        let storageRef = Storage.storage().reference(withPath: "\(userID)/userImage.jpg")
+        storageRef.getData(maxSize: 1*1000*1000) { (data, _) in
+            if let image = data {
+                self.userImageView.image = UIImage(data: image)
+                print("下載成功", image)
+            } else {
+                self.userImageView.image = #imageLiteral(resourceName: "USERIMAGE")
+                print("下載失敗") } //handle error
+        }
     }
 
 }

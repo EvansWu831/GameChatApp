@@ -20,7 +20,7 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate {
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var addButton: UIButton!
     var currentUser: QBUUser?
-    var newFriend: User?
+    var invitees: User?
     let getUserInfoManager = GetUserInfoManager()
     var ref: DatabaseReference?
 
@@ -28,6 +28,9 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate {
         super.viewDidLoad()
         infoView.isHidden = true
         addButton.isHidden = true
+        userImageView.layer.masksToBounds = true
+        userImageView.layer.cornerRadius = userImageView.frame.width/2
+
         sendButton.addTarget(self, action: #selector(searchUser), for: UIControlEvents.touchUpInside)
         addButton.addTarget(self, action: #selector(addNewFriend), for: UIControlEvents.touchUpInside)
         userImageView.image = #imageLiteral(resourceName: "USERIMAGE")
@@ -45,9 +48,10 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate {
 
     func manager(_ manager: GetUserInfoManager, didFetch user: User) {
 
-        newFriend = user
+        invitees = user
         setUserInfo()
         checkRelationship()
+        checkInvitees()
     }
 
     func manager(_ manager: GetUserInfoManager, error: Error) {
@@ -66,7 +70,7 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate {
 
     func setUserInfo() {
 
-        if let userInfo = newFriend {
+        if let userInfo = invitees {
             infoView.isHidden = false
             addButton.isHidden = false
             userImageView.image = #imageLiteral(resourceName: "USERIMAGE")
@@ -96,11 +100,10 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate {
     }
 
     @objc func addNewFriend() {
-        guard let user = currentUser else {return} //handle error
-        guard let new = newFriend else {return} //handle error
+        guard let userID = currentUser?.id else {return} //handle error
+        guard let inviteesID = invitees?.userID else {return} //handle error
         ref = Database.database().reference()
-        ref?.child("wait").childByAutoId().setValue(["sender": user.id, "recipient": new.userID])
-        
+        ref?.child("wait").childByAutoId().setValue(["sender": userID, "recipient": inviteesID])
     }
 
     @objc func goBack() {
@@ -117,14 +120,14 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate {
 
     func checkRelationship() {
         guard let user = currentUser else {return} //handle error
-        guard let new = newFriend else {return} //handle error
+        guard let inviteesID = invitees?.userID else {return} //handle error
         ref = Database.database().reference()
         ref?.child("relationship").queryOrdered(byChild: "self").queryEqual(toValue: user.id).observeSingleEvent(of: .value, with: { (snapshot) in
             if let friends = snapshot.value as? [String: Any] {
                 for key in friends.keys {
                     if let relationship = friends["\(key)"] as? [String: Any] {
                         if let friendID = relationship["friend"] as? NSNumber {
-                            if new.userID == friendID {
+                            if inviteesID == friendID {
                                 self.addButton.isHidden = true
                                 let alert = UIAlertController(title: nil, message: "已經是朋友了", preferredStyle: .actionSheet)
                                 let action = UIAlertAction(title: "確定", style: .default)
@@ -135,6 +138,27 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate {
                     } else {} //handle error
                 }
             } else {} //handle error
+        })
+    }
+
+    func checkInvitees() {
+        guard let user = currentUser else {return} //handle error
+        guard let inviteesID = invitees?.userID else {return} //handle error
+        ref?.child("wait").queryOrdered(byChild: "sender").queryEqual(toValue: user.id).observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let wait = snapshot.value as? [String: Any] else { return } //handle error
+            for key in wait.keys {
+                if let relationship = wait["\(key)"] as? [String: Any] {
+                    if let recipient = relationship["recipient"] as? NSNumber {
+                        if inviteesID == recipient {
+                            self.addButton.isHidden = true
+                            let alert = UIAlertController(title: nil, message: "已送出邀請", preferredStyle: .actionSheet)
+                            let action = UIAlertAction(title: "確定", style: .default)
+                            alert.addAction(action)
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    } else {} //handle error
+                } else {} //handle error
+            }
         })
     }
 }
