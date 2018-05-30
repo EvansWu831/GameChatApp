@@ -60,7 +60,7 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate {
             switch error {
             case .canNotFindThisID:
                 infoView.isHidden = true
-                let alert = UIAlertController(title: nil, message: "查無此ID", preferredStyle: .alert)
+                let alert = UIAlertController(title: "查無此ID", message: nil, preferredStyle: .alert)
                 let action = UIAlertAction(title: "確定", style: .default)
                 alert.addAction(action)
                 present(alert, animated: true, completion: nil)
@@ -90,7 +90,7 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate {
                     getUserInfoManager.addFriendInfo(userLogin: userName)
                 } else {
                     infoView.isHidden = true
-                    let alert = UIAlertController(title: nil, message: "在尋找自己嗎？", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "在尋找自己嗎？", message: nil, preferredStyle: .alert)
                     let action = UIAlertAction(title: "確定", style: .default)
                     alert.addAction(action)
                     present(alert, animated: true, completion: nil)
@@ -129,7 +129,7 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate {
                         if let friendID = relationship["friend"] as? NSNumber {
                             if inviteesID == friendID {
                                 self.addButton.isHidden = true
-                                let alert = UIAlertController(title: nil, message: "已經是朋友了", preferredStyle: .actionSheet)
+                                let alert = UIAlertController(title: "已經是朋友了", message: nil, preferredStyle: .actionSheet)
                                 let action = UIAlertAction(title: "確定", style: .default)
                                 alert.addAction(action)
                                 self.present(alert, animated: true, completion: nil)
@@ -151,7 +151,7 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate {
                     if let recipient = relationship["recipient"] as? NSNumber {
                         if inviteesID == recipient {
                             self.addButton.isHidden = true
-                            let alert = UIAlertController(title: nil, message: "已送出邀請", preferredStyle: .actionSheet)
+                            let alert = UIAlertController(title: "已送出邀請", message: nil, preferredStyle: .actionSheet)
                             let action = UIAlertAction(title: "確定", style: .default)
                             alert.addAction(action)
                             self.present(alert, animated: true, completion: nil)

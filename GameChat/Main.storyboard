@@ -309,6 +309,34 @@
             </objects>
             <point key="canvasLocation" x="878" y="16"/>
         </scene>
+        <!--Name Button-->
+        <scene sceneID="Lf1-29-30i">
+            <objects>
+                <viewController id="695-Ra-oAe" customClass="NameButton" customModule="GameChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="C8e-nc-z1J">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1qz-9D-Rx8">
+                                <rect key="frame" x="112" y="305" width="151" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="action:" destination="695-Ra-oAe" eventType="touchUpInside" id="984-Nj-UmY"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="8XO-iE-RA3"/>
+                    </view>
+                    <connections>
+                        <outlet property="nameButton" destination="1qz-9D-Rx8" id="L5S-wA-WP1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rsp-E4-iUI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1725.5999999999999" y="-50.824587706146929"/>
+        </scene>
         <!--Friend View Controller-->
         <scene sceneID="1gt-SD-EzD">
             <objects>
@@ -327,12 +355,18 @@
                                             <constraint firstAttribute="height" constant="60" id="cha-a0-otL"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ij-Cv-MBC">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ij-Cv-MBC">
                                         <rect key="frame" x="78" y="27" width="97" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qLq-ry-Kv4">
+                                        <rect key="frame" x="78" y="0.0" width="297" height="74.5"/>
+                                        <connections>
+                                            <action selector="tappedUserNameButton:" destination="6bO-I1-ann" eventType="touchUpInside" id="Ugu-QT-wkE"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -343,6 +377,10 @@
                                     <constraint firstItem="7Ij-Cv-MBC" firstAttribute="leading" secondItem="r7T-Ek-z8l" secondAttribute="trailing" constant="8" id="K8U-v5-hbu"/>
                                     <constraint firstItem="r7T-Ek-z8l" firstAttribute="top" secondItem="Grb-cU-nCa" secondAttribute="top" constant="7" id="QaH-KB-4yo"/>
                                     <constraint firstAttribute="bottom" secondItem="7Ij-Cv-MBC" secondAttribute="bottom" constant="27" id="UTK-ES-mNV"/>
+                                    <constraint firstAttribute="trailing" secondItem="qLq-ry-Kv4" secondAttribute="trailing" id="ZlZ-Ag-sjm"/>
+                                    <constraint firstItem="qLq-ry-Kv4" firstAttribute="top" secondItem="Grb-cU-nCa" secondAttribute="top" id="e3g-Lg-yZy"/>
+                                    <constraint firstAttribute="bottom" secondItem="qLq-ry-Kv4" secondAttribute="bottom" id="lph-N8-kJz"/>
+                                    <constraint firstItem="qLq-ry-Kv4" firstAttribute="leading" secondItem="r7T-Ek-z8l" secondAttribute="trailing" constant="8" id="oho-Tp-GHn"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kre-0s-V0y">
@@ -420,7 +458,8 @@
                     <connections>
                         <outlet property="friendsTableView" destination="kre-0s-V0y" id="V9a-Mb-CjY"/>
                         <outlet property="userImageView" destination="r7T-Ek-z8l" id="4gS-iV-91g"/>
-                        <outlet property="userName" destination="7Ij-Cv-MBC" id="get-mC-97Q"/>
+                        <outlet property="userNameButton" destination="qLq-ry-Kv4" id="Rmc-ye-KhE"/>
+                        <outlet property="userNameLabel" destination="7Ij-Cv-MBC" id="oiW-b0-0aj"/>
                         <outlet property="userView" destination="Grb-cU-nCa" id="u9N-XG-hJv"/>
                         <segue destination="Zr3-3j-FlN" kind="show" identifier="MAKE_FRIEND" id="kug-lX-rff"/>
                         <segue destination="975-zA-KWC" kind="show" identifier="GO_CHECK_INVITE" id="VvC-1n-mid"/>
