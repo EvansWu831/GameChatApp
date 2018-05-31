@@ -30,6 +30,10 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
         setGoBackButton()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.checkInviteTableView.reloadData()
+    }
     func manager(_ manager: GetUserInfoManager, sender userIDs: [String: NSNumber]) {
 
         ref = Database.database().reference()
@@ -49,7 +53,6 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
                         } else { /* error handle */ }
                     } else { /* error handle */ }
                 }
-                self.checkInviteTableView.reloadData()
             })
         }
     }
@@ -73,7 +76,6 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
                         } else { /* error handle */ }
                     } else { /* error handle */ }
                 }
-                self.checkInviteTableView.reloadData()
             })
         }
 
@@ -102,7 +104,7 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var checkInviteCell = UITableViewCell()
-        print(indexPath)
+        print("=================", indexPath)
         if let cell = checkInviteTableView.dequeueReusableCell(withIdentifier: "CHECK_INVITE_CELL", for: indexPath) as? CheckInviteTableViewCell {
 
             cell.noButton.removeTarget(self, action: #selector(refuse(send:)), for: .touchUpInside)
@@ -179,7 +181,6 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
         ref?.child("relationship").childByAutoId().setValue(["friend": currentUserID, "self": senderID])
         ref?.child("wait").child("\(autoID)").removeValue()
         sender.remove(at: indexPath.row)
-        self.checkInviteTableView.reloadData()
     }
 
     @objc func refuse(send: Any) {
@@ -191,7 +192,6 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
         ref = Database.database().reference()
         ref?.child("wait").child("\(autoID)").removeValue()
         sender.remove(at: indexPath.row)
-        self.checkInviteTableView.reloadData()
     }
 
     @objc func cancel(send: Any) {
@@ -203,8 +203,8 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
         ref = Database.database().reference()
         ref?.child("wait").child("\(autoID)").removeValue()
         recipient.remove(at: indexPath.row)
-        self.checkInviteTableView.reloadData()
     }
+
     func setGoBackButton() {
         let backButton = UIBarButtonItem()
         backButton.image = #imageLiteral(resourceName: "GOOUT")
@@ -212,4 +212,5 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
         backButton.action = #selector(goBack)
         self.navigationItem.leftBarButtonItem = backButton
     }
+
 }

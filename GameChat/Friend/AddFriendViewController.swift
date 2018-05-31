@@ -132,7 +132,7 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
                         if let friendID = relationship["friend"] as? NSNumber {
                             if inviteesID == friendID {
                                 self.addButton.isHidden = true
-                                let alert = UIAlertController(title: "已經是朋友了", message: nil, preferredStyle: .actionSheet)
+                                let alert = UIAlertController(title: "已經是朋友了", message: nil, preferredStyle: .alert)
                                 let action = UIAlertAction(title: "確定", style: .default)
                                 alert.addAction(action)
                                 self.present(alert, animated: true, completion: nil)
@@ -154,7 +154,7 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
                     if let recipient = relationship["recipient"] as? NSNumber {
                         if inviteesID == recipient {
                             self.addButton.isHidden = true
-                            let alert = UIAlertController(title: "已送出邀請", message: nil, preferredStyle: .actionSheet)
+                            let alert = UIAlertController(title: "已送出邀請", message: nil, preferredStyle: .alert)
                             let action = UIAlertAction(title: "確定", style: .default)
                             alert.addAction(action)
                             self.present(alert, animated: true, completion: nil)
@@ -176,7 +176,7 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
                             if let recipient = relationship["sender"] as? NSNumber {
                                 if inviteesID == recipient {
                                     self.addButton.isHidden = true
-                                    let alert = UIAlertController(title: "等待你確認好友中", message: nil, preferredStyle: .actionSheet)
+                                    let alert = UIAlertController(title: "等待你確認好友中", message: nil, preferredStyle: .alert)
                                     let action = UIAlertAction(title: "確定", style: .default)
                                     alert.addAction(action)
                                     self.present(alert, animated: true, completion: nil)

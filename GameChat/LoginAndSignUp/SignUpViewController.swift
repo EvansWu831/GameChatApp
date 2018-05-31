@@ -24,7 +24,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBAction func didSingUp(_ sender: UIButton) {
 
         guard let nickname = nicknameTextField.text else {
-            let alert = UIAlertController(title: "錯誤", message: "請重新輸入暱稱", preferredStyle: .actionSheet)
+            let alert = UIAlertController(title: "錯誤", message: "請重新輸入暱稱", preferredStyle: .alert)
             let action = UIAlertAction(title: "確定", style: .default)
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
@@ -32,7 +32,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         }
 
         guard let email = emailTextField.text else {
-            let alert = UIAlertController(title: "錯誤", message: "請重新輸入信箱", preferredStyle: .actionSheet)
+            let alert = UIAlertController(title: "錯誤", message: "請重新輸入信箱", preferredStyle: .alert)
             let action = UIAlertAction(title: "確定", style: .default)
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
@@ -40,7 +40,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         }
 
         guard let userName = userNameTextField.text else {
-            let alert = UIAlertController(title: "錯誤", message: "請重新輸入帳號", preferredStyle: .actionSheet)
+            let alert = UIAlertController(title: "錯誤", message: "請重新輸入帳號", preferredStyle: .alert)
             let action = UIAlertAction(title: "確定", style: .default)
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
@@ -48,7 +48,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         }
 
         guard let password = passwordTextField.text else {
-            let alert = UIAlertController(title: "錯誤", message: "請重新輸入密碼", preferredStyle: .actionSheet)
+            let alert = UIAlertController(title: "錯誤", message: "請重新輸入密碼", preferredStyle: .alert)
             let action = UIAlertAction(title: "確定", style: .default)
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
@@ -56,7 +56,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         }
 
         guard let confirmPassword = confirmPasswordTextField.text else {
-            let alert = UIAlertController(title: "錯誤", message: "請再次確認密碼", preferredStyle: .actionSheet)
+            let alert = UIAlertController(title: "錯誤", message: "請再次確認密碼", preferredStyle: .alert)
             let action = UIAlertAction(title: "確定", style: .default)
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
@@ -64,7 +64,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         }
 
         guard !email.isEmpty else {
-            let alert = UIAlertController(title: "錯誤", message: "信箱空白", preferredStyle: .actionSheet)
+            let alert = UIAlertController(title: "錯誤", message: "信箱空白", preferredStyle: .alert)
             let action = UIAlertAction(title: "確定", style: .default)
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
@@ -72,7 +72,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         }
 
         guard !userName.isEmpty else {
-            let alert = UIAlertController(title: "錯誤", message: "帳號空白", preferredStyle: .actionSheet)
+            let alert = UIAlertController(title: "錯誤", message: "帳號空白", preferredStyle: .alert)
             let action = UIAlertAction(title: "確定", style: .default)
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
@@ -80,7 +80,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         }
 
         guard !password.isEmpty else {
-            let alert = UIAlertController(title: "錯誤", message: "密碼空白", preferredStyle: .actionSheet)
+            let alert = UIAlertController(title: "錯誤", message: "密碼空白", preferredStyle: .alert)
             let action = UIAlertAction(title: "確定", style: .default)
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
@@ -88,7 +88,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         }
 
         guard password.count >= 8 else {
-            let alert = UIAlertController(title: "錯誤", message: "密碼長度不能小於8個字", preferredStyle: .actionSheet)
+            let alert = UIAlertController(title: "錯誤", message: "密碼長度不能小於8個字", preferredStyle: .alert)
             let action = UIAlertAction(title: "確定", style: .default)
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
@@ -98,7 +98,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         if !confirmPassword.isEmpty && password == confirmPassword {
             signUp(userName: userName, password: password, email: email, nickname: nickname)
         } else {
-            let alert = UIAlertController(title: "錯誤", message: "與密碼不一致", preferredStyle: .actionSheet)
+            let alert = UIAlertController(title: "錯誤", message: "與密碼不一致", preferredStyle: .alert)
             let action = UIAlertAction(title: "確定", style: .default)
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
