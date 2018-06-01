@@ -12,9 +12,9 @@ import Quickblox
 import Firebase
 import FirebaseStorage
 
-class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GetUserInfoDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,
+GetUserInfoDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    
     @IBOutlet weak var userNameButton: UIButton!
     @IBOutlet weak var userView: UIView!
     @IBOutlet weak var userImageView: UIImageView!
@@ -42,10 +42,10 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
         } else { } //handle error
     }
 
-    func manager(_ manager: GetUserInfoManager, sender userIDs: [String: NSNumber]) {
+    func manager(_ manager: GetUserInfoManager, sender users: [User]) {
     }
 
-    func manager(_ manager: GetUserInfoManager, recipient userIDs: [String: NSNumber]) {
+    func manager(_ manager: GetUserInfoManager, recipient users: [User]) {
     }
 
     func manager(_ manager: GetUserInfoManager, didFetch users: [User]) {
@@ -147,7 +147,8 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func setUserImage() {
         userImageView.layer.masksToBounds = true
         userImageView.layer.cornerRadius = userImageView.frame.width/2
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                          action: #selector(imageTapped(tapGestureRecognizer:)))
         userImageView.isUserInteractionEnabled = true
         userImageView.addGestureRecognizer(tapGestureRecognizer)
     }
@@ -162,7 +163,8 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
 
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [String: Any]) {
         picker.dismiss(animated: true, completion: nil)
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             uploadImage(image: image)

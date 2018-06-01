@@ -129,7 +129,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         newUser.password = password
         newUser.email = email
         QBRequest.signUp(newUser, successBlock: { (response, user) in
-            self.addUser(user: ["id": user.id, "email": "\(user.email!)", "login": "\(user.login!)", "nickname": "\(nickname)"])
+            self.addUser(user: ["id": user.id,
+                                "email": "\(user.email!)",
+                                "login": "\(user.login!)",
+                                "nickname": "\(nickname)"])
             self.login(userLogin: userName, password: password)
         })
         { ( response ) in
@@ -146,7 +149,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                         let action = UIAlertAction(title: "確認", style: .default)
                         alert.addAction(action)
                         self.present(alert, animated: true, completion: nil)
-                        print("check", response)
                     }
                 }
             }

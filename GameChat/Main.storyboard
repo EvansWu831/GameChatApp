@@ -571,16 +571,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="nMR-5h-82B">
-                                <rect key="frame" x="38" y="98" width="305" height="520"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="nMR-5h-82B">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CHECK_INVITE_CELL" rowHeight="75" id="oTm-QL-fVS" customClass="CheckInviteTableViewCell" customModule="GameChat" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="305" height="75"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oTm-QL-fVS" id="DpZ-jd-dXb">
-                                            <rect key="frame" x="0.0" y="0.0" width="305" height="74.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="beT-iE-IXZ">
@@ -644,6 +643,12 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="TtO-gb-5Xu" firstAttribute="bottom" secondItem="nMR-5h-82B" secondAttribute="bottom" id="5Tf-93-m64"/>
+                            <constraint firstItem="nMR-5h-82B" firstAttribute="top" secondItem="TtO-gb-5Xu" secondAttribute="top" id="IsU-Xl-fk7"/>
+                            <constraint firstItem="TtO-gb-5Xu" firstAttribute="trailing" secondItem="nMR-5h-82B" secondAttribute="trailing" id="UjV-gV-dB4"/>
+                            <constraint firstItem="nMR-5h-82B" firstAttribute="leading" secondItem="TtO-gb-5Xu" secondAttribute="leading" id="wRf-AJ-1TB"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="TtO-gb-5Xu"/>
                     </view>
                     <connections>

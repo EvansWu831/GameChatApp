@@ -23,7 +23,7 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
     var currentUser: QBUUser?
     var invitees: User?
     let getUserInfoManager = GetUserInfoManager()
-    var ref: DatabaseReference?
+    var reference: DatabaseReference?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,10 +38,10 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
         setGoBackButton()
     }
 
-    func manager(_ manager: GetUserInfoManager, sender userIDs: [String: NSNumber]) {
+    func manager(_ manager: GetUserInfoManager, sender users: [User]) {
     }
 
-    func manager(_ manager: GetUserInfoManager, recipient userIDs: [String: NSNumber]) {
+    func manager(_ manager: GetUserInfoManager, recipient users: [User]) {
     }
 
     func manager(_ manager: GetUserInfoManager, didFetch users: [User]) {
@@ -104,8 +104,8 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
     @objc func addNewFriend() {
         guard let userID = currentUser?.id else {return} //handle error
         guard let inviteesID = invitees?.userID else {return} //handle error
-        ref = Database.database().reference()
-        ref?.child("wait").childByAutoId().setValue(["sender": userID, "recipient": inviteesID])
+        reference = Database.database().reference()
+        reference?.child("wait").childByAutoId().setValue(["sender": userID, "recipient": inviteesID])
         addButton.isHidden = true
     }
 
@@ -124,8 +124,9 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
     func checkRelationship() {
         guard let user = currentUser else {return} //handle error
         guard let inviteesID = invitees?.userID else {return} //handle error
-        ref = Database.database().reference()
-        ref?.child("relationship").queryOrdered(byChild: "self").queryEqual(toValue: user.id).observeSingleEvent(of: .value, with: { (snapshot) in
+        reference = Database.database().reference()
+        let path = reference?.child("relationship").queryOrdered(byChild: "self")
+        path?.queryEqual(toValue: user.id).observeSingleEvent(of: .value, with: { (snapshot) in
             if let friends = snapshot.value as? [String: Any] {
                 for key in friends.keys {
                     if let relationship = friends["\(key)"] as? [String: Any] {
@@ -147,7 +148,9 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
     func checkInvitees() {
         guard let user = currentUser else {return} //handle error
         guard let inviteesID = invitees?.userID else {return} //handle error
-        ref?.child("wait").queryOrdered(byChild: "sender").queryEqual(toValue: user.id).observeSingleEvent(of: .value, with: { (snapshot) in
+        reference = Database.database().reference()
+        let path = reference?.child("wait").queryOrdered(byChild: "sender")
+        path?.queryEqual(toValue: user.id).observeSingleEvent(of: .value, with: { (snapshot) in
             guard let wait = snapshot.value as? [String: Any] else { return } //handle error
             for key in wait.keys {
                 if let relationship = wait["\(key)"] as? [String: Any] {
@@ -168,23 +171,26 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
     func checkInvited() {
         guard let userID = currentUser?.id else {return} //handle error
         guard let inviteesID = invitees?.userID else {return} //handle error
-        ref = Database.database().reference()
-                ref?.child("wait").queryOrdered(byChild: "recipient").queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (snapshot) in
-                    guard let wait = snapshot.value as? [String: Any] else { return } //handle error
-                    for key in wait.keys {
-                        if let relationship = wait["\(key)"] as? [String: Any] {
-                            if let recipient = relationship["sender"] as? NSNumber {
-                                if inviteesID == recipient {
-                                    self.addButton.isHidden = true
-                                    let alert = UIAlertController(title: "等待你確認好友中", message: nil, preferredStyle: .alert)
-                                    let action = UIAlertAction(title: "確定", style: .default)
-                                    alert.addAction(action)
-                                    self.present(alert, animated: true, completion: nil)
-                                }
-                            } else {} //handle error
-                        } else {} //handle error
-                    }
-                })
+        reference = Database.database().reference()
+        let path = reference?.child("wait").queryOrdered(byChild: "recipient")
+        path?.queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let wait = snapshot.value as? [String: Any] else { return } //handle error
+            for key in wait.keys {
+                if let relationship = wait["\(key)"] as? [String: Any] {
+                    if let recipient = relationship["sender"] as? NSNumber {
+                        if inviteesID == recipient {
+                            self.addButton.isHidden = true
+                            let alert = UIAlertController(title: "等待您確認好友中",
+                                                          message: nil,
+                                                          preferredStyle: .alert)
+                            let action = UIAlertAction(title: "確定", style: .default)
+                            alert.addAction(action)
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    } else {} //handle error
+                } else {} //handle error
+            }
+        })
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

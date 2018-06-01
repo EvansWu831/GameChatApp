@@ -31,10 +31,10 @@ class InviteFriendViewController: UIViewController, UITableViewDataSource, UITab
         setGoBackButton()
     }
 
-    func manager(_ manager: GetUserInfoManager, sender userIDs: [String: NSNumber]) {
+    func manager(_ manager: GetUserInfoManager, sender users: [User]) {
     }
 
-    func manager(_ manager: GetUserInfoManager, recipient userIDs: [String: NSNumber]) {
+    func manager(_ manager: GetUserInfoManager, recipient users: [User]) {
     }
 
     func manager(_ manager: GetUserInfoManager, didFetch users: [User]) {

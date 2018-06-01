@@ -34,12 +34,12 @@ class ForgotPasswordViewController: UIViewController {
 
     @IBAction func sendEmail(_ sender: UIButton) {
         guard let email = emailTextField.text else {return}
-        QBRequest.resetUserPassword(withEmail: email, successBlock: { (respone) in
+        QBRequest.resetUserPassword(withEmail: email, successBlock: { (_) in
             let alert = UIAlertController(title: "信件發送成功", message: "點擊quickblox的來信件跟改密碼", preferredStyle: .alert)
             let action = UIAlertAction(title: "確定", style: UIAlertActionStyle.default, handler: nil)
             alert.addAction(action)
             self.present(alert, animated: true, completion: nil)
-        }) { (error) in
+        }) { (_) in
             let alert = UIAlertController(title: "信件發送失敗", message: "此信箱不存在,請再確認一次信箱", preferredStyle: .alert)
             let action = UIAlertAction(title: "確定", style: UIAlertActionStyle.default, handler: nil)
             alert.addAction(action)
