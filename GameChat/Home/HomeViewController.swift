@@ -97,7 +97,7 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
         self.navigationItem.title = "Home"
         //出門
         let exitButton = UIBarButtonItem()
-        exitButton.image = #imageLiteral(resourceName: "GOOUT")
+        exitButton.image = #imageLiteral(resourceName: "GO_OUT")
         exitButton.target = self
         exitButton.action = #selector(didEnd)
         self.navigationItem.leftBarButtonItem = exitButton
@@ -122,7 +122,7 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
         self.navigationItem.title = "Home"
         //出門
         let exitButton = UIBarButtonItem()
-        exitButton.image = #imageLiteral(resourceName: "GOOUT")
+        exitButton.image = #imageLiteral(resourceName: "GO_OUT")
         exitButton.target = self
         exitButton.action = #selector(didEnd)
         self.navigationItem.leftBarButtonItem = exitButton

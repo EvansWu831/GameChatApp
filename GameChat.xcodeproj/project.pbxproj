@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		26691CC361AE22FF0FE573C6 /* Pods_GameChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38EAF2C5D5B781EFB425FE07 /* Pods_GameChat.framework */; };
+		2825A26620BFF06B00B76511 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2825A26520BFF06B00B76511 /* ForgotPasswordViewController.swift */; };
 		2851434E20B51536000796E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2851434D20B51536000796E9 /* AppDelegate.swift */; };
 		2851436E20B516B2000796E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2851436D20B516B2000796E9 /* Main.storyboard */; };
 		2851437020B516B9000796E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2851436F20B516B9000796E9 /* Assets.xcassets */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2825A26520BFF06B00B76511 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		2851434A20B51536000796E9 /* GameChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2851434D20B51536000796E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2851435920B5153A000796E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -101,8 +103,8 @@
 				2851439120B52237000796E9 /* GetUserInfoManager.swift */,
 				2851439020B52237000796E9 /* GetUserInfoDelegate.swift */,
 				2851439220B52237000796E9 /* User.swift */,
-				2851439620B52241000796E9 /* LoginAndSignUp */,
-				2851439B20B5224A000796E9 /* House */,
+				2851439620B52241000796E9 /* User */,
+				2851439B20B5224A000796E9 /* Home */,
 				2851439E20B52251000796E9 /* Invite */,
 				285143AA20B52D87000796E9 /* Friend */,
 				2851436D20B516B2000796E9 /* Main.storyboard */,
@@ -114,21 +116,22 @@
 			path = GameChat;
 			sourceTree = "<group>";
 		};
-		2851439620B52241000796E9 /* LoginAndSignUp */ = {
+		2851439620B52241000796E9 /* User */ = {
 			isa = PBXGroup;
 			children = (
 				2851439720B52241000796E9 /* SignUpViewController.swift */,
 				2851439820B52241000796E9 /* LoginViewController.swift */,
+				2825A26520BFF06B00B76511 /* ForgotPasswordViewController.swift */,
 			);
-			path = LoginAndSignUp;
+			path = User;
 			sourceTree = "<group>";
 		};
-		2851439B20B5224A000796E9 /* House */ = {
+		2851439B20B5224A000796E9 /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				2851439C20B5224A000796E9 /* HomeViewController.swift */,
 			);
-			path = House;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		2851439E20B52251000796E9 /* Invite */ = {
@@ -333,6 +336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2825A26620BFF06B00B76511 /* ForgotPasswordViewController.swift in Sources */,
 				2851439A20B52241000796E9 /* LoginViewController.swift in Sources */,
 				285143A420B52251000796E9 /* InviteFriendDelegate.swift in Sources */,
 				2851439520B52237000796E9 /* User.swift in Sources */,

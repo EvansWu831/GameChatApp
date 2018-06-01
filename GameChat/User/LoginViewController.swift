@@ -12,7 +12,7 @@ import QuickbloxWebRTC
 import Quickblox
 import SVProgressHUD
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var idTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -20,6 +20,7 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "FunChat"
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -69,9 +70,9 @@ class LoginViewController: UIViewController {
     }
 
     func login(userLogin: String, password: String) {
-        SVProgressHUD.show(withStatus: "Logining to rest")
+        SVProgressHUD.show(withStatus: "登入中")
         QBRequest.logIn(withUserLogin: userLogin, password: password, successBlock: { _, user in
-            SVProgressHUD.show(withStatus: "Connecting to chat")
+            SVProgressHUD.show(withStatus: "獲取使用者資料")
             QBChat.instance.connect(with: user) { _ in
                 self.performSegue(withIdentifier: "GOHOME", sender: user)
                 SVProgressHUD.dismiss()
@@ -93,5 +94,14 @@ class LoginViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let homeVC  = segue.destination as? HomeViewController else { return } //handle error
         homeVC.currentUser = sender as? QBUUser
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }
