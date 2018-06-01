@@ -24,6 +24,16 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setGoBackButton()
+        setBackgroundImage()
+    }
+
+    func setBackgroundImage() {
+        UIGraphicsBeginImageContext(view.frame.size)
+        var image = UIImage(named: "SIGNUP")
+        image?.draw(in: view.bounds)
+        image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        view.backgroundColor = UIColor(patternImage: image!)
     }
 
     func setGoBackButton() {

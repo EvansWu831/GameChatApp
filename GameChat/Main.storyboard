@@ -61,6 +61,7 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PK1-LI-t9U">
                                 <rect key="frame" x="157.5" y="350.5" width="60" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="5YW-Jf-cc8"/>
                                     <constraint firstAttribute="height" constant="30" id="nNx-vG-CCG"/>
@@ -72,6 +73,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zIu-9Q-Ucu">
                                 <rect key="frame" x="157.5" y="388.5" width="60" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="RpS-gv-EQ0"/>
                                     <constraint firstAttribute="width" constant="60" id="rWZ-eO-JMO"/>
@@ -83,6 +85,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I19-8C-zax">
                                 <rect key="frame" x="156.5" y="426.5" width="62" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="GVX-d2-jyi"/>
                                     <constraint firstAttribute="width" constant="62" id="HJ9-bf-A5X"/>
@@ -136,9 +139,13 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="s9w-AW-LZK" id="35b-Xy-7RC"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liX-Sh-335">
                                 <rect key="frame" x="157.5" y="369.5" width="60" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="MuF-30-s9l"/>
                                     <constraint firstAttribute="height" constant="30" id="ORp-1U-wAM"/>
@@ -236,6 +243,7 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Hf-hQ-kIW">
                                 <rect key="frame" x="157.5" y="445.5" width="60" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="e0e-c6-SNp"/>
                                     <constraint firstAttribute="height" constant="30" id="tnn-W9-V3T"/>
@@ -762,7 +770,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="SEARCH" width="24" height="24"/>
+        <image name="SEARCH" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="g1Q-i6-M3l"/>

@@ -21,10 +21,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "FunChat"
+        setBackgroundImage()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+
+    func setBackgroundImage() {
+        UIGraphicsBeginImageContext(view.frame.size)
+        var image = UIImage(named: "LOGIN")
+        image?.draw(in: view.bounds)
+        image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        view.backgroundColor = UIColor(patternImage: image!)
     }
 
     @IBAction func didLogin(_ sender: UIButton) {

@@ -10,13 +10,23 @@ import Foundation
 import UIKit
 import Quickblox
 
-class ForgotPasswordViewController: UIViewController {
+class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var emailTextField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setGoBackButton()
+        setBackgroundImage()
+    }
+
+    func setBackgroundImage() {
+        UIGraphicsBeginImageContext(view.frame.size)
+        var image = UIImage(named: "FORGOT")
+        image?.draw(in: view.bounds)
+        image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        view.backgroundColor = UIColor(patternImage: image!)
     }
 
     func setGoBackButton() {
@@ -45,5 +55,14 @@ class ForgotPasswordViewController: UIViewController {
             alert.addAction(action)
             self.present(alert, animated: true, completion: nil)
         }
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }

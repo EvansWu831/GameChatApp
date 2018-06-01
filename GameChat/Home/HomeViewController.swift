@@ -39,6 +39,7 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
         QBRTCClient.instance().add(self)
         configureAudio()
         setHouse()
+        setBackgroundImage()
     }
 
     //成為代理人
@@ -76,6 +77,16 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
         QBRTCAudioSession.instance().currentAudioDevice = .speaker
     }
     //House頁面
+
+    func setBackgroundImage() {
+        UIGraphicsBeginImageContext(view.frame.size)
+        var image = UIImage(named: "HOME")
+        image?.draw(in: view.bounds)
+        image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        view.backgroundColor = UIColor(patternImage: image!)
+    }
+
     func setHouse() {
         self.navigationItem.title = "House"
         //登出
