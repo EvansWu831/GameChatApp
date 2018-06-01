@@ -38,6 +38,7 @@ GetUserInfoDelegate, UIImagePickerControllerDelegate, UINavigationControllerDele
         } else { } //handle error
 
         if let checkInviteVC = segue.destination as? CheckInviteViewController {
+            checkInviteVC.friendGetUserInfoManager = self.getUserInfoManager
             checkInviteVC.currentUser = self.currentUser
         } else { } //handle error
     }
@@ -76,7 +77,6 @@ GetUserInfoDelegate, UIImagePickerControllerDelegate, UINavigationControllerDele
         if let cell = friendsTableView.dequeueReusableCell(withIdentifier: "FRIEND_CELL", for: indexPath)
             as? FriendTableViewCell {
             let friend = myFriend[indexPath.row]
-            cell.friendImageView.image = #imageLiteral(resourceName: "USERIMAGE")
             cell.friendImageView.layer.masksToBounds = true
             cell.friendImageView.layer.cornerRadius = cell.friendImageView.frame.width/2
             cell.friendNameLabel.numberOfLines = 0

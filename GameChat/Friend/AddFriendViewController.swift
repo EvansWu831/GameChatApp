@@ -34,7 +34,6 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
 
         sendButton.addTarget(self, action: #selector(searchUser), for: UIControlEvents.touchUpInside)
         addButton.addTarget(self, action: #selector(addNewFriend), for: UIControlEvents.touchUpInside)
-        userImageView.image = #imageLiteral(resourceName: "USERIMAGE")
         setGoBackButton()
     }
 
@@ -75,7 +74,14 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
         if let userInfo = invitees {
             infoView.isHidden = false
             addButton.isHidden = false
-            userImageView.image = #imageLiteral(resourceName: "USERIMAGE")
+            let storageRef = Storage.storage().reference(withPath: "\(userInfo.userID)/userImage.jpg")
+            storageRef.getData(maxSize: 1*1000*1000) { (data, _) in
+                if let image = data {
+                    self.userImageView.image = UIImage(data: image)
+                } else {
+                    self.userImageView.image = #imageLiteral(resourceName: "USERIMAGE")
+                }
+            }
             if userInfo.nickname.isEmpty {
                 userNameLabel.text = userInfo.login
             } else {

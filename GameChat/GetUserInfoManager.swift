@@ -18,45 +18,40 @@ class GetUserInfoManager {
 
     weak var delegate: GetUserInfoDelegate?
     var reference: DatabaseReference?
-    var users: [User] = []
     var senderInfos: [User] = []
     var recipientInfos: [User] = []
 
     func getFriend(userID: UInt) {
+        var users: [User] = []
         reference = Database.database().reference()
         let path = reference?.child("relationship").queryOrdered(byChild: "self")
-        path?.queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (snapshoot) in
-            guard let data = snapshoot.value as? [String: Any] else { return } //error handle
-            for key in data.keys {
-                if let friends = data["\(key)"] as? [String: Any] {
+        path?.queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (waitData) in
+            guard let wait = waitData.value as? [String: Any] else { return } //error handle
+            for waitAutoKey in wait.keys {
+                if let friends = wait["\(waitAutoKey)"] as? [String: Any] {
                     if let friendID = friends["friend"] as? NSNumber {
-                        self.getUsersInfo(userId: friendID)
-                    } else { /* error handle */ }
-                } else { /* error handle */ }
-            }
-        })
-    }
-
-    func getUsersInfo(userId: NSNumber) {
-        reference = Database.database().reference()
-        let path = reference?.child("user").queryOrdered(byChild: "id")
-        path?.queryEqual(toValue: userId).observeSingleEvent(of: .value, with: { (snapshoot) in
-            guard let userInfos = snapshoot.value as? [String: Any] else { return } /* error handle */
-            for key in userInfos.keys {
-                if let userInfo = userInfos["\(key)"] as? [String: Any] {
-                    if let email = userInfo["email"] as? String {
-                        if let userId = userInfo["id"] as? NSNumber {
-                            if let login = userInfo["login"] as? String {
-                                if let nickname = userInfo["nickname"] as? String {
-                                    self.users.append(User.init(email: email,
-                                                                userID: userId,
-                                                                nickname: nickname,
-                                                                login: login,
-                                                                autoID: key))
-                                    self.delegate?.manager(self, didFetch: self.users)
+                        let friendPath = self.reference?.child("user").queryOrdered(byChild: "id")
+                        friendPath?.queryEqual(toValue: friendID).observeSingleEvent(of: .value, with: { (snapshoot) in
+                            guard let userInfos = snapshoot.value as? [String: Any] else { return }/* error handle */
+                            for key in userInfos.keys {
+                                if let userInfo = userInfos["\(key)"] as? [String: Any] {
+                                    if let email = userInfo["email"] as? String {
+                                        if let userId = userInfo["id"] as? NSNumber {
+                                            if let login = userInfo["login"] as? String {
+                                                if let nickname = userInfo["nickname"] as? String {
+                                                    users.append(User.init(email: email,
+                                                                                userID: userId,
+                                                                                nickname: nickname,
+                                                                                login: login,
+                                                                                autoID: key))
+                                                } else { /* error handle */ }
+                                            } else { /* error handle */ }
+                                        } else { /* error handle */ }
+                                    } else { /* error handle */ }
                                 } else { /* error handle */ }
-                            } else { /* error handle */ }
-                        } else { /* error handle */ }
+                            }
+                            self.delegate?.manager(self, didFetch: users)
+                        })
                     } else { /* error handle */ }
                 } else { /* error handle */ }
             }

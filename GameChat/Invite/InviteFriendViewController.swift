@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Firebase
+import FirebaseStorage
 import Quickblox
 import QuickbloxWebRTC
 
@@ -57,7 +58,15 @@ class InviteFriendViewController: UIViewController, UITableViewDataSource, UITab
         if let cell = inviteFriendTableview.dequeueReusableCell(withIdentifier: "INVITE_CELL", for: indexPath)
             as? InviteFriendTableViewCell {
             let friend = myFriend[indexPath.row]
-            cell.userImageView.image = #imageLiteral(resourceName: "USERIMAGE")
+            let storageRef = Storage.storage().reference(withPath: "\(friend.userID)/userImage.jpg")
+            storageRef.getData(maxSize: 1*1000*1000) { (data, _) in
+                if let image = data {
+                    cell.userImageView.image = UIImage(data: image)
+                } else {
+                    cell.userImageView.image = #imageLiteral(resourceName: "USERIMAGE")
+                }
+            }
+
             cell.userImageView.layer.masksToBounds = true
             cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
             cell.userNameLabel.numberOfLines = 0

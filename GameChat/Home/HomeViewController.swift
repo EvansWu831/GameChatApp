@@ -145,7 +145,7 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
 
     //登出
     @objc func logout() {
-        SVProgressHUD.show(withStatus: "Logout")
+        SVProgressHUD.show(withStatus: "登出")
         QBChat.instance.disconnect { _ in
             QBRequest.logOut(successBlock: { _ in
                 SVProgressHUD.dismiss()

@@ -17,9 +17,11 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var checkInviteTableView: UITableView!
     var recipients: [User] = []
     var senders: [User] = []
+    var friendGetUserInfoManager = GetUserInfoManager()
     let getUserInfoManager = GetUserInfoManager()
     var currentUser: QBUUser?
     var reference: DatabaseReference?
+//    var 
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +65,6 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var checkInviteCell = UITableViewCell()
-        print(indexPath)
         if let cell = checkInviteTableView.dequeueReusableCell(withIdentifier: "CHECK_INVITE_CELL",
                                                                for: indexPath) as? CheckInviteTableViewCell {
 
@@ -141,6 +142,8 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
         reference?.child("wait").child("\(autoID)").removeValue()
         senders.remove(at: indexPath.row)
         self.checkInviteTableView.reloadData()
+        //重載朋友資料
+        friendGetUserInfoManager.getFriend(userID: currentUserID)
     }
 
     @objc func refuse(send: Any) {
