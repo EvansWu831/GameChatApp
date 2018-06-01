@@ -223,13 +223,13 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
     }
 
     func handleIncomingCall() {
-        let alert = UIAlertController(title: "Incoming call", message: "Accept ?", preferredStyle: .actionSheet)
-        let accept = UIAlertAction(title: "Accept", style: .default) { _ in
+        let alert = UIAlertController(title: "有人來電", message: nil, preferredStyle: .actionSheet)
+        let accept = UIAlertAction(title: "接聽", style: .default) { _ in
             self.goHomeButton.isHidden = true
             self.setFriendHome()
             self.session?.acceptCall(nil)
         }
-        let reject = UIAlertAction(title: "Reject", style: .default) { _ in
+        let reject = UIAlertAction(title: " 掛斷", style: .default) { _ in
             self.session?.rejectCall(nil)
         }
         alert.addAction(accept)
