@@ -29,6 +29,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QBSettings.accountKey = "Ksi1_E7QzA5Hrkc5rsB6"
         QBSettings.autoReconnectEnabled = true
 
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().barTintColor = UIColor(red: 0.180, green: 0.459, blue: 0.733, alpha: 1.00)
+
+        //shadow
         return true
     }
 }

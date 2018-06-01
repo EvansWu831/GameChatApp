@@ -21,6 +21,24 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setGoBackButton()
+    }
+
+    func setGoBackButton() {
+        let backButton = UIBarButtonItem()
+        backButton.image = #imageLiteral(resourceName: "GO_BACK")
+        backButton.target = self
+        backButton.action = #selector(goBack)
+        self.navigationItem.leftBarButtonItem = backButton
+        self.navigationItem.title = "註冊"
+    }
+
+    @objc func goBack() {
+        self.navigationController?.popViewController(animated: true)
+    }
+
     @IBAction func didSingUp(_ sender: UIButton) {
 
         guard let nickname = nicknameTextField.text else {

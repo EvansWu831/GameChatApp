@@ -103,6 +103,7 @@ class GetUserInfoManager {
     var senderIDs: [String: NSNumber] = [String: NSNumber]()
     func checkFriendInvite(userID: UInt) {
         ref = Database.database().reference()
+        
         ref?.child("wait").queryOrdered(byChild: "recipient").queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (snapshoot) in
             guard let data = snapshoot.value as? [String: Any] else { return } /* error handle */
             for key in data.keys {
@@ -113,7 +114,6 @@ class GetUserInfoManager {
                 } else { /* error handle */ }
             }
             self.delegate?.manager(self, sender: self.senderIDs)
-
         })
     }
     var recipientIDs: [String: NSNumber] = [String: NSNumber]()

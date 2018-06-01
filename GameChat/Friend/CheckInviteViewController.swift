@@ -32,8 +32,9 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.checkInviteTableView.reloadData()
+        
     }
+
     func manager(_ manager: GetUserInfoManager, sender userIDs: [String: NSNumber]) {
 
         ref = Database.database().reference()
@@ -53,6 +54,7 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
                         } else { /* error handle */ }
                     } else { /* error handle */ }
                 }
+                self.checkInviteTableView.reloadData()
             })
         }
     }
@@ -76,6 +78,7 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
                         } else { /* error handle */ }
                     } else { /* error handle */ }
                 }
+                self.checkInviteTableView.reloadData()
             })
         }
 
@@ -104,11 +107,12 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var checkInviteCell = UITableViewCell()
-        print("=================", indexPath)
+        print(indexPath)
         if let cell = checkInviteTableView.dequeueReusableCell(withIdentifier: "CHECK_INVITE_CELL", for: indexPath) as? CheckInviteTableViewCell {
 
             cell.noButton.removeTarget(self, action: #selector(refuse(send:)), for: .touchUpInside)
             cell.noButton.removeTarget(self, action: #selector(cancel(send:)), for: .touchUpInside)
+            cell.noButton.tintColor = UIColor.red
 
             cell.userImageView.layer.masksToBounds = true
             cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
@@ -181,6 +185,7 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
         ref?.child("relationship").childByAutoId().setValue(["friend": currentUserID, "self": senderID])
         ref?.child("wait").child("\(autoID)").removeValue()
         sender.remove(at: indexPath.row)
+        self.checkInviteTableView.reloadData()
     }
 
     @objc func refuse(send: Any) {
@@ -192,6 +197,7 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
         ref = Database.database().reference()
         ref?.child("wait").child("\(autoID)").removeValue()
         sender.remove(at: indexPath.row)
+        self.checkInviteTableView.reloadData()
     }
 
     @objc func cancel(send: Any) {
@@ -203,11 +209,12 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
         ref = Database.database().reference()
         ref?.child("wait").child("\(autoID)").removeValue()
         recipient.remove(at: indexPath.row)
+        self.checkInviteTableView.reloadData()
     }
 
     func setGoBackButton() {
         let backButton = UIBarButtonItem()
-        backButton.image = #imageLiteral(resourceName: "GOOUT")
+        backButton.image = #imageLiteral(resourceName: "GO_BACK")
         backButton.target = self
         backButton.action = #selector(goBack)
         self.navigationItem.leftBarButtonItem = backButton

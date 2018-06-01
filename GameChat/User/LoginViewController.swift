@@ -20,6 +20,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "FunChat"
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -69,9 +70,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
 
     func login(userLogin: String, password: String) {
-        SVProgressHUD.show(withStatus: "Logining to rest")
+        SVProgressHUD.show(withStatus: "登入中")
         QBRequest.logIn(withUserLogin: userLogin, password: password, successBlock: { _, user in
-            SVProgressHUD.show(withStatus: "Connecting to chat")
+            SVProgressHUD.show(withStatus: "獲取使用者資料")
             QBChat.instance.connect(with: user) { _ in
                 self.performSegue(withIdentifier: "GOHOME", sender: user)
                 SVProgressHUD.dismiss()

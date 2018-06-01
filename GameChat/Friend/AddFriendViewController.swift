@@ -115,7 +115,7 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
 
     func setGoBackButton() {
         let backButton = UIBarButtonItem()
-        backButton.image = #imageLiteral(resourceName: "GOOUT")
+        backButton.image = #imageLiteral(resourceName: "GO_BACK")
         backButton.target = self
         backButton.action = #selector(goBack)
         self.navigationItem.leftBarButtonItem = backButton

@@ -126,18 +126,18 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func setAddFriendButton() {
         self.navigationItem.title = "朋友"
         let addFriendButton = UIBarButtonItem()
-        addFriendButton.image = #imageLiteral(resourceName: "INVITEFRIEND")
+        addFriendButton.image = #imageLiteral(resourceName: "ADD_FRIEND")
         addFriendButton.target = self
         addFriendButton.action = #selector(goAddFriend)
 
         let checkInviteButton = UIBarButtonItem()
-        checkInviteButton.image = #imageLiteral(resourceName: "CHECKINVITE")
+        checkInviteButton.image = #imageLiteral(resourceName: "CHECK_INVITE")
         checkInviteButton.target = self
         checkInviteButton.action = #selector(goCheckInvite)
         self.navigationItem.rightBarButtonItems = [addFriendButton, checkInviteButton]
 
         let backButton = UIBarButtonItem()
-        backButton.image = #imageLiteral(resourceName: "GOOUT")
+        backButton.image = #imageLiteral(resourceName: "GO_BACK")
         backButton.target = self
         backButton.action = #selector(goBack)
         self.navigationItem.leftBarButtonItem = backButton
