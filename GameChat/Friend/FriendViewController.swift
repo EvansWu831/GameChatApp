@@ -85,8 +85,8 @@ GetUserInfoDelegate, UIImagePickerControllerDelegate, UINavigationControllerDele
             } else {
                 cell.friendNameLabel.text = "\(friend.nickname)"
             }
-            let storageRef = Storage.storage().reference(withPath: "\(friend.userID)/userImage.jpg")
-            storageRef.getData(maxSize: 1*1000*1000) { (data, _) in
+            let storage = Storage.storage().reference(withPath: "\(friend.userID)/userImage.jpg")
+            storage.getData(maxSize: 1*1000*1000) { (data, _) in
                 if let image = data {
                     cell.friendImageView.image = UIImage(data: image)
                 } else {
@@ -101,6 +101,32 @@ GetUserInfoDelegate, UIImagePickerControllerDelegate, UINavigationControllerDele
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let friend = myFriend[indexPath.row]
         print(friend.login)
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle,
+                   forRowAt indexPath: IndexPath) {
+        guard let currentUserID = currentUser?.id else { return } //handle error
+        if editingStyle == UITableViewCellEditingStyle.delete {
+            let reference = Database.database().reference()
+            let friend = myFriend[indexPath.row]
+            let path = reference.child("relationship").queryOrdered(byChild: "friend")
+            path.queryEqual(toValue: currentUserID).observeSingleEvent(of: .value) { (relationshipData) in
+                guard let relationship = relationshipData.value as? [String: Any] else { return } //error handle
+                for relationshipAutoKey in relationship.keys {
+                    if let blackFriend = relationship["\(relationshipAutoKey)"] as? [String: Any] {
+                        if let blackID = blackFriend["self"] as? NSNumber {
+                            if blackID == friend.userID {
+                                reference.child("relationship").child("\(friend.autoID)").removeValue()
+                                reference.child("relationship").child("\(relationshipAutoKey)").removeValue()
+                                reference.child("blacklist").childByAutoId().setValue(["sender": currentUserID, "black": friend.userID])
+                            } else { } //handle error
+                        } else { } //handle error
+                    } else { } //handel error
+                }
+                self.myFriend.remove(at: indexPath.row)
+                self.friendsTableView.reloadData()
+            }
+        } else {
+        }
     }
 
     func getInfo() {
@@ -179,10 +205,10 @@ GetUserInfoDelegate, UIImagePickerControllerDelegate, UINavigationControllerDele
     func uploadImage(image: UIImage) {
         guard let userID = currentUser?.id else { return } //handle error
         let userImage = UIImageJPEGRepresentation(image, 0.0)
-        let storageRef = Storage.storage().reference(withPath: "\(userID)/userImage.jpg")
+        let storage = Storage.storage().reference(withPath: "\(userID)/userImage.jpg")
         let uploadMetadata = StorageMetadata()
         uploadMetadata.contentType = "image/jpeg"
-        storageRef.putData(userImage!, metadata: uploadMetadata) { (_, error) in
+        storage.putData(userImage!, metadata: uploadMetadata) { (_, error) in
             if error == nil {
                 self.downloadImage()
             } else {
@@ -193,8 +219,8 @@ GetUserInfoDelegate, UIImagePickerControllerDelegate, UINavigationControllerDele
     //下載圖片
     func downloadImage() {
         guard let userID = currentUser?.id else { return } //handle error
-        let storageRef = Storage.storage().reference(withPath: "\(userID)/userImage.jpg")
-        storageRef.getData(maxSize: 1*1000*1000) { (data, _) in
+        let storage = Storage.storage().reference(withPath: "\(userID)/userImage.jpg")
+        storage.getData(maxSize: 1*1000*1000) { (data, _) in
             if let image = data {
                 self.userImageView.image = UIImage(data: image)
             } else {

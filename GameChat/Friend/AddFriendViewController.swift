@@ -49,7 +49,7 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
     func manager(_ manager: GetUserInfoManager, didFetch user: User) {
 
         invitees = user
-        setUserInfo()
+        checkBlacklist()
         checkRelationship()
         checkInvitees()
         checkInvited()
@@ -61,12 +61,12 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
             switch error {
             case .canNotFindThisID:
                 infoView.isHidden = true
-                let alert = UIAlertController(title: "查無此ID", message: nil, preferredStyle: .alert)
+                let alert = UIAlertController(title: "此ID不存在", message: nil, preferredStyle: .alert)
                 let action = UIAlertAction(title: "確定", style: .default)
                 alert.addAction(action)
                 present(alert, animated: true, completion: nil)
             }
-        } else { print("未知錯誤") }
+        } else { print("未知錯誤") } //handle error
     }
 
     func setUserInfo() {
@@ -195,6 +195,35 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
                         }
                     } else {} //handle error
                 } else {} //handle error
+            }
+        })
+    }
+
+    func checkBlacklist() {
+        guard let currentUserID = currentUser?.id else { return } //handle error
+        guard let inviteesID = invitees?.userID else {return} //handle error
+        var blackSender = NSNumber()
+        reference = Database.database().reference()
+        let path = reference?.child("blacklist").queryOrdered(byChild: "black").queryEqual(toValue: currentUserID)
+        path?.observeSingleEvent(of: .value, with: { (blacklist) in
+            guard let blacklistData = blacklist.value as? [String: Any] else { return }
+            for blacklistAutoKey in blacklistData.keys {
+                if let blacklist = blacklistData["\(blacklistAutoKey)"] as? [String: Any] {
+                    if let sender = blacklist["sender"] as? NSNumber {
+                        if inviteesID == sender {
+                            blackSender = sender
+                        } else {  }
+                    } else { } //handle error
+                } else { } //handle error
+            }
+            if blackSender == inviteesID {
+                self.infoView.isHidden = true
+                let alert = UIAlertController(title: "你被封鎖", message: nil, preferredStyle: .alert)
+                let action = UIAlertAction(title: "確定", style: .default, handler: nil)
+                alert.addAction(action)
+                self.present(alert, animated: true, completion: nil)
+            } else {
+                self.setUserInfo()
             }
         })
     }

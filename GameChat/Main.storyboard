@@ -42,7 +42,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet" secureTextEntry="YES" textContentType="password"/>
                                 <connections>
                                     <outlet property="delegate" destination="abn-g7-cNr" id="pYY-Qc-E3i"/>
                                 </connections>
@@ -54,7 +54,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet" textContentType="username"/>
                                 <connections>
                                     <outlet property="delegate" destination="abn-g7-cNr" id="yV4-US-6Za"/>
                                 </connections>
@@ -138,7 +138,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                                 <connections>
                                     <outlet property="delegate" destination="s9w-AW-LZK" id="35b-Xy-7RC"/>
                                 </connections>
@@ -188,7 +188,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" textContentType="username"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet" textContentType="username"/>
                                 <connections>
                                     <outlet property="delegate" destination="Y6c-XD-2jn" id="6bO-H7-TRH"/>
                                 </connections>
@@ -200,7 +200,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" textContentType="password"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet" secureTextEntry="YES" textContentType="password"/>
                                 <connections>
                                     <outlet property="delegate" destination="Y6c-XD-2jn" id="InL-BK-z0N"/>
                                 </connections>
@@ -224,7 +224,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" textContentType="nickname"/>
+                                <textInputTraits key="textInputTraits" keyboardType="namePhonePad" textContentType="nickname"/>
                                 <connections>
                                     <outlet property="delegate" destination="Y6c-XD-2jn" id="jZT-db-shn"/>
                                 </connections>
@@ -236,7 +236,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" textContentType="password"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet" secureTextEntry="YES" textContentType="password"/>
                                 <connections>
                                     <outlet property="delegate" destination="Y6c-XD-2jn" id="86E-ec-maO"/>
                                 </connections>
@@ -301,9 +301,12 @@
                                             <action selector="inviteFriends:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iHJ-Xf-m89"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1OT-Kg-pK0">
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1OT-Kg-pK0">
                                         <rect key="frame" x="8" y="16" width="38" height="38"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="38" id="nyO-lp-5cM"/>
+                                            <constraint firstAttribute="height" constant="38" id="vU1-lh-Xmr"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -311,17 +314,11 @@
                                     <constraint firstAttribute="trailing" secondItem="IoZ-tz-kte" secondAttribute="trailing" constant="20" id="EhW-NW-TfY"/>
                                     <constraint firstAttribute="bottom" secondItem="IoZ-tz-kte" secondAttribute="bottom" constant="24" id="MGK-gk-zjp"/>
                                     <constraint firstItem="IoZ-tz-kte" firstAttribute="top" secondItem="6xn-uX-4Bq" secondAttribute="top" constant="24" id="VG4-7s-YAm"/>
+                                    <constraint firstItem="1OT-Kg-pK0" firstAttribute="top" secondItem="6xn-uX-4Bq" secondAttribute="top" constant="16" id="aSZ-6w-2cS"/>
+                                    <constraint firstItem="1OT-Kg-pK0" firstAttribute="leading" secondItem="6xn-uX-4Bq" secondAttribute="leading" constant="8" id="cWh-ok-k6v"/>
                                     <constraint firstAttribute="height" constant="70" id="deA-PT-RRU"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NAn-id-uID">
-                                <rect key="frame" x="157" y="318" width="61" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="GoHome"/>
-                                <connections>
-                                    <action selector="goHome:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fQz-ej-dtv"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -332,7 +329,6 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="goHomeButton" destination="NAn-id-uID" id="faj-JL-d8y"/>
                         <outlet property="inviteFriendButton" destination="IoZ-tz-kte" id="umR-xo-ylW"/>
                         <outlet property="peoplesView" destination="6xn-uX-4Bq" id="bUo-qa-Dfm"/>
                         <outlet property="usersImage" destination="1OT-Kg-pK0" id="z27-Fn-Fpk"/>
@@ -587,7 +583,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet" textContentType="username"/>
                                 <connections>
                                     <outlet property="delegate" destination="Zr3-3j-FlN" id="faD-mb-4eP"/>
                                 </connections>

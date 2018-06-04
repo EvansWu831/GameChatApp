@@ -19,13 +19,6 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
     var initiatorID: NSNumber?
     @IBOutlet weak var peoplesView: UIView!
     @IBOutlet weak var usersImage: UIImageView!
-    @IBOutlet weak var goHomeButton: UIButton!
-
-    @IBAction func goHome(_ sender: UIButton) {
-        goHomeButton.isHidden = true
-        peoplesView.isHidden = false
-        setSelfHome()
-    }
 
     @IBOutlet weak var inviteFriendButton: UIButton!
 
@@ -38,6 +31,7 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
         QBRTCClient.initializeRTC()
         QBRTCClient.instance().add(self)
         configureAudio()
+
         setHouse()
         setBackgroundImage()
     }
@@ -87,6 +81,15 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
         view.backgroundColor = UIColor(patternImage: image!)
     }
 
+    func setChatBackgroundImage() {
+        UIGraphicsBeginImageContext(view.frame.size)
+        var image = UIImage(named: "HOMEPARTY")
+        image?.draw(in: view.bounds)
+        image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        view.backgroundColor = UIColor(patternImage: image!)
+    }
+    //打電話前畫面
     func setHouse() {
         self.navigationItem.title = "House"
         //登出
@@ -95,15 +98,23 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
         exitButton.target = self
         exitButton.action = #selector(logout)
         self.navigationItem.leftBarButtonItem = exitButton
-        //右邊按鈕
+        //打電話
+        let callButton = UIBarButtonItem()
+        callButton.image = #imageLiteral(resourceName: "CALL")
+        callButton.target = self
+        callButton.action = #selector(didCall)
+        //朋友
         let friendButton = UIBarButtonItem()
         friendButton.image = #imageLiteral(resourceName: "FRIEND")
         friendButton.target = self
         friendButton.action = #selector(friendButtonAction)
-        self.navigationItem.rightBarButtonItems = [friendButton]
-        peoplesView.isHidden = true
+        self.navigationItem.rightBarButtonItems = [callButton, friendButton]
+        //使用者頭像
+        setUsersImage()
+        inviteFriendButton.isHidden = false
+        setBackgroundImage()
     }
-    //Home頁面
+    //打電話後畫面
     func setSelfHome() {
         self.navigationItem.title = "Home"
         //出門
@@ -124,11 +135,10 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
         friendButton.action = #selector(friendButtonAction)
         self.navigationItem.rightBarButtonItems = [callButton, friendButton]
         //頭像
-        peoplesView.isHidden = false
-        inviteFriendButton.isHidden = false
         setUsersImage()
+        inviteFriendButton.isHidden = false
     }
-    //FriendHome頁面
+    //受邀請時頁面
     func setFriendHome() {
         self.navigationItem.title = "Home"
         //出門
@@ -139,7 +149,6 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
         self.navigationItem.leftBarButtonItem = exitButton
         self.navigationItem.rightBarButtonItems = []
         //頭像
-        peoplesView.isHidden = false
         inviteFriendButton.isHidden = true
         setUsersImage()
     }
@@ -176,11 +185,11 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
             self.session?.hangUp(nil)
             print("掛電話")
             inviteFriends = nil
-        } else {
             setHouse()
-            goHomeButton.isHidden = false
+        } else {
             print("沒電話可以掛")
             inviteFriends = nil
+            setHouse()
         }
     }
     //打電話
@@ -190,6 +199,7 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
             QBChat.instance.connect(with: user) { _ in
                 self.session = QBRTCClient.instance().createNewSession(withOpponents: ids, with: .audio)
                 self.session?.startCall(nil)
+                self.setSelfHome()
                 }
         } else {
             let alert = UIAlertController(title: nil, message: "還沒邀請朋友", preferredStyle: .alert)
@@ -210,7 +220,6 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
         if session.id == self.session?.id {
             self.session = nil
             setHouse()
-            goHomeButton.isHidden = false
         } else {  } //handle error
     }
 
@@ -236,7 +245,6 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
     func handleIncomingCall() {
         let alert = UIAlertController(title: "有人來電", message: nil, preferredStyle: .actionSheet)
         let accept = UIAlertAction(title: "接聽", style: .default) { _ in
-            self.goHomeButton.isHidden = true
             self.setFriendHome()
             self.session?.acceptCall(nil)
         }
@@ -248,10 +256,10 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
         self.present(alert, animated: true)
     }
 
-    //當接通其他用戶時動作
-//    func session(_ session: QBRTCBaseSession, connectedToUser userID: NSNumber) {
-//        if (session as! QBRTCSession).id == self.session?.id {
-//
-//        }
-//    }
+//    接通時動作
+    func session(_ session: QBRTCBaseSession, connectedToUser userID: NSNumber) {
+        if (session as? QBRTCSession)?.id == self.session?.id {
+            setChatBackgroundImage()
+        } else { }//error handel
+    }
 }

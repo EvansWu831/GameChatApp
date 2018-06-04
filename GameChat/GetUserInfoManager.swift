@@ -25,10 +25,10 @@ class GetUserInfoManager {
         var users: [User] = []
         reference = Database.database().reference()
         let path = reference?.child("relationship").queryOrdered(byChild: "self")
-        path?.queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (waitData) in
-            guard let wait = waitData.value as? [String: Any] else { return } //error handle
-            for waitAutoKey in wait.keys {
-                if let friends = wait["\(waitAutoKey)"] as? [String: Any] {
+        path?.queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (relationshipData) in
+            guard let relationship = relationshipData.value as? [String: Any] else { return } //error handle
+            for relationshipAutoKey in relationship.keys {
+                if let friends = relationship["\(relationshipAutoKey)"] as? [String: Any] {
                     if let friendID = friends["friend"] as? NSNumber {
                         let friendPath = self.reference?.child("user").queryOrdered(byChild: "id")
                         friendPath?.queryEqual(toValue: friendID).observeSingleEvent(of: .value, with: { (snapshoot) in
@@ -43,7 +43,7 @@ class GetUserInfoManager {
                                                                                 userID: userId,
                                                                                 nickname: nickname,
                                                                                 login: login,
-                                                                                autoID: key))
+                                                                                autoID: relationshipAutoKey))
                                                 } else { /* error handle */ }
                                             } else { /* error handle */ }
                                         } else { /* error handle */ }
