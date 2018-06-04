@@ -19,7 +19,6 @@ class GetUserInfoManager {
     weak var delegate: GetUserInfoDelegate?
     var reference: DatabaseReference?
     var senderInfos: [User] = []
-    var recipientInfos: [User] = []
 
     func getFriend(userID: UInt) {
         var users: [User] = []
@@ -133,20 +132,41 @@ class GetUserInfoManager {
     }
 
     func checkRecipients(userID: UInt) {
+        var recipientInfos: [User] = []
         reference = Database.database().reference()
         let senderPath = reference?.child("wait").queryOrdered(byChild: "sender")
-
+        let path = reference?.child("user").queryOrdered(byChild: "id")
         senderPath?.queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (snapshoot) in
             if let data = snapshoot.value as? [String: Any] {
                 for waitAutoID in data.keys {
                     if let wait = data["\(waitAutoID)"] as? [String: Any] {
                         if let recipientID = wait["recipient"] as? NSNumber {
-                            self.getRecipientInfo(recipientID: recipientID, waitAutoID: waitAutoID)
+                            path?.queryEqual(toValue: recipientID).observe(.value, with: { (recipientUser) in
+                                guard let userInfos = recipientUser.value as? [String: Any] else { return } /* error handle */
+                                for userAutoKey in userInfos.keys {
+                                    if let userInfo = userInfos["\(userAutoKey)"] as? [String: Any] {
+                                        if let email = userInfo["email"] as? String {
+                                            if let userId = userInfo["id"] as? NSNumber {
+                                                if let login = userInfo["login"] as? String {
+                                                    if let nickname = userInfo["nickname"] as? String {
+                                                        recipientInfos.append(User.init(email: email,
+                                                                                             userID: userId,
+                                                                                             nickname: nickname,
+                                                                                             login: login,
+                                                                                             autoID: waitAutoID))
+                                                    } else { /* error handle */ }
+                                                } else { /* error handle */ }
+                                            } else { /* error handle */ }
+                                        } else { /* error handle */ }
+                                    } else { /* error handle */ }
+                                }
+                                self.delegate?.manager(self, recipient: recipientInfos)
+                            })
                         } else { /* error handle */ }
                     } else { /* error handle */ }
                 }
             } else {
-                self.delegate?.manager(self, recipient: self.recipientInfos)
+                self.delegate?.manager(self, recipient: recipientInfos)
             }
         })
     }
@@ -174,32 +194,6 @@ class GetUserInfoManager {
                 } else { /* error handle */ }
             }
             self.delegate?.manager(self, sender: self.senderInfos)
-        })
-    }
-
-    func getRecipientInfo(recipientID: NSNumber, waitAutoID: String) {
-        reference = Database.database().reference()
-        let path = reference?.child("user").queryOrdered(byChild: "id")
-        path?.queryEqual(toValue: recipientID).observe(.value, with: { (recipientUser) in
-            guard let userInfos = recipientUser.value as? [String: Any] else { return } /* error handle */
-            for userAutoKey in userInfos.keys {
-                if let userInfo = userInfos["\(userAutoKey)"] as? [String: Any] {
-                    if let email = userInfo["email"] as? String {
-                        if let userId = userInfo["id"] as? NSNumber {
-                            if let login = userInfo["login"] as? String {
-                                if let nickname = userInfo["nickname"] as? String {
-                                    self.recipientInfos.append(User.init(email: email,
-                                                                         userID: userId,
-                                                                         nickname: nickname,
-                                                                         login: login,
-                                                                         autoID: waitAutoID))
-                                } else { /* error handle */ }
-                            } else { /* error handle */ }
-                        } else { /* error handle */ }
-                    } else { /* error handle */ }
-                } else { /* error handle */ }
-            }
-            self.delegate?.manager(self, recipient: self.recipientInfos)
         })
     }
 }

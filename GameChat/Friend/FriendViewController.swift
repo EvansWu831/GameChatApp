@@ -102,6 +102,11 @@ GetUserInfoDelegate, UIImagePickerControllerDelegate, UINavigationControllerDele
         let friend = myFriend[indexPath.row]
         print(friend.login)
     }
+
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "封鎖"
+    }
+
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle,
                    forRowAt indexPath: IndexPath) {
         guard let currentUserID = currentUser?.id else { return } //handle error
@@ -125,8 +130,7 @@ GetUserInfoDelegate, UIImagePickerControllerDelegate, UINavigationControllerDele
                 self.myFriend.remove(at: indexPath.row)
                 self.friendsTableView.reloadData()
             }
-        } else {
-        }
+        } else {} //handle error
     }
 
     func getInfo() {

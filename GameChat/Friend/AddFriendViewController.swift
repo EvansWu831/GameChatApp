@@ -206,7 +206,11 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
         reference = Database.database().reference()
         let path = reference?.child("blacklist").queryOrdered(byChild: "black").queryEqual(toValue: currentUserID)
         path?.observeSingleEvent(of: .value, with: { (blacklist) in
-            guard let blacklistData = blacklist.value as? [String: Any] else { return }
+            guard let blacklistData = blacklist.value as? [String: Any]
+                else {
+                    self.setUserInfo()
+                    return
+            }
             for blacklistAutoKey in blacklistData.keys {
                 if let blacklist = blacklistData["\(blacklistAutoKey)"] as? [String: Any] {
                     if let sender = blacklist["sender"] as? NSNumber {

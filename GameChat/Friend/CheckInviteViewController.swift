@@ -39,7 +39,7 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
 
     func manager(_ manager: GetUserInfoManager, recipient users: [User]) {
         recipients = users
-        checkInviteTableView.reloadData()
+        self.checkInviteTableView.reloadData()
     }
 
     func manager(_ manager: GetUserInfoManager, didFetch users: [User]) {
