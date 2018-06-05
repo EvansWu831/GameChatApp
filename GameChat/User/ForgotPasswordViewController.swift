@@ -13,11 +13,14 @@ import Quickblox
 class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var sendButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setGoBackButton()
         setBackgroundImage()
+        sendButton.layer.masksToBounds = true
+        sendButton.layer.cornerRadius = 5.0
     }
 
     func setBackgroundImage() {

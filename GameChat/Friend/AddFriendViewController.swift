@@ -32,6 +32,8 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
         userImageView.layer.masksToBounds = true
         userImageView.layer.cornerRadius = userImageView.frame.width/2
 
+        addButton.setImage(#imageLiteral(resourceName: "SENDINVITE"), for: UIControlState.normal)
+        addButton.tintColor = UIColor.black
         sendButton.addTarget(self, action: #selector(searchUser), for: UIControlEvents.touchUpInside)
         addButton.addTarget(self, action: #selector(addNewFriend), for: UIControlEvents.touchUpInside)
         setGoBackButton()

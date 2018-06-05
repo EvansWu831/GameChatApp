@@ -102,11 +102,11 @@ GetUserInfoDelegate, UIImagePickerControllerDelegate, UINavigationControllerDele
         let friend = myFriend[indexPath.row]
         print(friend.login)
     }
-
+    //更改刪除Button名稱
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         return "封鎖"
     }
-
+    //實作封鎖功能
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle,
                    forRowAt indexPath: IndexPath) {
         guard let currentUserID = currentUser?.id else { return } //handle error

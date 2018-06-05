@@ -20,11 +20,14 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
+    @IBOutlet weak var signupButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setGoBackButton()
         setBackgroundImage()
+        signupButton.layer.masksToBounds = true
+        signupButton.layer.cornerRadius = 5.0
     }
 
     func setBackgroundImage() {

@@ -21,15 +21,25 @@ class InviteFriendViewController: UIViewController, UITableViewDataSource, UITab
     weak var delegate: InviteFriendDelegate?
     let getUserInfoManager = GetUserInfoManager()
     @IBOutlet weak var inviteFriendTableview: UITableView!
-    @IBAction func backToHome(_ sender: UIButton) {
-        self.delegate?.manager(self, didFetch: inviteIds)
-        self.navigationController?.popViewController(animated: true)
+    @IBOutlet weak var inviteFriendButton: UIButton!
+    @IBAction func inviteFriend(_ sender: UIButton) {
+        if inviteIds.isEmpty {
+            let alert = UIAlertController(title: "至少邀請一位朋友吧", message: nil, preferredStyle: .alert)
+            let action = UIAlertAction(title: "確定", style: UIAlertActionStyle.default, handler: nil)
+            alert.addAction(action)
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            self.delegate?.manager(self, didFetch: inviteIds)
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         getFriend()
         setGoBackButton()
+        inviteFriendButton.setImage(#imageLiteral(resourceName: "PHONECALL"), for: UIControlState.normal)
+        inviteFriendButton.tintColor = UIColor.black
     }
 
     func manager(_ manager: GetUserInfoManager, sender users: [User]) {

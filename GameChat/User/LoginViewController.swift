@@ -17,15 +17,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var idTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var signupButton: UIButton!
+    @IBOutlet weak var forgotButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "FunChat"
         setBackgroundImage()
+        setButtonUI()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    func setButtonUI() {
+        loginButton.layer.masksToBounds = true
+        loginButton.layer.cornerRadius = 5.0
+        signupButton.layer.masksToBounds = true
+        signupButton.layer.cornerRadius = 5.0
+        forgotButton.layer.masksToBounds = true
+        forgotButton.layer.cornerRadius = 5.0
     }
 
     func setBackgroundImage() {
@@ -92,9 +100,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             errorBlock: { _ in
                 SVProgressHUD.dismiss()
                 let alert = UIAlertController(title: "錯誤", message: "帳號密碼錯誤", preferredStyle: .alert)
-                let action = UIAlertAction(title: "確認", style: .default) { (_) in
-                    self.textClearance()
-                }
+                let action = UIAlertAction(title: "確認", style: .default)
                 alert.addAction(action)
                 self.present(alert, animated: true, completion: nil)
         }
