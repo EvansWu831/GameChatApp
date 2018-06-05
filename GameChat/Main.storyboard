@@ -295,47 +295,10 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6xn-uX-4Bq">
-                                <rect key="frame" x="0.0" y="64" width="320" height="70"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IoZ-tz-kte">
-                                        <rect key="frame" x="278" y="24" width="22" height="22"/>
-                                        <connections>
-                                            <action selector="inviteFriends:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iHJ-Xf-m89"/>
-                                        </connections>
-                                    </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1OT-Kg-pK0">
-                                        <rect key="frame" x="8" y="16" width="38" height="38"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="38" id="nyO-lp-5cM"/>
-                                            <constraint firstAttribute="height" constant="38" id="vU1-lh-Xmr"/>
-                                        </constraints>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="IoZ-tz-kte" secondAttribute="trailing" constant="20" id="EhW-NW-TfY"/>
-                                    <constraint firstAttribute="bottom" secondItem="IoZ-tz-kte" secondAttribute="bottom" constant="24" id="MGK-gk-zjp"/>
-                                    <constraint firstItem="IoZ-tz-kte" firstAttribute="top" secondItem="6xn-uX-4Bq" secondAttribute="top" constant="24" id="VG4-7s-YAm"/>
-                                    <constraint firstItem="1OT-Kg-pK0" firstAttribute="top" secondItem="6xn-uX-4Bq" secondAttribute="top" constant="16" id="aSZ-6w-2cS"/>
-                                    <constraint firstItem="1OT-Kg-pK0" firstAttribute="leading" secondItem="6xn-uX-4Bq" secondAttribute="leading" constant="8" id="cWh-ok-k6v"/>
-                                    <constraint firstAttribute="height" constant="70" id="deA-PT-RRU"/>
-                                </constraints>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="6xn-uX-4Bq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Y8x-Ik-WMp"/>
-                            <constraint firstItem="6xn-uX-4Bq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Yqn-5x-6eS"/>
-                            <constraint firstItem="6xn-uX-4Bq" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="vfe-0G-WKj"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="inviteFriendButton" destination="IoZ-tz-kte" id="umR-xo-ylW"/>
-                        <outlet property="peoplesView" destination="6xn-uX-4Bq" id="bUo-qa-Dfm"/>
-                        <outlet property="usersImage" destination="1OT-Kg-pK0" id="z27-Fn-Fpk"/>
                         <segue destination="vK1-mV-Lgs" kind="show" identifier="GO_INVITE" id="btW-wb-vLn"/>
                         <segue destination="6bO-I1-ann" kind="show" identifier="GO_FRIEND" id="yGi-55-Hda"/>
                     </connections>

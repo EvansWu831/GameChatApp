@@ -17,14 +17,6 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
     var session: QBRTCSession?
     var inviteFriends: [NSNumber]?
     var initiatorID: NSNumber?
-    @IBOutlet weak var peoplesView: UIView!
-    @IBOutlet weak var usersImage: UIImageView!
-
-    @IBOutlet weak var inviteFriendButton: UIButton!
-
-    @IBAction func inviteFriends(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "GO_INVITE", sender: nil)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +44,7 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
 
     func manager(_ manager: InviteFriendViewController, didFetch ids: [NSNumber]) {
         inviteFriends = ids
+        callFriends()
     }
 
     //audio
@@ -109,9 +102,7 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
         friendButton.target = self
         friendButton.action = #selector(friendButtonAction)
         self.navigationItem.rightBarButtonItems = [callButton, friendButton]
-        //使用者頭像
-        setUsersImage()
-        inviteFriendButton.isHidden = false
+        //背景圖片
         setBackgroundImage()
     }
     //打電話後畫面
@@ -134,9 +125,6 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
         friendButton.target = self
         friendButton.action = #selector(friendButtonAction)
         self.navigationItem.rightBarButtonItems = [callButton, friendButton]
-        //頭像
-        setUsersImage()
-        inviteFriendButton.isHidden = false
     }
     //受邀請時頁面
     func setFriendHome() {
@@ -148,16 +136,8 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
         exitButton.action = #selector(didEnd)
         self.navigationItem.leftBarButtonItem = exitButton
         self.navigationItem.rightBarButtonItems = []
-        //頭像
-        inviteFriendButton.isHidden = true
-        setUsersImage()
     }
-    //使用者小頭像
-    func setUsersImage() {
-        usersImage.image = #imageLiteral(resourceName: "USERIMAGE")
-        usersImage.layer.masksToBounds = true
-        usersImage.layer.cornerRadius = usersImage.frame.width/2
-    }
+
     //friend action
     @objc func friendButtonAction() {
         self.performSegue(withIdentifier: "GO_FRIEND", sender: nil)
@@ -194,19 +174,25 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
     }
     //打電話
     @objc func didCall() {
+        self.performSegue(withIdentifier: "GO_INVITE", sender: nil)
+    }
+
+    func callFriends() {
+
         if let ids = inviteFriends {
             guard let user = currentUser else { return } //handle error
             QBChat.instance.connect(with: user) { _ in
                 self.session = QBRTCClient.instance().createNewSession(withOpponents: ids, with: .audio)
                 self.session?.startCall(nil)
                 self.setSelfHome()
-                }
+            }
         } else {
             let alert = UIAlertController(title: nil, message: "還沒邀請朋友", preferredStyle: .alert)
             let action = UIAlertAction(title: "確認", style: .default)
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
         }
+
     }
     //電話掛斷時觸發
     func session(_ session: QBRTCSession, hungUpByUser userID: NSNumber, userInfo: [String: String]? = nil) {
