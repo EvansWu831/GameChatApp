@@ -63,6 +63,14 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
 
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "好友邀請"
+        } else {
+            return "等待好友"
+        }
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var checkInviteCell = UITableViewCell()
         if let cell = checkInviteTableView.dequeueReusableCell(withIdentifier: "CHECK_INVITE_CELL",

@@ -72,6 +72,10 @@ GetUserInfoDelegate, UIImagePickerControllerDelegate, UINavigationControllerDele
         return myFriend.count
     }
 
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "朋友"
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var userCell = UITableViewCell()
         if let cell = friendsTableView.dequeueReusableCell(withIdentifier: "FRIEND_CELL", for: indexPath)
