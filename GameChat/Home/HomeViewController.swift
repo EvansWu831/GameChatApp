@@ -148,6 +148,8 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
         SVProgressHUD.show(withStatus: "登出")
         QBChat.instance.disconnect { _ in
             QBRequest.logOut(successBlock: { _ in
+                UserDefaults.standard.removeObject(forKey: "login")
+                UserDefaults.standard.removeObject(forKey: "password")
                 SVProgressHUD.dismiss()
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
@@ -221,8 +223,17 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
                 self.session?.acceptCall(nil)
             } else {
                 let alert = UIAlertController(title: nil, message: "有人插播", preferredStyle: .alert)
-                let action = UIAlertAction(title: "確認", style: .default)
-                alert.addAction(action)
+//                let action = UIAlertAction(title: "確認", style: .default)
+//                alert.addAction(action)
+                let accept = UIAlertAction(title: "接聽", style: .default) { _ in
+                    self.setFriendHome()
+                    self.session?.acceptCall(nil)
+                }
+                let reject = UIAlertAction(title: " 掛斷", style: .default) { _ in
+                    self.session?.rejectCall(nil)
+                }
+                alert.addAction(accept)
+                alert.addAction(reject)
                 present(alert, animated: true, completion: nil)
             }
         }

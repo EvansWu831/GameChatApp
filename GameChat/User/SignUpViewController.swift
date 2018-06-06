@@ -28,7 +28,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         setBackgroundImage()
         signupButton.layer.masksToBounds = true
         signupButton.layer.cornerRadius = 5.0
-        
     }
 
     func setBackgroundImage() {
@@ -171,9 +170,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     //登入
     func login(userLogin: String, password: String) {
-        SVProgressHUD.show(withStatus: "Logining to rest")
+        SVProgressHUD.show(withStatus: "登入中")
         QBRequest.logIn(withUserLogin: userLogin, password: password, successBlock: { _, user in
-            SVProgressHUD.show(withStatus: "Connecting to chat")
+            SVProgressHUD.show(withStatus: "獲取使用者資料")
+            UserDefaults.standard.set(userLogin, forKey: "login")
+            UserDefaults.standard.set(password, forKey: "password")
             QBChat.instance.connect(with: user) { _ in
                 self.performSegue(withIdentifier: "NEWHOME", sender: user)
                 SVProgressHUD.dismiss()

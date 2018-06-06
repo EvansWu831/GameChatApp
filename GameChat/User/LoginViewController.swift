@@ -25,6 +25,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         navigationItem.title = "FunChat"
         setBackgroundImage()
         setButtonUI()
+        autoLogin()
     }
 
     func setButtonUI() {
@@ -87,10 +88,25 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.text = ""
     }
 
+    func autoLogin() {
+        if let userlogin = UserDefaults.standard.value(forKey: "login") as? String {
+            if let userpassword = UserDefaults.standard.value(forKey: "password") as? String {
+                idTextField.isHidden = true
+                passwordTextField.isHidden = true
+                loginButton.isHidden = true
+                signupButton.isHidden = true
+                forgotButton.isHidden = true
+                login(userLogin: userlogin, password: userpassword)
+            } else { print("還沒登入過") } //handle error
+        } else { print("還沒登入過") } //handle error
+    }
+
     func login(userLogin: String, password: String) {
         SVProgressHUD.show(withStatus: "登入中")
         QBRequest.logIn(withUserLogin: userLogin, password: password, successBlock: { _, user in
             SVProgressHUD.show(withStatus: "獲取使用者資料")
+            UserDefaults.standard.set(userLogin, forKey: "login")
+            UserDefaults.standard.set(password, forKey: "password")
             QBChat.instance.connect(with: user) { _ in
                 self.performSegue(withIdentifier: "GOHOME", sender: user)
                 SVProgressHUD.dismiss()
