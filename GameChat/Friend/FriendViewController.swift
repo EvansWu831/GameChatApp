@@ -13,13 +13,14 @@ import Firebase
 import FirebaseStorage
 
 class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,
-GetUserInfoDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+GetUserInfoDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var userNameButton: UIButton!
     @IBOutlet weak var userView: UIView!
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var friendsTableView: UITableView!
+    var nicknameTextField: UITextField?
     var myself: User?
     var myFriend: [User] = []
     var currentUser: QBUUser?
@@ -73,7 +74,7 @@ GetUserInfoDelegate, UIImagePickerControllerDelegate, UINavigationControllerDele
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "朋友"
+        return "好友名單"
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -158,7 +159,7 @@ GetUserInfoDelegate, UIImagePickerControllerDelegate, UINavigationControllerDele
     }
 
     func setAddFriendButton() {
-        self.navigationItem.title = "朋友"
+        self.navigationItem.title = "好友"
         let addFriendButton = UIBarButtonItem()
         addFriendButton.image = #imageLiteral(resourceName: "ADD_FRIEND")
         addFriendButton.target = self
@@ -239,23 +240,36 @@ GetUserInfoDelegate, UIImagePickerControllerDelegate, UINavigationControllerDele
 
     @IBAction func tappedUserNameButton(_ sender: UIButton) {
         let alert = UIAlertController(title: "更改暱稱", message: nil, preferredStyle: .alert)
-        var nameTextField: UITextField?
+
         alert.addTextField { (textField) in
+
             textField.text = self.userNameLabel.text
-            nameTextField = textField
+
+            self.nicknameTextField = textField
+
+            textField.delegate = self
+
         }
         alert.addAction(UIAlertAction(title: "確定", style: .default, handler: { (_) in
+
             guard let autoID = self.myself?.autoID else { return } //handleerror
+
             let ref = Database.database().reference()
+
             let path = ref.child("user").child("\(autoID)").child("nickname")
-            path.setValue(nameTextField?.text, withCompletionBlock: { (error, _) in
+
+            path.setValue(self.nicknameTextField?.text, withCompletionBlock: { (error, _) in
+
                 if error == nil {
                     self.updatedUserName()
                 } else {
                     print("失敗") //handle error
                 }
+
             })
+
         }))
+
         self.present(alert, animated: true, completion: nil)
     }
 
@@ -269,4 +283,21 @@ GetUserInfoDelegate, UIImagePickerControllerDelegate, UINavigationControllerDele
             } else {} //handle error
         }
     }
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
+                   replacementString string: String) -> Bool {
+
+        if textField === nicknameTextField {
+
+            guard let nicknameText = textField.text else { return true }
+
+            let nicknameTextLength = nicknameText.count + string.count - range.length
+
+            let isValue = nicknameTextLength <= 12
+
+            return isValue
+
+        } else { return true }
+    }
+
 }

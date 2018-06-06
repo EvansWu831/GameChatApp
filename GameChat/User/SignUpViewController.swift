@@ -28,6 +28,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         setBackgroundImage()
         signupButton.layer.masksToBounds = true
         signupButton.layer.cornerRadius = 5.0
+        
     }
 
     func setBackgroundImage() {
@@ -200,6 +201,33 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    //限制字數
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
+                   replacementString string: String) -> Bool {
+
+        if textField === nicknameTextField {
+
+            guard let nicknameText = textField.text else { return true }
+
+            let nicknameTextLength = nicknameText.count + string.count - range.length
+
+            let isValue = nicknameTextLength <= 12
+
+            return isValue
+
+        } else if textField === userNameTextField {
+
+            guard let userNameText = textField.text else { return true }
+
+            let usernameTextLength = userNameText.count + string.count - range.length
+
+            let isValue = usernameTextLength <= 12
+
+            return isValue
+
+        } else { return true }
+
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

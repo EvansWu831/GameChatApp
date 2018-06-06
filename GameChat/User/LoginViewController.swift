@@ -117,6 +117,22 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         return true
     }
 
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField === idTextField {
+
+            guard let userNameText = idTextField.text else { return true }
+
+            let userNameTextlenth = userNameText.count + string.count - range.length
+
+            let isValue = userNameTextlenth <= 12
+
+            return isValue
+
+        } else {
+            return true
+        }
+    }
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }

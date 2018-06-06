@@ -37,6 +37,8 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
         sendButton.addTarget(self, action: #selector(searchUser), for: UIControlEvents.touchUpInside)
         addButton.addTarget(self, action: #selector(addNewFriend), for: UIControlEvents.touchUpInside)
         setGoBackButton()
+
+        self.navigationItem.title = "搜尋"
     }
 
     func manager(_ manager: GetUserInfoManager, sender users: [User]) {
@@ -237,6 +239,21 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
+                   replacementString string: String) -> Bool {
+        if textField === searchTextField {
+
+            guard let searchText = textField.text else { return true }
+
+            let searchTextLength = searchText.count + string.count - range.length
+
+            let isValue = searchTextLength <= 12
+
+            return isValue
+
+        } else { return true }
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

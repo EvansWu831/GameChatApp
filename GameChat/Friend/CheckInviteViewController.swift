@@ -28,6 +28,7 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
         self.getUserInfoManager.delegate = self
         guard let userID = currentUser?.id else { return } //handle error
         self.getUserInfoManager.checkFriendInvite(userID: userID)
+        self.navigationItem.title = "交友"
         setGoBackButton()
     }
 

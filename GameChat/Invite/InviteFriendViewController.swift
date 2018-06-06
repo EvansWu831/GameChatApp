@@ -40,6 +40,8 @@ class InviteFriendViewController: UIViewController, UITableViewDataSource, UITab
         setGoBackButton()
         inviteFriendButton.setImage(#imageLiteral(resourceName: "PHONECALL"), for: UIControlState.normal)
         inviteFriendButton.tintColor = UIColor.black
+        
+        self.navigationItem.title = "邀請"
     }
 
     func manager(_ manager: GetUserInfoManager, sender users: [User]) {
@@ -63,6 +65,9 @@ class InviteFriendViewController: UIViewController, UITableViewDataSource, UITab
         return myFriend.count
     }
 
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "朋友名單"
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var userCell = UITableViewCell()
         if let cell = inviteFriendTableview.dequeueReusableCell(withIdentifier: "INVITE_CELL", for: indexPath)

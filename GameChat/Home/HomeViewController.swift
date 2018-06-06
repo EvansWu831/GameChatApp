@@ -84,7 +84,7 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
     }
     //打電話前畫面
     func setHouse() {
-        self.navigationItem.title = "House"
+        self.navigationItem.title = "房間"
         //登出
         let exitButton = UIBarButtonItem()
         exitButton.image = #imageLiteral(resourceName: "EXIT")
@@ -107,7 +107,7 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
     }
     //打電話後畫面
     func setSelfHome() {
-        self.navigationItem.title = "Home"
+        self.navigationItem.title = "房間"
         //出門
         let exitButton = UIBarButtonItem()
         exitButton.image = #imageLiteral(resourceName: "GO_OUT")
@@ -128,7 +128,7 @@ class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDel
     }
     //受邀請時頁面
     func setFriendHome() {
-        self.navigationItem.title = "Home"
+        self.navigationItem.title = "房間"
         //出門
         let exitButton = UIBarButtonItem()
         exitButton.image = #imageLiteral(resourceName: "GO_OUT")
