@@ -12,6 +12,7 @@ import QuickbloxWebRTC
 import SVProgressHUD
 import Firebase
 import FirebaseStorage
+import Crashlytics
 
 class HomeViewController: UIViewController, QBRTCClientDelegate, InviteFriendDelegate,
 UITableViewDelegate, UITableViewDataSource {
