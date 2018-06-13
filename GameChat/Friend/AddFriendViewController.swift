@@ -203,6 +203,7 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
         })
     }
 
+    //封鎖
     func checkBlacklist() {
         guard let currentUserID = currentUser?.id else { return } //handle error
         guard let inviteesID = invitees?.userID else {return} //handle error
@@ -226,7 +227,7 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
             }
             if blackSender == inviteesID {
                 self.infoView.isHidden = true
-                let alert = UIAlertController(title: "你被封鎖", message: nil, preferredStyle: .alert)
+                let alert = UIAlertController(title: "此ID不存在", message: nil, preferredStyle: .alert)
                 let action = UIAlertAction(title: "確定", style: .default, handler: nil)
                 alert.addAction(action)
                 self.present(alert, animated: true, completion: nil)

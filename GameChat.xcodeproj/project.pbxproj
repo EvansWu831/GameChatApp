@@ -28,6 +28,7 @@
 		285143B020B555BC000796E9 /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285143AF20B555BB000796E9 /* AddFriendViewController.swift */; };
 		287A1DB120B6A1DC00DFF05E /* CheckInviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287A1DB020B6A1DC00DFF05E /* CheckInviteViewController.swift */; };
 		287A1DB320B6A51900DFF05E /* CheckInviteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287A1DB220B6A51900DFF05E /* CheckInviteTableViewCell.swift */; };
+		28DA90DB20CA55810096F5ED /* UserImagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DA90DA20CA55810096F5ED /* UserImagesTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		285143AF20B555BB000796E9 /* AddFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
 		287A1DB020B6A1DC00DFF05E /* CheckInviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInviteViewController.swift; sourceTree = "<group>"; };
 		287A1DB220B6A51900DFF05E /* CheckInviteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInviteTableViewCell.swift; sourceTree = "<group>"; };
+		28DA90DA20CA55810096F5ED /* UserImagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImagesTableViewCell.swift; sourceTree = "<group>"; };
 		38EAF2C5D5B781EFB425FE07 /* Pods_GameChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A8CEF63359BEE4610EBB493 /* Pods-GameChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-GameChat/Pods-GameChat.release.xcconfig"; sourceTree = "<group>"; };
 		B977CA9FF62850514AA8C364 /* Pods-GameChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GameChat/Pods-GameChat.debug.xcconfig"; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				2851439C20B5224A000796E9 /* HomeViewController.swift */,
+				28DA90DA20CA55810096F5ED /* UserImagesTableViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				2851439D20B5224A000796E9 /* HomeViewController.swift in Sources */,
 				2851439920B52241000796E9 /* SignUpViewController.swift in Sources */,
 				285143B020B555BC000796E9 /* AddFriendViewController.swift in Sources */,
+				28DA90DB20CA55810096F5ED /* UserImagesTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

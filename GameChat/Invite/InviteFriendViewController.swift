@@ -40,7 +40,6 @@ class InviteFriendViewController: UIViewController, UITableViewDataSource, UITab
         setGoBackButton()
         inviteFriendButton.setImage(#imageLiteral(resourceName: "PHONECALL"), for: UIControlState.normal)
         inviteFriendButton.tintColor = UIColor.black
-        
         self.navigationItem.title = "邀請"
     }
 
