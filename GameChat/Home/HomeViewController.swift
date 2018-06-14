@@ -25,6 +25,7 @@ UITableViewDelegate, UITableViewDataSource {
     var session: QBRTCSession?
     var inviteFriends: [NSNumber]?
     var initiatorID: NSNumber?
+    var room: [Any]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,8 +59,8 @@ UITableViewDelegate, UITableViewDataSource {
     }
     //UserImages
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let friends = inviteFriends {
-            return friends.count
+        if let room = room {
+            return room.count
         } else {
             return 0
         }
@@ -71,9 +72,9 @@ UITableViewDelegate, UITableViewDataSource {
             cell.userImageView.layer.masksToBounds = true
             cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
             //===============還在測試====
-            if let friends = inviteFriends {
-                let friend = friends[indexPath.row]
-                let storage = Storage.storage().reference(withPath: "\(friend)/userImage.jpg")
+            if let userIDs = room {
+                let userId = userIDs[indexPath.row]
+                let storage = Storage.storage().reference(withPath: "\(userId)/userImage.jpg")
                 storage.getData(maxSize: 1*1000*1000) { (data, _) in
                     if let image = data {
                         cell.userImageView.image = UIImage(data: image)
@@ -89,6 +90,20 @@ UITableViewDelegate, UITableViewDataSource {
         } else {
             return UITableViewCell()
         }
+    }
+
+    func getRoomIDs() {
+        reference = Database.database().reference()
+        let path = reference?.child("room").child("\(initiatorID!)")
+        path?.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let values = snapshot.value as? [String: Any] else { print("失敗") ; return }
+            var ids: [Any] = []
+            for value in values.values {
+                ids.append(value)
+            }
+            self.room = ids
+            self.userImagesTableView.reloadData()
+        })
     }
 
     //audio
@@ -148,22 +163,11 @@ UITableViewDelegate, UITableViewDataSource {
     }
 
     //打電話後畫面
-    func setSelfHome() {
-        self.navigationItem.leftBarButtonItem = nil
-        self.navigationItem.hidesBackButton = true
-        //朋友
-        let friendButton = UIBarButtonItem()
-        friendButton.image = #imageLiteral(resourceName: "FRIEND")
-        friendButton.target = self
-        friendButton.action = #selector(friendButtonAction)
-        self.navigationItem.rightBarButtonItem = friendButton
-    }
-    //受邀請時頁面
-    func setFriendHome() {
-        //出門
+    func setCallingView() {
         self.navigationItem.leftBarButtonItem = nil
         self.navigationItem.rightBarButtonItem = nil
         self.navigationItem.hidesBackButton = true
+        
     }
 
     //friend action
@@ -233,17 +237,22 @@ UITableViewDelegate, UITableViewDataSource {
     //打電話
     @IBAction func didPhoneCall(_ sender: UIButton) {
          self.performSegue(withIdentifier: "GO_INVITE", sender: nil)
+        if let currentUserID = currentUser?.id {
+            initiatorID = currentUserID as NSNumber
+        }
     }
 
     func callFriends() {
+
+        //分析使用者
+        Analytics.logEvent("phone_call", parameters: nil)
 
         if let ids = inviteFriends {
             guard let user = currentUser else { return } //handle error
             QBChat.instance.connect(with: user) { _ in
                 self.session = QBRTCClient.instance().createNewSession(withOpponents: ids, with: .audio)
                 self.session?.startCall(nil)
-                self.setSelfHome()
-
+                self.setCallingView()
                 //房主建立房間
                 guard let currentUserId = self.currentUser?.id else { return }
                 self.reference = Database.database().reference()
@@ -258,42 +267,45 @@ UITableViewDelegate, UITableViewDataSource {
 
     }
 
-    //似乎只有在房間要被掛掉的時候才會進來
+    //有人掛掉電話時觸發
     func session(_ session: QBRTCSession, hungUpByUser userID: NSNumber, userInfo: [String: String]? = nil) {
-        print("這裡電話掛斷時觸發", userID)
+
         if session.id == self.session?.id {
-            print("這裡在確認要關的房間", session.id)
             if userID != session.initiatorID {
-                print("這裡房客離開房間")
-                //房客離開房間
-                guard let currentUserId = self.currentUser?.id else { return }
-                guard let initiatorUserId = initiatorID else { return }
-                self.reference = Database.database().reference()
-                self.reference?.child("room").child("\(initiatorUserId)").child("\(currentUserId)").removeValue()
+                //告知有房客離開
+                getRoomIDs()
             } else {
-                print("這裡房主關房間")
+                //房主離開
                 self.session?.hangUp(nil)
-                //房主關房間
-                guard let currentUserId = self.currentUser?.id else { return }
-                self.reference = Database.database().reference()
-                self.reference?.child("room").child("\(currentUserId)").removeValue()
             }
-        } else {
-            print("這裡發生什麼事了")
-        } //handle error
+        } else { } //handle error
     }
+
     //這裡是自己掛電話時才會進來
     func sessionDidClose(_ session: QBRTCSession) {
-        print("這裡掛電話")
-        if session.id == self.session?.id {
-            self.session = nil
-            setHouse()
-            phoneCallButton.isHidden = false
-            hangUpButton.isHidden = true
-            userImagesTableView.isHidden = true
-            userImagesTableView.reloadData()
-            print("這裡執行掛電話後的動作")
-        } else { print("這裡沒掛成功") } //handle error
+        //分析使用者
+        Analytics.logEvent("phone_hangup", parameters: nil)
+
+        guard let currentUserId = self.currentUser?.id else { return }
+        guard let initiatorUser = initiatorID as? UInt else { return }
+
+        if currentUserId != initiatorUser {
+            self.reference = Database.database().reference()
+            self.reference?.child("room").child("\(initiatorUser)").child("\(currentUserId)").removeValue()
+            print("這裡房客離開")
+        } else {
+            self.reference = Database.database().reference()
+            self.reference?.child("room").child("\(currentUserId)").removeValue()
+            print("這裡房主關房間")
+        }
+
+        self.session = nil
+        setHouse()
+        phoneCallButton.isHidden = false
+        hangUpButton.isHidden = true
+        userImagesTableView.isHidden = true
+        userImagesTableView.reloadData()
+
     }
 
     //接電話
@@ -309,7 +321,7 @@ UITableViewDelegate, UITableViewDataSource {
             } else {
                 let alert = UIAlertController(title: nil, message: "有人插播", preferredStyle: .alert)
                 let accept = UIAlertAction(title: "接聽", style: .default) { _ in
-                    self.setFriendHome()
+                    self.setCallingView()
                     self.session?.acceptCall(nil)
                 }
                 let reject = UIAlertAction(title: " 掛斷", style: .default) { _ in
@@ -323,17 +335,17 @@ UITableViewDelegate, UITableViewDataSource {
     }
 
     func handleIncomingCall() {
-        guard let initiatorUser = initiatorID else { return }
-        let alert = UIAlertController(title: "\(initiatorUser)有人來電", message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "有人來電", message: nil, preferredStyle: .actionSheet)
         let accept = UIAlertAction(title: "接聽", style: .default) { _ in
-            self.setFriendHome()
+            //分析使用者
+            Analytics.logEvent("phone_accept", parameters: nil)
+
             self.session?.acceptCall(nil)
-            //進入房間(用firebase)
-//            guard let currentUserId = self.currentUser?.id else { return }
-//            self.reference = Database.database().reference()
-//            self.reference?.child("room").child("\(initiatorUser)").setValue(["\(currentUserId)": currentUserId])
         }
         let reject = UIAlertAction(title: " 掛斷", style: .default) { _ in
+            //分析使用者
+            Analytics.logEvent("phone_reject", parameters: nil)
+
             self.session?.rejectCall(nil)
         }
         alert.addAction(accept)
@@ -348,7 +360,16 @@ UITableViewDelegate, UITableViewDataSource {
             hangUpButton.isHidden = false
             phoneCallButton.isHidden = true
             userImagesTableView.isHidden = false
-            userImagesTableView.reloadData()
+            guard let currentUserId = self.currentUser?.id else { return }
+            guard let initiatorUser = initiatorID as? UInt else { return }
+            if currentUserId != initiatorUser {
+                self.setCallingView()
+                self.reference = Database.database().reference()
+                self.reference?.child("room").child("\(initiatorUser)").child("\(currentUserId)").setValue(currentUserId)
+            } else {
+                self.setCallingView()
+            }
+            getRoomIDs()
         } else { }//error handel
     }
 }

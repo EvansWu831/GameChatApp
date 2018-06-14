@@ -117,6 +117,8 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
         reference = Database.database().reference()
         reference?.child("wait").childByAutoId().setValue(["sender": userID, "recipient": inviteesID])
         addButton.isHidden = true
+        //分析使用者
+        Analytics.logEvent("friend_invite", parameters: nil)
     }
 
     @objc func goBack() {
@@ -203,7 +205,7 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
         })
     }
 
-    //封鎖
+    //檢查封鎖名單
     func checkBlacklist() {
         guard let currentUserID = currentUser?.id else { return } //handle error
         guard let inviteesID = invitees?.userID else {return} //handle error

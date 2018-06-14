@@ -128,6 +128,9 @@ GetUserInfoDelegate, UIImagePickerControllerDelegate, UINavigationControllerDele
                                 reference.child("relationship").child("\(friend.autoID)").removeValue()
                                 reference.child("relationship").child("\(relationshipAutoKey)").removeValue()
                                 reference.child("blacklist").childByAutoId().setValue(["sender": currentUserID, "black": friend.userID])
+
+                                //分析使用者
+                                Analytics.logEvent("friend_black", parameters: nil)
                             } else { } //handle error
                         } else { } //handle error
                     } else { } //handel error

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		26691CC361AE22FF0FE573C6 /* Pods_GameChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38EAF2C5D5B781EFB425FE07 /* Pods_GameChat.framework */; };
 		2825A26620BFF06B00B76511 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2825A26520BFF06B00B76511 /* ForgotPasswordViewController.swift */; };
+		283DDAFB20D1259900F781E5 /* FirebaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283DDAFA20D1259900F781E5 /* FirebaseTest.swift */; };
 		2851434E20B51536000796E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2851434D20B51536000796E9 /* AppDelegate.swift */; };
 		2851436E20B516B2000796E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2851436D20B516B2000796E9 /* Main.storyboard */; };
 		2851437020B516B9000796E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2851436F20B516B9000796E9 /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		2825A26520BFF06B00B76511 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		283DDAFA20D1259900F781E5 /* FirebaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTest.swift; sourceTree = "<group>"; };
 		2851434A20B51536000796E9 /* GameChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2851434D20B51536000796E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2851435920B5153A000796E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				2851437120B516BF000796E9 /* LaunchScreen.storyboard */,
 				2851435920B5153A000796E9 /* Info.plist */,
 				2851437620B519AD000796E9 /* GoogleService-Info.plist */,
+				283DDAFA20D1259900F781E5 /* FirebaseTest.swift */,
 			);
 			path = GameChat;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				285143AE20B52D87000796E9 /* FriendViewController.swift in Sources */,
 				2851439420B52237000796E9 /* GetUserInfoManager.swift in Sources */,
 				2851439D20B5224A000796E9 /* HomeViewController.swift in Sources */,
+				283DDAFB20D1259900F781E5 /* FirebaseTest.swift in Sources */,
 				2851439920B52241000796E9 /* SignUpViewController.swift in Sources */,
 				285143B020B555BC000796E9 /* AddFriendViewController.swift in Sources */,
 				28DA90DB20CA55810096F5ED /* UserImagesTableViewCell.swift in Sources */,

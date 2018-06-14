@@ -153,6 +153,9 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
         self.checkInviteTableView.reloadData()
         //重載朋友資料
         friendGetUserInfoManager.getFriend(userID: currentUserID)
+
+        //分析使用者
+        Analytics.logEvent("friend_accept", parameters: nil)
     }
 
     @objc func refuse(send: Any) {
@@ -165,6 +168,9 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
         reference?.child("wait").child("\(autoID)").removeValue()
         senders.remove(at: indexPath.row)
         self.checkInviteTableView.reloadData()
+
+        //分析使用者
+        Analytics.logEvent("friend_refuse", parameters: nil)
     }
 
     @objc func cancel(send: Any) {
@@ -177,6 +183,9 @@ class CheckInviteViewController: UIViewController, UITableViewDelegate, UITableV
         reference?.child("wait").child("\(autoID)").removeValue()
         recipients.remove(at: indexPath.row)
         self.checkInviteTableView.reloadData()
+
+        //分析使用者
+        Analytics.logEvent("friend_cancel", parameters: nil)
     }
 
     func setGoBackButton() {

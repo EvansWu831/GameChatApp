@@ -23,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         FirebaseApp.configure()
-        Fabric.sharedSDK().debug = true
 
         QBSettings.applicationID = 70678
         QBSettings.authKey = "uFw33nGkcf2vNma"
