@@ -10,6 +10,7 @@ import UIKit
 import Quickblox
 import QuickbloxWebRTC
 import Firebase
+import Fabric
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
