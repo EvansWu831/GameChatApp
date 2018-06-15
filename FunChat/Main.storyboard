@@ -30,7 +30,7 @@
         <!--Login View Controller-->
         <scene sceneID="0E0-gH-uaq">
             <objects>
-                <viewController storyboardIdentifier="LOGVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="abn-g7-cNr" customClass="LoginViewController" customModule="GameChat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LOGVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="abn-g7-cNr" customClass="LoginViewController" customModule="FunChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qtb-7V-fxz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -128,7 +128,7 @@
         <!--Forgot Password View Controller-->
         <scene sceneID="HPo-Ad-H1m">
             <objects>
-                <viewController id="s9w-AW-LZK" customClass="ForgotPasswordViewController" customModule="GameChat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="s9w-AW-LZK" customClass="ForgotPasswordViewController" customModule="FunChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tzy-jQ-Xq2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -179,7 +179,7 @@
         <!--Sign Up View Controller-->
         <scene sceneID="C6c-vz-cGf">
             <objects>
-                <viewController id="Y6c-XD-2jn" customClass="SignUpViewController" customModule="GameChat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Y6c-XD-2jn" customClass="SignUpViewController" customModule="FunChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wCP-ea-hCc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -291,7 +291,7 @@
         <!--Home View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="HOME" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="HomeViewController" customModule="GameChat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HOME" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="HomeViewController" customModule="FunChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -320,7 +320,7 @@
                                     <constraint firstAttribute="width" constant="70" id="QoQ-Sf-ass"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="USERIMAGES_CELL" rowHeight="70" id="X6i-bf-XUo" customClass="UserImagesTableViewCell" customModule="GameChat" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="USERIMAGES_CELL" rowHeight="70" id="X6i-bf-XUo" customClass="UserImagesTableViewCell" customModule="FunChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="91.333333333333329" width="70" height="69.999999999999986"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X6i-bf-XUo" id="zdZ-PU-1RW">
@@ -390,7 +390,7 @@
         <!--Invite Friend View Controller-->
         <scene sceneID="bgQ-rI-4PW">
             <objects>
-                <viewController storyboardIdentifier="INVITE_FRIEND" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vK1-mV-Lgs" customClass="InviteFriendViewController" customModule="GameChat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="INVITE_FRIEND" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vK1-mV-Lgs" customClass="InviteFriendViewController" customModule="FunChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0nX-7h-ujI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -399,7 +399,7 @@
                                 <rect key="frame" x="0.0" y="64" width="414" height="614"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="INVITE_CELL" rowHeight="55" id="y9t-ox-JcN" customClass="InviteFriendTableViewCell" customModule="GameChat" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="INVITE_CELL" rowHeight="55" id="y9t-ox-JcN" customClass="InviteFriendTableViewCell" customModule="FunChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="y9t-ox-JcN" id="5r9-FD-wT6">
@@ -488,7 +488,7 @@
         <!--Friend View Controller-->
         <scene sceneID="1gt-SD-EzD">
             <objects>
-                <viewController id="6bO-I1-ann" customClass="FriendViewController" customModule="GameChat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="6bO-I1-ann" customClass="FriendViewController" customModule="FunChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QPA-Ni-2Gz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -535,7 +535,7 @@
                                 <rect key="frame" x="0.0" y="146.66666666666669" width="414" height="589.33333333333326"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FRIEND_CELL" rowHeight="65" id="4U1-eN-MIx" customClass="FriendTableViewCell" customModule="GameChat" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FRIEND_CELL" rowHeight="65" id="4U1-eN-MIx" customClass="FriendTableViewCell" customModule="FunChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4U1-eN-MIx" id="bfo-1f-axU">
@@ -619,7 +619,7 @@
         <!--Add Friend View Controller-->
         <scene sceneID="1N1-Y3-v3A">
             <objects>
-                <viewController id="Zr3-3j-FlN" customClass="AddFriendViewController" customModule="GameChat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Zr3-3j-FlN" customClass="AddFriendViewController" customModule="FunChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gKy-GM-vHc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -657,11 +657,12 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R9r-Gb-OlA">
-                                        <rect key="frame" x="110" y="189" width="30" height="30"/>
+                                        <rect key="frame" x="95" y="189" width="60" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="3cQ-8d-q1k"/>
-                                            <constraint firstAttribute="width" constant="30" id="y4G-aj-jRg"/>
+                                            <constraint firstAttribute="width" constant="60" id="y4G-aj-jRg"/>
                                         </constraints>
+                                        <state key="normal" title="加入"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -712,7 +713,7 @@
         <!--Check Invite View Controller-->
         <scene sceneID="pmj-Ln-DoK">
             <objects>
-                <viewController id="975-zA-KWC" customClass="CheckInviteViewController" customModule="GameChat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="975-zA-KWC" customClass="CheckInviteViewController" customModule="FunChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vW2-1g-Ser">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -721,7 +722,7 @@
                                 <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CHECK_INVITE_CELL" rowHeight="75" id="oTm-QL-fVS" customClass="CheckInviteTableViewCell" customModule="GameChat" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CHECK_INVITE_CELL" rowHeight="75" id="oTm-QL-fVS" customClass="CheckInviteTableViewCell" customModule="FunChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oTm-QL-fVS" id="DpZ-jd-dXb">
@@ -736,7 +737,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2e-kB-9pi">
-                                                    <rect key="frame" x="287" y="22" width="30" height="30"/>
+                                                    <rect key="frame" x="326" y="22" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="KMA-MS-Pka"/>
                                                         <constraint firstAttribute="width" constant="30" id="dqu-vQ-VJy"/>
@@ -744,7 +745,7 @@
                                                     <state key="normal" title="Yes"/>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bW-GI-Mic">
-                                                    <rect key="frame" x="325" y="22" width="30" height="30"/>
+                                                    <rect key="frame" x="364" y="22" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="KFT-Vb-Jzx"/>
                                                         <constraint firstAttribute="height" constant="30" id="dDv-Vq-FUc"/>
@@ -752,7 +753,7 @@
                                                     <state key="normal" title="No"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qbt-Zq-J51">
-                                                    <rect key="frame" x="78" y="27" width="102" height="21"/>
+                                                    <rect key="frame" x="78" y="27" width="141" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>

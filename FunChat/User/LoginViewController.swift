@@ -22,7 +22,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "FunChat"
+        navigationItem.title = "聚聊"
         setBackgroundImage()
         setButtonUI()
         autoLogin()
