@@ -38,11 +38,11 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - QuickBlox (2.17.1)
-  - Quickblox-WebRTC (2.7):
+  - QuickBlox (2.16)
+  - Quickblox-WebRTC (2.6.3):
     - QuickBlox (>= 2.7)
   - SVProgressHUD (2.2.5)
-  - SwiftLint (0.25.1)
+  - SwiftLint (0.25.0)
 
 DEPENDENCIES:
   - Crashlytics (~> 3.10.2)
@@ -87,11 +87,11 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5fa5b80fd20e439ef5f545fb2cb3ca6c6714caa2
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  QuickBlox: b8c327b61db8382880bd41185703acf228105a1c
-  Quickblox-WebRTC: 4671a0ab07a0f5157d36a543849065af2c0f356f
+  QuickBlox: fc3ab36e290d703573fdfa8e3066eade722460f0
+  Quickblox-WebRTC: 1838368795c479dd61796a3423ce9e74a90fe939
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
-  SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
+  SwiftLint: e14651157288e9e01d6e1a71db7014fb5744a8ea
 
-PODFILE CHECKSUM: a576f7b7b06e8eb259750f23bfee112a54018d6d
+PODFILE CHECKSUM: cfac4063bedae531363d721397a3ff2e726a238d
 
 COCOAPODS: 1.5.0

@@ -36,11 +36,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly, nullable) NSDictionary<NSString *, NSString *> *customParameters;
 
-//MARK: Keyed subscription for customParameters
+//MARK: Keyed subscription
 
 - (nullable NSString *)objectForKeyedSubscript:(NSString *)key;
 - (void)setObject:(nullable NSString *)obj forKeyedSubscript:(NSString *)key;
 
-@end
+//MARK: DEPRECATED
 
+/**
+ Any addictional data.
+ @warning Deprecated in 2.10. Use object subscripting instead.
+ @code
+ QBChatAttachment *attachment = [QBChatAttachment new];
+ attachment[@"duration"] = @"45";
+ @endcode
+ */
+@property (nonatomic, copy, nullable) NSString *data
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10. Use object subscripting instead.");
+
+@end
 NS_ASSUME_NONNULL_END

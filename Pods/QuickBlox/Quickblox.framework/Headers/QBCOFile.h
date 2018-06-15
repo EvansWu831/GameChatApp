@@ -12,29 +12,24 @@ NS_ASSUME_NONNULL_BEGIN
 @interface QBCOFile : NSObject <NSCoding, NSCopying>
 
 /** 
- The name of the file .
+ *  File name.
  */
 @property (nonatomic, copy, nullable) NSString *name;
 
 /**
- The content type of the file.
+ *  File content type.
  */
 @property (nonatomic, copy, nullable) NSString *contentType;
 
 /**
- The data of the file.
+ *  File data.
  */
 @property (nonatomic, strong, nullable) NSData *data;
 
-/**
- The Local url of the file.
- */
-@property (nonatomic, strong, nullable) NSURL *fileURL;
-
 /** 
- Create file object.
- 
- @return New instance of `QBCOFile`
+ *  Create file object.
+ *
+ *  @return New instance of QBCOFile
  */
 + (instancetype)file;
 
