@@ -57,6 +57,7 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
         checkRelationship()
         checkInvitees()
         checkInvited()
+        haveBeenBlacked()
     }
 
     func manager(_ manager: GetUserInfoManager, error: Error) {
@@ -235,6 +236,30 @@ class AddFriendViewController: UIViewController, GetUserInfoDelegate, UITextFiel
                 self.present(alert, animated: true, completion: nil)
             } else {
                 self.setUserInfo()
+            }
+        })
+    }
+    //已經封鎖
+    func haveBeenBlacked() {
+        guard let currentUserID = currentUser?.id else { return } //handle error
+        guard let inviteesID = invitees?.userID else {return} //handle error
+        reference = Database.database().reference()
+        let path = reference?.child("blacklist").queryOrdered(byChild: "sender").queryEqual(toValue: currentUserID)
+        path?.observeSingleEvent(of: .value, with: { (blacklist) in
+            guard let blacklistData = blacklist.value as? [String: Any] else { return }
+            for blacklistAutoKey in blacklistData.keys {
+                if let blacklist = blacklistData["\(blacklistAutoKey)"] as? [String: Any] {
+                    if let black = blacklist["black"] as? NSNumber {
+                        if inviteesID == black {
+                            let alert = UIAlertController(title: "已封鎖此人", message: nil, preferredStyle: .alert)
+                            let action = UIAlertAction(title: "確定", style: .default, handler: { (_) in
+                                self.addButton.isHidden = true
+                            })
+                            alert.addAction(action)
+                            self.present(alert, animated: true, completion: nil)
+                        } else {  }
+                    } else { } //handle error
+                } else { } //handle error
             }
         })
     }

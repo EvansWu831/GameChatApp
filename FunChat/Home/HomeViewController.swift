@@ -144,7 +144,9 @@ UITableViewDelegate, UITableViewDataSource {
 
     //打電話前畫面
     func setHouse() {
-        self.navigationItem.title = "房間"
+        if let login = currentUser?.login {
+            self.navigationItem.title = "\(login)"
+        } else {} //handle error
         //登出
         let exitButton = UIBarButtonItem()
         exitButton.image = #imageLiteral(resourceName: "EXIT")
@@ -167,7 +169,6 @@ UITableViewDelegate, UITableViewDataSource {
         self.navigationItem.leftBarButtonItem = nil
         self.navigationItem.rightBarButtonItem = nil
         self.navigationItem.hidesBackButton = true
-        
     }
 
     //friend action
@@ -366,10 +367,12 @@ UITableViewDelegate, UITableViewDataSource {
                 self.setCallingView()
                 self.reference = Database.database().reference()
                 self.reference?.child("room").child("\(initiatorUser)").child("\(currentUserId)").setValue(currentUserId)
+                getRoomIDs()
             } else {
                 self.setCallingView()
+                getRoomIDs()
             }
-            getRoomIDs()
+            
         } else { }//error handel
     }
 }
