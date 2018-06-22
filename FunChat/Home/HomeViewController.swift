@@ -237,9 +237,24 @@ UITableViewDelegate, UITableViewDataSource {
 
     //打電話
     @IBAction func didPhoneCall(_ sender: UIButton) {
-         self.performSegue(withIdentifier: "GO_INVITE", sender: nil)
-        if let currentUserID = currentUser?.id {
-            initiatorID = currentUserID as NSNumber
+        AVAudioSession.sharedInstance().requestRecordPermission { (truth) in
+            if !truth {
+                let alert = UIAlertController(title: nil, message: "請至裝置的『設定』>『聚聊』，允許聚聊存取麥克風", preferredStyle: .alert)
+                let action = UIAlertAction(title: "設定", style: .default, handler: { (_) in
+                    UIApplication.shared.openURL(NSURL(string: UIApplicationOpenSettingsURLString)! as URL)
+
+                })
+                let cancel = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+                alert.addAction(action)
+                alert.addAction(cancel)
+                self.present(alert, animated: true, completion: nil)
+            }
+            else {
+                self.performSegue(withIdentifier: "GO_INVITE", sender: nil)
+                if let currentUserID = self.currentUser?.id {
+                    self.initiatorID = currentUserID as NSNumber
+                }
+            }
         }
     }
 
@@ -313,10 +328,10 @@ UITableViewDelegate, UITableViewDataSource {
     func didReceiveNewSession(_ session: QBRTCSession, userInfo: [String: String]? = nil) {
         if self.session == nil {
             self.session = session
-            initiatorID = session.initiatorID
-            handleIncomingCall()
+            self.initiatorID = session.initiatorID
+            self.handleIncomingCall()
         } else {
-            if initiatorID == session.initiatorID {
+            if self.initiatorID == session.initiatorID {
                 self.session = session
                 self.session?.acceptCall(nil)
             } else {
@@ -330,20 +345,24 @@ UITableViewDelegate, UITableViewDataSource {
                 }
                 alert.addAction(accept)
                 alert.addAction(reject)
-                present(alert, animated: true, completion: nil)
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
 
     func handleIncomingCall() {
-        let alert = UIAlertController(title: "有人來電", message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "有人來電", message: nil, preferredStyle: .alert)
         let accept = UIAlertAction(title: "接聽", style: .default) { _ in
-            //分析使用者
-            Analytics.logEvent("phone_accept", parameters: nil)
+        //分析使用者
+        Analytics.logEvent("phone_accept", parameters: nil)
 
-            self.session?.acceptCall(nil)
+        guard let currentUserId = self.currentUser?.id else { return }
+        guard let initiatorUser = self.initiatorID else { return }
+        self.reference = Database.database().reference()
+        self.reference?.child("room").child("\(initiatorUser)").child("\(currentUserId)").setValue(currentUserId)
+        self.session?.acceptCall(nil)
         }
-        let reject = UIAlertAction(title: " 掛斷", style: .default) { _ in
+        let reject = UIAlertAction(title: "掛斷", style: .default) { _ in
             //分析使用者
             Analytics.logEvent("phone_reject", parameters: nil)
 
@@ -361,18 +380,8 @@ UITableViewDelegate, UITableViewDataSource {
             hangUpButton.isHidden = false
             phoneCallButton.isHidden = true
             userImagesTableView.isHidden = false
-            guard let currentUserId = self.currentUser?.id else { return }
-            guard let initiatorUser = initiatorID as? UInt else { return }
-            if currentUserId != initiatorUser {
-                self.setCallingView()
-                self.reference = Database.database().reference()
-                self.reference?.child("room").child("\(initiatorUser)").child("\(currentUserId)").setValue(currentUserId)
-                getRoomIDs()
-            } else {
-                self.setCallingView()
-                getRoomIDs()
-            }
-            
+            self.setCallingView()
+            getRoomIDs()
         } else { }//error handel
     }
 }

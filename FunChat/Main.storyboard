@@ -46,7 +46,7 @@
                                     <outlet property="delegate" destination="abn-g7-cNr" id="pYY-Qc-E3i"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="使用者名稱" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uWj-EJ-Bz0">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="使用者ID" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uWj-EJ-Bz0">
                                 <rect key="frame" x="107" y="309" width="200" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="N5X-Wd-Cle"/>
@@ -183,7 +183,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="使用者名稱(必填)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sgk-6c-ilo">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="使用者ID(必填)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sgk-6c-ilo">
                                 <rect key="frame" x="107" y="366" width="200" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="P4Q-tN-5M7"/>
@@ -319,7 +319,7 @@
                                     <constraint firstAttribute="width" constant="70" id="QoQ-Sf-ass"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="USERIMAGES_CELL" rowHeight="70" id="X6i-bf-XUo" customClass="UserImagesTableViewCell" customModule="FunChat" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="USERIMAGES_CELL" rowHeight="70" id="X6i-bf-XUo" customClass="UserImagesTableViewCell" customModule="FunChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="91.333333333333329" width="70" height="69.999999999999986"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X6i-bf-XUo" id="zdZ-PU-1RW">
@@ -398,7 +398,7 @@
                                 <rect key="frame" x="0.0" y="64" width="414" height="614"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="INVITE_CELL" rowHeight="55" id="y9t-ox-JcN" customClass="InviteFriendTableViewCell" customModule="FunChat" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="INVITE_CELL" rowHeight="55" id="y9t-ox-JcN" customClass="InviteFriendTableViewCell" customModule="FunChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="y9t-ox-JcN" id="5r9-FD-wT6">
@@ -542,7 +542,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XmS-QI-5Yq">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="64.666666666666671"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="64.666666666666671"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cyc-cQ-LOY">
                                                             <rect key="frame" x="10" y="7" width="50" height="50"/>
@@ -552,7 +552,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XWj-eF-O18">
-                                                            <rect key="frame" x="68" y="21" width="299" height="21"/>
+                                                            <rect key="frame" x="68" y="21" width="338" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -721,7 +721,7 @@
                                 <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CHECK_INVITE_CELL" rowHeight="75" id="oTm-QL-fVS" customClass="CheckInviteTableViewCell" customModule="FunChat" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CHECK_INVITE_CELL" rowHeight="75" id="oTm-QL-fVS" customClass="CheckInviteTableViewCell" customModule="FunChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oTm-QL-fVS" id="DpZ-jd-dXb">
@@ -813,6 +813,6 @@
         <image name="USERIMAGE" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="g1Q-i6-M3l"/>
+        <segue reference="HjS-yS-bfv"/>
     </inferredMetricsTieBreakers>
 </document>
